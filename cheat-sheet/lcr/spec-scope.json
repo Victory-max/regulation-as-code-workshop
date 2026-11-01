@@ -1,7 +1,0 @@
-{
-  "include": ["specs/fr2052a-retail-deposits.md"],
-  "outOfScope": [
-    { "url": "specs/fr2052a-retail-deposits.md#field-definitions", "reason": "Grouping heading only; its sections are linked individually." },
-    { "url": "specs/fr2052a-retail-deposits.md#key", "reason": "Notation key for the mapping tables; not a rule." }
-  ]
-}

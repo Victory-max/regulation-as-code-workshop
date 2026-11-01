@@ -5,8 +5,9 @@
 #
 #   scripts/bootstrap-enterprise.sh                       # use the model authored in ./src
 #   scripts/bootstrap-enterprise.sh --cheat-sheet scra    # fallback: install the pre-built SCRA model
-#   scripts/bootstrap-enterprise.sh --cheat-sheet lcr     # fallback: install the pre-built FR 2052a model
-#   scripts/bootstrap-enterprise.sh --cheat-sheet hqla    # fallback: install the pre-built HQLA model
+#   scripts/bootstrap-enterprise.sh --cheat-sheet outflows       # fallback: install the pre-built retail outflows model
+#   scripts/bootstrap-enterprise.sh --cheat-sheet liquid-assets  # fallback: install the pre-built eligible liquid assets model
+#   scripts/bootstrap-enterprise.sh --cheat-sheet lrr            # fallback: install the full Liquidity Resilience Ratio model
 #   scripts/bootstrap-enterprise.sh --rows 1000           # more synthetic rows
 # A cheat-sheet install copies the verified model (IR, morphir.json, decorations) into this
 # workspace, as if the session had produced it; any existing model is backed up first.
@@ -28,11 +29,11 @@ done
 
 if [[ -n "$CHEAT" ]]; then
   SRC="$ROOT/cheat-sheet/$CHEAT"
-  if [[ ! -d "$SRC" ]]; then echo "Unknown cheat sheet '$CHEAT' (use scra, lcr or hqla)" >&2; exit 64; fi
+  if [[ ! -d "$SRC" ]]; then echo "Unknown cheat sheet '$CHEAT' (use scra, outflows, liquid-assets or lrr)" >&2; exit 64; fi
   if [[ -f "$PROJECT/morphir-ir.json" ]]; then
     backup="$PROJECT/.morphir/backup-$(date +%Y%m%d-%H%M%S)"
     mkdir -p "$backup"
-    for f in morphir-ir.json morphir.json descriptions.json spec-links.json spec-scope.json; do
+    for f in morphir-ir.json morphir.json descriptions.json spec-links.json spec-scope.json calculated-from.json domains.json; do
       if [[ -f "$PROJECT/$f" ]]; then cp "$PROJECT/$f" "$backup/"; fi
     done
     echo "==> Backed up the existing model to ${backup#$PROJECT/}"

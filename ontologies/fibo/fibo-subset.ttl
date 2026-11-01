@@ -1,0 +1,305 @@
+# A subset of FIBO (Financial Industry Business Ontology) for the Fiction Bank policy workspace:
+# the classes the policies' concepts can be aligned to, with their labels, definitions and
+# direct parent classes. Extracted from https://github.com/edmcouncil/fibo at commit 33a92cd.
+#
+# FIBO is Copyright (c) Enterprise Data Management Council and is licensed under the MIT
+# License: https://github.com/edmcouncil/fibo/blob/master/LICENSE
+#
+# Use only the IRIs in this file when aligning; FIBO has many more classes than shown here.
+
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+
+<https://spec.edmcouncil.org/fibo/ontology/BE/GovernmentEntities/GovernmentEntities/GovernmentAgency> a owl:Class ;
+    rdfs:label "government agency" ;
+    rdfs:subClassOf <https://spec.edmcouncil.org/fibo/ontology/BE/GovernmentEntities/GovernmentEntities/GovernmentBody> ;
+    skos:definition "permanent or semi-permanent organization, often an appointed commission, in the machinery of government that is responsible for the oversight and administration of specific functions" .
+
+<https://spec.edmcouncil.org/fibo/ontology/BE/GovernmentEntities/GovernmentEntities/MunicipalEntity> a owl:Class ;
+    rdfs:label "municipal entity" ;
+    rdfs:subClassOf <https://spec.edmcouncil.org/fibo/ontology/BE/GovernmentEntities/GovernmentEntities/Polity> ;
+    skos:definition "polity that typically represents a city, township, or other administrative subdivision having corporate status and powers of self-government or jurisdiction" .
+
+<https://spec.edmcouncil.org/fibo/ontology/BE/GovernmentEntities/GovernmentEntities/SovereignState> a owl:Class ;
+    rdfs:label "sovereign state" ;
+    rdfs:subClassOf <https://spec.edmcouncil.org/fibo/ontology/BE/GovernmentEntities/GovernmentEntities/Polity> ;
+    skos:definition "non-physical juridical entity that is represented by one centralized government that has sovereignty over a geographic area" .
+
+<https://spec.edmcouncil.org/fibo/ontology/BE/GovernmentEntities/GovernmentEntities/SupranationalEntity> a owl:Class ;
+    rdfs:label "supranational entity" ;
+    rdfs:subClassOf <https://spec.edmcouncil.org/fibo/ontology/BE/GovernmentEntities/GovernmentEntities/Polity> ;
+    skos:definition "governmental or non-governmental entity that is established by international law or treaty or incorporated at an international level" .
+
+<https://spec.edmcouncil.org/fibo/ontology/BE/LegalEntities/LegalPersons/LegallyCompetentNaturalPerson> a owl:Class ;
+    rdfs:label "legally competent natural person" ;
+    rdfs:subClassOf <https://spec.edmcouncil.org/fibo/ontology/FND/AgentsAndPeople/People/Person> ;
+    skos:definition "person who is considered competent, under the circumstances, to enter into a contract, conduct business, or participate in other activities that generally require the mental ability to understand problems and make decisions on his or her own behalf" .
+
+<https://spec.edmcouncil.org/fibo/ontology/FBC/FinancialInstruments/FinancialInstruments/DebtInstrument> a owl:Class ;
+    rdfs:label "debt instrument" ;
+    rdfs:subClassOf <https://spec.edmcouncil.org/fibo/ontology/FBC/DebtAndEquities/Debt/CreditAgreement>,
+        <https://spec.edmcouncil.org/fibo/ontology/FBC/FinancialInstruments/FinancialInstruments/FinancialInstrument> ;
+    skos:definition "financial instrument and credit agreement evidencing monies owed by the issuer to the holder on terms as specified" .
+
+<https://spec.edmcouncil.org/fibo/ontology/FBC/FinancialInstruments/FinancialInstruments/EquityInstrument> a owl:Class ;
+    rdfs:label "equity instrument" ;
+    rdfs:subClassOf <https://spec.edmcouncil.org/fibo/ontology/FBC/FinancialInstruments/FinancialInstruments/Security> ;
+    skos:definition "financial instrument representing an ownership interest in an entity or pool of assets" .
+
+<https://spec.edmcouncil.org/fibo/ontology/FBC/FunctionalEntities/FinancialServicesEntities/CentralBank> a owl:Class ;
+    rdfs:label "central bank" ;
+    rdfs:subClassOf <https://spec.edmcouncil.org/fibo/ontology/FBC/FunctionalEntities/FinancialServicesEntities/Bank>,
+        <https://spec.edmcouncil.org/fibo/ontology/FBC/FunctionalEntities/FinancialServicesEntities/MonetaryAuthority> ;
+    skos:definition "financial institution that is the monetary authority and major regulatory bank for a country (or group of countries)" .
+
+<https://spec.edmcouncil.org/fibo/ontology/FBC/FunctionalEntities/NorthAmericanEntities/USRegulatoryAgencies/FederalDepositInsuranceCorporation> a owl:NamedIndividual,
+        <https://spec.edmcouncil.org/fibo/ontology/BE/GovernmentEntities/GovernmentEntities/Instrumentality>,
+        <https://spec.edmcouncil.org/fibo/ontology/BE/LegalEntities/CorporateBodies/Corporation>,
+        <https://spec.edmcouncil.org/fibo/ontology/FBC/FunctionalEntities/NorthAmericanEntities/USRegulatoryAgencies/FederalGovernmentEntity> ;
+    rdfs:label "Federal Deposit Insurance Corporation" ;
+    rdfs:isDefinedBy <https://spec.edmcouncil.org/fibo/ontology/FBC/FunctionalEntities/NorthAmericanEntities/USRegulatoryAgencies/> ;
+    skos:definition "Federal Deposit Insurance Corporation (FDIC), which preserves and promotes public confidence in the U.S. financial system by insuring deposits in banks and thrift institutions for at least $250,000; by identifying, monitoring and addressing risks to the deposit insurance funds; and by limiting the effect on the economy and the financial system when a bank or thrift institution fails." .
+
+<https://spec.edmcouncil.org/fibo/ontology/FBC/ProductsAndServices/ClientsAndAccounts/CustomerAccountHolder> a owl:Class ;
+    rdfs:label "customer account holder" ;
+    rdfs:subClassOf <https://spec.edmcouncil.org/fibo/ontology/FBC/ProductsAndServices/ClientsAndAccounts/AccountHolder> ;
+    skos:definition "party that owns a customer account" .
+
+<https://spec.edmcouncil.org/fibo/ontology/FBC/ProductsAndServices/ClientsAndAccounts/DemandDepositAccount> a owl:Class ;
+    rdfs:label "demand deposit account" ;
+    rdfs:subClassOf <https://spec.edmcouncil.org/fibo/ontology/FBC/ProductsAndServices/ClientsAndAccounts/TransactionDepositAccount> ;
+    skos:definition "non-interest-bearing deposit account in which deposits are payable immediately on demand, or that are issued with an original maturity or required notice period of less than seven days, or that represent funds for which the depository institution does not reserve the right to require at least seven days' written notice of an intended withdrawal" .
+
+<https://spec.edmcouncil.org/fibo/ontology/FBC/ProductsAndServices/ClientsAndAccounts/Fee> a owl:Class ;
+    rdfs:label "fee" ;
+    rdfs:subClassOf <https://spec.edmcouncil.org/fibo/ontology/FND/Accounting/CurrencyAmount/MonetaryAmount> ;
+    skos:definition "charge for services performed" .
+
+<https://spec.edmcouncil.org/fibo/ontology/FBC/ProductsAndServices/ClientsAndAccounts/TimeDepositAccount> a owl:Class ;
+    rdfs:label "time deposit account" ;
+    rdfs:subClassOf <https://spec.edmcouncil.org/fibo/ontology/FBC/ProductsAndServices/ClientsAndAccounts/NonTransactionDepositAccount>,
+        <https://spec.edmcouncil.org/fibo/ontology/FND/ProductsAndServices/ProductsAndServices/ContractualProduct> ;
+    skos:definition "deposit account that the depositor does not have a right, and is not permitted, to make withdrawals from within six days after the date of deposit unless the deposit is subject to an early withdrawal penalty of at least seven days' simple interest on amounts withdrawn within the first six days after deposit" .
+
+<https://spec.edmcouncil.org/fibo/ontology/FND/Accounting/CurrencyAmount/InterestRate> a owl:Class ;
+    rdfs:label "interest rate" ;
+    rdfs:subClassOf <https://spec.edmcouncil.org/fibo/ontology/FND/Accounting/CurrencyAmount/PercentageMonetaryAmount> ;
+    skos:definition "amount charged, expressed as a percentage of principal, in exchange for the use of assets" .
+
+<https://spec.edmcouncil.org/fibo/ontology/FND/Arrangements/Assessments/MarketValue> a owl:Class ;
+    rdfs:label "market value" ;
+    rdfs:subClassOf <https://spec.edmcouncil.org/fibo/ontology/FND/Accounting/CurrencyAmount/MonetaryAmount>,
+        <https://spec.edmcouncil.org/fibo/ontology/FND/Arrangements/Assessments/QuantitativeValue> ;
+    skos:definition "price an asset would sell for in the market" .
+
+<https://spec.edmcouncil.org/fibo/ontology/FND/TransactionsExt/MarketTransactions/TransactionCounterparty> a owl:Class ;
+    rdfs:label "transaction counterparty"@en ;
+    rdfs:subClassOf <https://spec.edmcouncil.org/fibo/ontology/FND/Agreements/Contracts/Counterparty>,
+        <https://spec.edmcouncil.org/fibo/ontology/FND/TransactionsExt/REATransactions/TransactionParty> .
+
+<https://spec.edmcouncil.org/fibo/ontology/LOAN/LoansSpecific/CardAccounts/ConsumerCreditCardAgreement> a owl:Class ;
+    rdfs:label "consumer credit card agreement" ;
+    rdfs:subClassOf <https://spec.edmcouncil.org/fibo/ontology/LOAN/LoansSpecific/CardAccounts/CreditCardAgreement>,
+        <https://spec.edmcouncil.org/fibo/ontology/LOAN/LoansSpecific/ConsumerLoans/UnsecuredConsumerLoan> ;
+    skos:definition "credit card agreement for a card issued for household, family, or other personal expenditures that is accessed by a borrower's use of a credit card" .
+
+<https://spec.edmcouncil.org/fibo/ontology/LOAN/LoansSpecific/CardAccounts/CreditCardAccount> a owl:Class ;
+    rdfs:label "credit card account" ;
+    rdfs:subClassOf <https://spec.edmcouncil.org/fibo/ontology/FBC/ProductsAndServices/ClientsAndAccounts/LoanOrCreditAccount>,
+        <https://spec.edmcouncil.org/fibo/ontology/LOAN/LoansSpecific/CardAccounts/CardAccount> ;
+    skos:definition "card account whose terms and conditions are defined in a credit card agreement that is represented by a credit card" .
+
+<https://spec.edmcouncil.org/fibo/ontology/SEC/Debt/Bonds/CorporateBond> a owl:Class ;
+    rdfs:label "corporate bond" ;
+    rdfs:subClassOf <https://spec.edmcouncil.org/fibo/ontology/SEC/Debt/Bonds/Bond> ;
+    skos:definition "bond issued by a company in order to raise financing" .
+
+<https://spec.edmcouncil.org/fibo/ontology/SEC/Debt/Bonds/GeneralObligationMunicipalBond> a owl:Class ;
+    rdfs:label "general obligation municipal bond" ;
+    rdfs:subClassOf <https://spec.edmcouncil.org/fibo/ontology/SEC/Debt/Bonds/FullFaithCreditBond>,
+        <https://spec.edmcouncil.org/fibo/ontology/SEC/Debt/Bonds/MunicipalBond> ;
+    skos:definition "municipal bond that is backed by the full faith and credit and general resources of the issuing municipality, including its general taxing authority" .
+
+<https://spec.edmcouncil.org/fibo/ontology/SEC/Debt/Bonds/SovereignBond> a owl:Class ;
+    rdfs:label "sovereign bond" ;
+    rdfs:subClassOf <https://spec.edmcouncil.org/fibo/ontology/SEC/Debt/Bonds/GovernmentBond>,
+        <https://spec.edmcouncil.org/fibo/ontology/SEC/Debt/Bonds/SovereignDebtInstrument> ;
+    skos:definition "bond issued by the government of a country" .
+
+<https://spec.edmcouncil.org/fibo/ontology/SEC/Debt/Bonds/USTreasurySecurity> a owl:Class ;
+    rdfs:label "U.S. Treasury security" ;
+    rdfs:subClassOf <https://spec.edmcouncil.org/fibo/ontology/SEC/Debt/Bonds/SovereignDebtInstrument> ;
+    skos:definition "debt instrument issued by the United States Department of the Treasury that carries a full faith and credit guarantee" .
+
+<https://spec.edmcouncil.org/fibo/ontology/SEC/Equities/EquityInstruments/CommonShare> a owl:Class ;
+    rdfs:label "common share"@en-US ;
+    rdfs:subClassOf <https://spec.edmcouncil.org/fibo/ontology/SEC/Equities/EquityInstruments/Share> ;
+    skos:definition "share that signifies a unit of ownership in a corporation and represents a claim on part of the corporation's assets and earnings" .
+
+<https://spec.edmcouncil.org/fibo/ontology/BE/GovernmentEntities/GovernmentEntities/GovernmentBody> a owl:Class ;
+    rdfs:label "government body" ;
+    skos:definition "formal organization that is an agency, instrumentality, or other body of a supranational, national, federal, state, or local government, including certain multijurisdictional agencies and departments that carry out the business of government" .
+
+<https://spec.edmcouncil.org/fibo/ontology/FBC/DebtAndEquities/Debt/CommittedCreditFacility> a owl:Class ;
+    rdfs:label "committed credit facility"@en ;
+    skos:definition "credit facility that is a confirmed source of financing for the borrower, as long as the borrower meets the conditions of the agreement"@en .
+
+<https://spec.edmcouncil.org/fibo/ontology/FBC/DebtAndEquities/Debt/CreditAgreement> a owl:Class ;
+    rdfs:label "credit agreement" ;
+    rdfs:isDefinedBy <https://spec.edmcouncil.org/fibo/ontology/FBC/DebtAndEquities/Debt/> ;
+    skos:definition "contractual agreement in which a debtor receives something of value and typically agrees to repay the creditor by some date in the future, in some form (e.g., cash, securities, etc.), generally with interest" .
+
+<https://spec.edmcouncil.org/fibo/ontology/FBC/DebtAndEquities/Debt/CreditAgreementRepaidAtMaturity> a owl:Class ;
+    rdfs:label "credit agreement repaid at maturity" ;
+    skos:definition "credit agreement in which accrued interest may be periodically repaid or paid at maturity, but principal is paid at maturity" .
+
+<https://spec.edmcouncil.org/fibo/ontology/FBC/FinancialInstruments/FinancialInstruments/FinancialInstrument> a owl:Class ;
+    rdfs:label "financial instrument" ;
+    skos:definition "written contract that gives rise to both a financial asset of one entity and a financial liability of another entity" .
+
+<https://spec.edmcouncil.org/fibo/ontology/FBC/FinancialInstruments/FinancialInstruments/Security> a owl:Class ;
+    rdfs:label "security" ;
+    skos:definition "financial instrument that can be bought or sold" .
+
+<https://spec.edmcouncil.org/fibo/ontology/FBC/FunctionalEntities/FinancialServicesEntities/Bank> a owl:Class ;
+    rdfs:label "bank" ;
+    skos:definition "depository institution, usually a corporation, that accepts deposits, makes loans, pays checks, and performs related services, for individual members of the public, businesses or other organizations" .
+
+<https://spec.edmcouncil.org/fibo/ontology/FBC/FunctionalEntities/FinancialServicesEntities/BankingProduct> a owl:Class ;
+    rdfs:label "banking product" ;
+    skos:definition "product provided to consumers and businesses by a depository institution" .
+
+<https://spec.edmcouncil.org/fibo/ontology/FBC/FunctionalEntities/FinancialServicesEntities/MonetaryAuthority> a owl:Class ;
+    rdfs:label "monetary authority" ;
+    skos:definition "regulatory agency that controls the monetary policy, regulation and supply of money in some country or group of countries" .
+
+<https://spec.edmcouncil.org/fibo/ontology/FBC/ProductsAndServices/ClientsAndAccounts/AccountHolder> a owl:Class ;
+    rdfs:label "account holder" ;
+    rdfs:subClassOf <https://spec.edmcouncil.org/fibo/ontology/FND/OwnershipAndControl/Ownership/Owner> ;
+    skos:definition "party that owns an account" .
+
+<https://spec.edmcouncil.org/fibo/ontology/FBC/ProductsAndServices/ClientsAndAccounts/InvestmentOrDepositAccount> a owl:Class ;
+    rdfs:label "investment or deposit account" ;
+    skos:definition "account associated with a product or service that requires the account holder to provide funds for management by the account provider" .
+
+<https://spec.edmcouncil.org/fibo/ontology/FBC/ProductsAndServices/ClientsAndAccounts/LoanOrCreditAccount> a owl:Class ;
+    rdfs:label "loan or credit account" ;
+    skos:definition "account associated with a service in which the account holder receives funds from the account provider under certain terms and conditions for repayment" .
+
+<https://spec.edmcouncil.org/fibo/ontology/FBC/ProductsAndServices/ClientsAndAccounts/NonTransactionDepositAccount> a owl:Class ;
+    rdfs:label "non-transaction deposit account" ;
+    rdfs:subClassOf <https://spec.edmcouncil.org/fibo/ontology/FBC/ProductsAndServices/ClientsAndAccounts/DepositAccount> ;
+    skos:definition "any deposit account that is not explicitly considered a transaction account" .
+
+<https://spec.edmcouncil.org/fibo/ontology/FBC/ProductsAndServices/ClientsAndAccounts/TransactionDepositAccount> a owl:Class ;
+    rdfs:label "transaction deposit account" ;
+    rdfs:subClassOf <https://spec.edmcouncil.org/fibo/ontology/FBC/ProductsAndServices/ClientsAndAccounts/DepositAccount> ;
+    skos:definition "deposit account from which the depositor / account holder is permitted to make transfers or withdrawals by negotiable / transferable instruments, payment orders of withdrawal, telephone transfers, and so forth, and that may be accessible via an electronic device such as an automated teller machine (ATM), remote service unit (RSU), mobile device, and by debit card" .
+
+<https://spec.edmcouncil.org/fibo/ontology/FND/Accounting/CurrencyAmount/PercentageMonetaryAmount> a owl:Class ;
+    rdfs:label "percentage monetary amount" ;
+    skos:definition "measure of some amount of money expressed as a percentage of some other amount, some notional amount or some concrete money amount" .
+
+<https://spec.edmcouncil.org/fibo/ontology/FND/AgentsAndPeople/People/Person> a owl:Class ;
+    rdfs:label "person"@en ;
+    skos:definition "individual human being, with consciousness of self" .
+
+<https://spec.edmcouncil.org/fibo/ontology/FND/Agreements/Contracts/ContractParty> a owl:Class ;
+    rdfs:label "contract party" ;
+    skos:definition "legally competent party that has entered into a binding agreement, accepting and conceding obligations, responsibilities, and benefits as specified" .
+
+<https://spec.edmcouncil.org/fibo/ontology/FND/Agreements/Contracts/Counterparty> a owl:Class ;
+    rdfs:label "counterparty" ;
+    rdfs:subClassOf <https://spec.edmcouncil.org/fibo/ontology/FND/Agreements/Contracts/ContractParty> ;
+    skos:definition "party to a contract with whom one negotiates on a given agreement" .
+
+<https://spec.edmcouncil.org/fibo/ontology/FND/Arrangements/Assessments/QuantitativeValue> a owl:Class ;
+    rdfs:label "quantitative value" ;
+    skos:definition "value determined via quantitative methods, expressed as a numerical value in appropriate units" .
+
+<https://spec.edmcouncil.org/fibo/ontology/FND/OwnershipAndControl/Ownership/Owner> a owl:Class ;
+    rdfs:label "owner" ;
+    skos:definition "party that is legally recognized as having the right to possess, the privilege to use, and ability to transfer any rights or privileges associated with something, as permitted by law" .
+
+<https://spec.edmcouncil.org/fibo/ontology/FND/ProductsAndServices/ProductsAndServices/ContractualProduct> a owl:Class ;
+    rdfs:label "contractual product" ;
+    skos:definition "product that takes the form of an agreement" .
+
+<https://spec.edmcouncil.org/fibo/ontology/FND/TransactionsExt/REATransactions/TransactionParty> a owl:Class ;
+    rdfs:label "transaction party"@en ;
+    skos:definition "Some entity which takes part in some transaction by receiving and/or parting with some item of economic value or some payment or both."@en .
+
+<https://spec.edmcouncil.org/fibo/ontology/LOAN/LoansSpecific/CardAccounts/CardAccount> a owl:Class ;
+    rdfs:label "card account" ;
+    skos:definition "account whose terms and conditions are defined in a card agreement that is represented by a payment card" .
+
+<https://spec.edmcouncil.org/fibo/ontology/LOAN/LoansSpecific/CardAccounts/CreditCardAgreement> a owl:Class ;
+    rdfs:label "credit card agreement" ;
+    rdfs:subClassOf <https://spec.edmcouncil.org/fibo/ontology/FBC/DebtAndEquities/Debt/CommittedCreditFacility>,
+        <https://spec.edmcouncil.org/fibo/ontology/LOAN/LoansSpecific/CardAccounts/PaymentCardAgreement> ;
+    skos:definition "account-specific credit facility that specifies the terms and conditions under which the credit card is offered to the cardholder by the issuer" .
+
+<https://spec.edmcouncil.org/fibo/ontology/LOAN/LoansSpecific/CardAccounts/PaymentCardAgreement> a owl:Class ;
+    rdfs:label "payment card agreement" ;
+    skos:definition "account-specific credit agreement that specifies the terms and conditions under which the payment card is offered to the cardholder by the issuer" .
+
+<https://spec.edmcouncil.org/fibo/ontology/LOAN/LoansSpecific/ConsumerLoans/UnsecuredConsumerLoan> a owl:Class ;
+    rdfs:label "unsecured consumer loan"@en ;
+    skos:definition "loan to one or more individuals for household, family, or other personal expenditures granted based on the strength of the borrower's credit history or reputation in the community"@en .
+
+<https://spec.edmcouncil.org/fibo/ontology/SEC/Debt/Bonds/Bond> a owl:Class ;
+    rdfs:label "bond" ;
+    rdfs:subClassOf <https://spec.edmcouncil.org/fibo/ontology/FBC/DebtAndEquities/Debt/CreditAgreementRepaidAtMaturity>,
+        <https://spec.edmcouncil.org/fibo/ontology/SEC/Debt/DebtInstruments/TradableDebtInstrument> ;
+    skos:definition "tradable debt instrument representing a loan in which the issuer owes the holder(s) a debt" .
+
+<https://spec.edmcouncil.org/fibo/ontology/SEC/Debt/Bonds/FullFaithCreditBond> a owl:Class ;
+    rdfs:label "full faith credit bond" ;
+    skos:definition "bond secured by an unconditional promise to pay by another entity" .
+
+<https://spec.edmcouncil.org/fibo/ontology/SEC/Debt/Bonds/GovernmentIssuedDebtSecurity> a owl:Class ;
+    rdfs:label "government issued debt security" ;
+    skos:definition "debt security issued by some government on behalf of some polity, including sovereign and municipal debt" .
+
+<https://spec.edmcouncil.org/fibo/ontology/SEC/Debt/Bonds/MunicipalBond> a owl:Class ;
+    rdfs:label "municipal bond" ;
+    rdfs:subClassOf <https://spec.edmcouncil.org/fibo/ontology/SEC/Debt/Bonds/GovernmentBond>,
+        <https://spec.edmcouncil.org/fibo/ontology/SEC/Debt/Bonds/MunicipalSecurity> ;
+    skos:definition "government bond that may be issued by a regional, rather than national, authority" .
+
+<https://spec.edmcouncil.org/fibo/ontology/SEC/Debt/Bonds/MunicipalSecurity> a owl:Class ;
+    rdfs:label "municipal security" ;
+    skos:definition "debt obligation issued by a regional governmental entity" .
+
+<https://spec.edmcouncil.org/fibo/ontology/SEC/Debt/DebtInstruments/TradableDebtInstrument> a owl:Class ;
+    rdfs:label "tradable debt instrument" ;
+    skos:definition "a debt instrument that is also a security, i.e., that can be bought and sold by the holder" .
+
+<https://spec.edmcouncil.org/fibo/ontology/SEC/Equities/EquityInstruments/Share> a owl:Class ;
+    rdfs:label "share"@en ;
+    skos:definition "financial instrument that signifies a unit of equity ownership in a corporation, or a unit of ownership in a mutual fund, or interest in a general or limited partnership, or a unit of ownership in a structured product, such as a real estate investment trust"@en .
+
+<https://spec.edmcouncil.org/fibo/ontology/FBC/ProductsAndServices/ClientsAndAccounts/DepositAccount> a owl:Class ;
+    rdfs:label "deposit account" ;
+    rdfs:subClassOf <https://spec.edmcouncil.org/fibo/ontology/FBC/FunctionalEntities/FinancialServicesEntities/BankingProduct>,
+        <https://spec.edmcouncil.org/fibo/ontology/FBC/ProductsAndServices/ClientsAndAccounts/InvestmentOrDepositAccount> ;
+    skos:definition "account that provides a record of money placed with a depository institution for safekeeping and management" .
+
+<https://spec.edmcouncil.org/fibo/ontology/FND/Accounting/CurrencyAmount/MonetaryAmount> a owl:Class ;
+    rdfs:label "monetary amount" ;
+    skos:definition "measure that is an amount of money specified in monetary units" .
+
+<https://spec.edmcouncil.org/fibo/ontology/SEC/Debt/Bonds/GovernmentBond> a owl:Class ;
+    rdfs:label "government bond" ;
+    skos:definition "debt security issued by a government to fund government spending" .
+
+<https://spec.edmcouncil.org/fibo/ontology/SEC/Debt/Bonds/SovereignDebtInstrument> a owl:Class ;
+    rdfs:label "sovereign debt instrument" ;
+    rdfs:subClassOf <https://spec.edmcouncil.org/fibo/ontology/SEC/Debt/Bonds/GovernmentIssuedDebtSecurity> ;
+    skos:definition "debt security issued by the government of a country" .
+
+<https://spec.edmcouncil.org/fibo/ontology/BE/GovernmentEntities/GovernmentEntities/Polity> a owl:Class ;
+    rdfs:label "polity" ;
+    skos:definition "legal person that is a supranational entity, crown, state, or subordinate civil authority, such as a province, prefecture, county, municipality, city, or district representing the people of that entity" .
+

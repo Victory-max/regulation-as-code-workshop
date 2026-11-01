@@ -3,7 +3,7 @@
 //
 //   node scripts/morphir-to-ddl.js [morphir-ir.json] [--dialect duckdb|ansi] [--out schema.sql]
 //
-// Mapping rules (generic: nothing here knows about SCRA or LCR):
+// Mapping rules (generic: nothing here knows about SCRA or the LRR):
 //   - A custom type whose constructors take no arguments  -> ENUM (duckdb) or CHECK constraint (ansi).
 //   - A record alias that is the input of a public rule    -> TABLE (one row per record).
 //     `List X` inputs make X a table too (aggregate rules run over it).
@@ -27,7 +27,7 @@
 const fs = require("fs");
 const path = require("path");
 const ir = require("./lib/morphir-ir");
-const { loadDecorations, columnAnnotation, annotationText, typeId } = require("./lib/decorations");
+const { loadDecorations, columnAnnotation, annotationText, typeId, fieldNodeId } = require("./lib/decorations");
 
 const DECIMAL_COLUMN = "DECIMAL(18, 4)";
 
@@ -212,7 +212,10 @@ function emitDdl(index, dialect, { temporal = true, decorations = null } = {}) {
   for (const t of tables) {
     out.push(`-- Morphir record ${t.source}`);
     const lines = t.columns.map((c) => {
-      let line = `    ${c.name} ${columnType(index, c.tpe, dialect)}${c.optional ? "" : " NOT NULL"}`;
+      // A field calculated by a rule (calculatedFrom) keeps the rule's full precision.
+      const calculated = !c.generated && deco.calculatedFromFor && deco.calculatedFromFor(fieldNodeId(index, t.entityType, c.path));
+      const type = calculated && ir.sdkTypeKey(index, c.tpe) === ir.SDK.decimal ? "DECIMAL(38, 10)" : columnType(index, c.tpe, dialect);
+      let line = `    ${c.name} ${type}${c.optional ? "" : " NOT NULL"}`;
       if (dialect === "ansi" && ir.isEnum(index, c.tpe)) {
         const labels = ir.customTypeOf(index, c.tpe).constructors.map(([n]) => `'${ir.toTitle(n)}'`);
         line += ` CHECK (${c.name} IN (${labels.join(", ")}))`;

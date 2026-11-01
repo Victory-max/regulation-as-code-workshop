@@ -1,0 +1,5 @@
+{
+  "Fiction.Bank:Pl7.Tables.RetailDeposits:retailDeposit.type": "Liquidity Risk",
+  "Fiction.Bank:Pl7.Tables.LiquidAssets:unrestrictedAsset.type": "Liquidity Risk",
+  "Fiction.Bank:Lrr.Calculation:lrrCalculation.type": "Liquidity Risk"
+}

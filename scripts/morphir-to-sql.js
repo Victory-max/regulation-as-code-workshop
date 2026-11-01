@@ -21,7 +21,7 @@
 const fs = require("fs");
 const path = require("path");
 const ir = require("./lib/morphir-ir");
-const { loadDecorations, annotationText, typeId, valueId, childId } = require("./lib/decorations");
+const { loadDecorations, annotationText, typeId, valueId, childId, fieldNodeId } = require("./lib/decorations");
 const { findEntities, flattenColumns, entityTables, ruleSource } = require("./morphir-to-ddl");
 
 const WORK = "DECIMAL(38, 10)";
@@ -631,6 +631,28 @@ function emitSql(index, { dialect, materialize, temporal = true, decorations = n
     }
     out.push("");
   }
+  // Calculation tables: entities with fields the model says are calculated by a rule (the
+  // calculatedFrom decoration). <table>_feed is the next version of each record: calculated
+  // fields from their rules' current results, reported fields as currently recorded.
+  // Recalculating is `INSERT INTO <table> (...) SELECT ... FROM <table>_feed`.
+  const feeds = [];
+  if (dialect === "duckdb" && !materialize) {
+    for (const t of entityTables(index)) {
+      const sources = t.columns.map((c) => {
+        const id = c.generated ? null : fieldNodeId(index, t.entityType, c.path);
+        const ruleName = id && deco.calculatedFromFor ? deco.calculatedFromFor(id) : null;
+        const rule = ruleName && rules.find((r) => r.aggregate && ir.fqnDisplay(r.fqn) === ruleName);
+        return { column: c.name, rule: ruleName, view: rule && rule.view, output: rule && rule.outputs[0].name };
+      });
+      if (!sources.some((x) => x.rule)) continue;
+      for (const x of sources.filter((y) => y.rule && !y.view)) out.push(`-- ${t.name}.${x.column}: calculated from ${x.rule}, which is not an aggregate rule of this model`);
+      const select = sources.map((x) => (x.view ? `    (SELECT ${x.output} FROM ${x.view}) AS ${x.column}` : `    c.${x.column}`));
+      out.push(`-- The next version of each ${t.name} record: calculated fields from their rules, reported fields as recorded.`);
+      out.push(`CREATE OR REPLACE VIEW ${t.name}_feed AS\nSELECT\n${select.join(",\n")}\nFROM ${t.name}_current c;`);
+      out.push("");
+      feeds.push({ table: t.name, columns: sources.map((x) => x.column), calculated: sources.filter((x) => x.view).map((x) => ({ column: x.column, rule: x.rule, view: x.view, output: x.output })) });
+    }
+  }
   for (const s of skipped) out.push(`-- SKIPPED ${s.rule}: ${s.reason}`);
 
   const manifest = {
@@ -657,6 +679,8 @@ function emitSql(index, { dialect, materialize, temporal = true, decorations = n
       })),
     })),
     skipped,
+    // Calculation tables: their calculated columns and the aggregate rule views that fill them.
+    feeds,
   };
   return { sql: out.join("\n"), manifest };
 }

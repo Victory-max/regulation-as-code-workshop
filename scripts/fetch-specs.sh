@@ -2,7 +2,7 @@
 # Downloads a folder of specification Markdown from GitHub into ./specs, and records where it
 # came from (specs/source.json) so every spec link can be traced to an exact revision.
 #
-#   scripts/fetch-specs.sh https://github.com/finos/open-reg-tech-us-lcr/tree/main/doc/fr2052a
+#   scripts/fetch-specs.sh https://github.com/<owner>/<repo>/tree/main/<folder of spec markdown>
 #
 # Uses a shallow sparse git clone: one connection, no GitHub API rate limits (which a room
 # full of people behind one conference IP would hit).

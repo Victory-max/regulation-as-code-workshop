@@ -1,0 +1,814 @@
+{
+  "Fiction.Bank:Pl7.Fields.Counterparty:counterparty.type": [
+    {
+      "section": "Counterparty",
+      "url": "specs/pl7-retail-deposits.md#counterparty"
+    }
+  ],
+  "Fiction.Bank:Pl7.Fields.Counterparty:isRetailOrSmallBusiness.value": [
+    {
+      "section": "Counterparty",
+      "url": "specs/pl7-retail-deposits.md#counterparty"
+    },
+    {
+      "section": "(14.21) Guaranteed Core Retail Deposits",
+      "url": "specs/pl7-retail-deposits.md#1421-guaranteed-core-retail-deposits"
+    },
+    {
+      "section": "(14.22) Unguaranteed Core Retail Deposits",
+      "url": "specs/pl7-retail-deposits.md#1422-unguaranteed-core-retail-deposits"
+    },
+    {
+      "section": "(14.23) Rate-Seeking Retail Deposits",
+      "url": "specs/pl7-retail-deposits.md#1423-rate-seeking-retail-deposits"
+    },
+    {
+      "section": "(14.24) Intermediated Retail Deposits",
+      "url": "specs/pl7-retail-deposits.md#1424-intermediated-retail-deposits"
+    },
+    {
+      "section": "(14.25) Other Retail Balances",
+      "url": "specs/pl7-retail-deposits.md#1425-other-retail-balances"
+    }
+  ],
+  "Fiction.Bank:Pl7.Fields.Counterparty:counterparty.type#retail": [
+    {
+      "section": "Counterparty",
+      "url": "specs/pl7-retail-deposits.md#counterparty"
+    }
+  ],
+  "Fiction.Bank:Pl7.Fields.Counterparty:counterparty.type#smallBusiness": [
+    {
+      "section": "Counterparty",
+      "url": "specs/pl7-retail-deposits.md#counterparty"
+    }
+  ],
+  "Fiction.Bank:Pl7.Fields.Counterparty:counterparty.type#nonFinancialCorporate": [
+    {
+      "section": "Counterparty",
+      "url": "specs/pl7-retail-deposits.md#counterparty"
+    }
+  ],
+  "Fiction.Bank:Pl7.Fields.Counterparty:counterparty.type#sovereign": [
+    {
+      "section": "Counterparty",
+      "url": "specs/pl7-retail-deposits.md#counterparty"
+    }
+  ],
+  "Fiction.Bank:Pl7.Fields.Counterparty:counterparty.type#centralBank": [
+    {
+      "section": "Counterparty",
+      "url": "specs/pl7-retail-deposits.md#counterparty"
+    }
+  ],
+  "Fiction.Bank:Pl7.Fields.Counterparty:counterparty.type#publicSectorEntity": [
+    {
+      "section": "Counterparty",
+      "url": "specs/pl7-retail-deposits.md#counterparty"
+    }
+  ],
+  "Fiction.Bank:Pl7.Fields.Counterparty:counterparty.type#bank": [
+    {
+      "section": "Counterparty",
+      "url": "specs/pl7-retail-deposits.md#counterparty"
+    }
+  ],
+  "Fiction.Bank:Pl7.Fields.Counterparty:counterparty.type#nonBankFinancial": [
+    {
+      "section": "Counterparty",
+      "url": "specs/pl7-retail-deposits.md#counterparty"
+    }
+  ],
+  "Fiction.Bank:Pl7.Fields.Counterparty:counterparty.type#other": [
+    {
+      "section": "Counterparty",
+      "url": "specs/pl7-retail-deposits.md#counterparty"
+    }
+  ],
+  "Fiction.Bank:Pl7.Fields.Guarantee:guarantee.type": [
+    {
+      "section": "Guarantee",
+      "url": "specs/pl7-retail-deposits.md#guarantee"
+    }
+  ],
+  "Fiction.Bank:Pl7.Fields.Guarantee:isNdgsGuaranteed.value": [
+    {
+      "section": "Guarantee",
+      "url": "specs/pl7-retail-deposits.md#guarantee"
+    },
+    {
+      "section": "(14.21) Guaranteed Core Retail Deposits",
+      "url": "specs/pl7-retail-deposits.md#1421-guaranteed-core-retail-deposits"
+    },
+    {
+      "section": "(14.22) Unguaranteed Core Retail Deposits",
+      "url": "specs/pl7-retail-deposits.md#1422-unguaranteed-core-retail-deposits"
+    }
+  ],
+  "Fiction.Bank:Pl7.Fields.Guarantee:guarantee.type#ndgs": [
+    {
+      "section": "Guarantee",
+      "url": "specs/pl7-retail-deposits.md#guarantee"
+    }
+  ],
+  "Fiction.Bank:Pl7.Fields.Guarantee:guarantee.type#foreignScheme": [
+    {
+      "section": "Guarantee",
+      "url": "specs/pl7-retail-deposits.md#guarantee"
+    }
+  ],
+  "Fiction.Bank:Pl7.Fields.Guarantee:guarantee.type#unguaranteed": [
+    {
+      "section": "Guarantee",
+      "url": "specs/pl7-retail-deposits.md#guarantee"
+    }
+  ],
+  "Fiction.Bank:Pl7.Fields.AssetCode:assetCode.type": [
+    {
+      "section": "Asset Code",
+      "url": "specs/pl7-liquid-assets.md#asset-code"
+    },
+    {
+      "section": "Schedule B: Asset Code Table",
+      "url": "specs/pl7-liquid-assets.md#schedule-b-asset-code-table"
+    }
+  ],
+  "Fiction.Bank:Pl7.Fields.AssetCode:tier.type": [
+    {
+      "section": "Schedule B: Asset Code Table",
+      "url": "specs/pl7-liquid-assets.md#schedule-b-asset-code-table"
+    },
+    {
+      "section": "LRR Calculation",
+      "url": "specs/pl7-liquid-assets.md#lrr-calculation"
+    }
+  ],
+  "Fiction.Bank:Pl7.Fields.AssetCode:tier.value": [
+    {
+      "section": "Schedule B: Asset Code Table",
+      "url": "specs/pl7-liquid-assets.md#schedule-b-asset-code-table"
+    }
+  ],
+  "Fiction.Bank:Pl7.Fields.AssetCode:assetCode.type#gv1E": [
+    {
+      "section": "Schedule B: Asset Code Table",
+      "url": "specs/pl7-liquid-assets.md#schedule-b-asset-code-table"
+    }
+  ],
+  "Fiction.Bank:Pl7.Fields.AssetCode:assetCode.type#gv2E": [
+    {
+      "section": "Schedule B: Asset Code Table",
+      "url": "specs/pl7-liquid-assets.md#schedule-b-asset-code-table"
+    }
+  ],
+  "Fiction.Bank:Pl7.Fields.AssetCode:assetCode.type#cb0E": [
+    {
+      "section": "Schedule B: Asset Code Table",
+      "url": "specs/pl7-liquid-assets.md#schedule-b-asset-code-table"
+    }
+  ],
+  "Fiction.Bank:Pl7.Fields.AssetCode:assetCode.type#sv0E": [
+    {
+      "section": "Schedule B: Asset Code Table",
+      "url": "specs/pl7-liquid-assets.md#schedule-b-asset-code-table"
+    }
+  ],
+  "Fiction.Bank:Pl7.Fields.AssetCode:assetCode.type#sv2E": [
+    {
+      "section": "Schedule B: Asset Code Table",
+      "url": "specs/pl7-liquid-assets.md#schedule-b-asset-code-table"
+    }
+  ],
+  "Fiction.Bank:Pl7.Fields.AssetCode:assetCode.type#ps1E": [
+    {
+      "section": "Schedule B: Asset Code Table",
+      "url": "specs/pl7-liquid-assets.md#schedule-b-asset-code-table"
+    }
+  ],
+  "Fiction.Bank:Pl7.Fields.AssetCode:assetCode.type#cv1E": [
+    {
+      "section": "Schedule B: Asset Code Table",
+      "url": "specs/pl7-liquid-assets.md#schedule-b-asset-code-table"
+    }
+  ],
+  "Fiction.Bank:Pl7.Fields.AssetCode:assetCode.type#cr1E": [
+    {
+      "section": "Schedule B: Asset Code Table",
+      "url": "specs/pl7-liquid-assets.md#schedule-b-asset-code-table"
+    }
+  ],
+  "Fiction.Bank:Pl7.Fields.AssetCode:assetCode.type#eq1E": [
+    {
+      "section": "Schedule B: Asset Code Table",
+      "url": "specs/pl7-liquid-assets.md#schedule-b-asset-code-table"
+    }
+  ],
+  "Fiction.Bank:Pl7.Fields.AssetCode:assetCode.type#ps1": [
+    {
+      "section": "Schedule B: Asset Code Table",
+      "url": "specs/pl7-liquid-assets.md#schedule-b-asset-code-table"
+    }
+  ],
+  "Fiction.Bank:Pl7.Fields.AssetCode:assetCode.type#eq1": [
+    {
+      "section": "Schedule B: Asset Code Table",
+      "url": "specs/pl7-liquid-assets.md#schedule-b-asset-code-table"
+    }
+  ],
+  "Fiction.Bank:Pl7.Fields.AssetCode:assetCode.type#eq2": [
+    {
+      "section": "Schedule B: Asset Code Table",
+      "url": "specs/pl7-liquid-assets.md#schedule-b-asset-code-table"
+    }
+  ],
+  "Fiction.Bank:Pl7.Fields.AssetCode:assetCode.type#mu1": [
+    {
+      "section": "Schedule B: Asset Code Table",
+      "url": "specs/pl7-liquid-assets.md#schedule-b-asset-code-table"
+    }
+  ],
+  "Fiction.Bank:Pl7.Fields.AssetCode:assetCode.type#ab1": [
+    {
+      "section": "Schedule B: Asset Code Table",
+      "url": "specs/pl7-liquid-assets.md#schedule-b-asset-code-table"
+    }
+  ],
+  "Fiction.Bank:Pl7.Fields.AssetCode:assetCode.type#zz9": [
+    {
+      "section": "Schedule B: Asset Code Table",
+      "url": "specs/pl7-liquid-assets.md#schedule-b-asset-code-table"
+    }
+  ],
+  "Fiction.Bank:Pl7.Fields.AssetCode:tier.type#tier1": [
+    {
+      "section": "Schedule B: Asset Code Table",
+      "url": "specs/pl7-liquid-assets.md#schedule-b-asset-code-table"
+    },
+    {
+      "section": "LRR Calculation",
+      "url": "specs/pl7-liquid-assets.md#lrr-calculation"
+    }
+  ],
+  "Fiction.Bank:Pl7.Fields.AssetCode:tier.type#tier2": [
+    {
+      "section": "Schedule B: Asset Code Table",
+      "url": "specs/pl7-liquid-assets.md#schedule-b-asset-code-table"
+    },
+    {
+      "section": "LRR Calculation",
+      "url": "specs/pl7-liquid-assets.md#lrr-calculation"
+    }
+  ],
+  "Fiction.Bank:Pl7.Fields.AssetCode:tier.type#tier3": [
+    {
+      "section": "Schedule B: Asset Code Table",
+      "url": "specs/pl7-liquid-assets.md#schedule-b-asset-code-table"
+    },
+    {
+      "section": "LRR Calculation",
+      "url": "specs/pl7-liquid-assets.md#lrr-calculation"
+    }
+  ],
+  "Fiction.Bank:Pl7.Fields.AssetCode:tier.type#notEligible": [
+    {
+      "section": "Schedule B: Asset Code Table",
+      "url": "specs/pl7-liquid-assets.md#schedule-b-asset-code-table"
+    },
+    {
+      "section": "LRR Calculation",
+      "url": "specs/pl7-liquid-assets.md#lrr-calculation"
+    }
+  ],
+  "Fiction.Bank:Pl7.Tables.LiquidAssets:unrestrictedAsset.type": [
+    {
+      "section": "Part L: Liquid Assets",
+      "url": "specs/pl7-liquid-assets.md#part-l-liquid-assets"
+    },
+    {
+      "section": "L.1: Unrestricted Assets",
+      "url": "specs/pl7-liquid-assets.md#l1-unrestricted-assets"
+    }
+  ],
+  "Fiction.Bank:Pl7.Tables.LiquidAssets:unrestrictedAsset.type#assetCode": [
+    {
+      "section": "Asset Code",
+      "url": "specs/pl7-liquid-assets.md#asset-code"
+    }
+  ],
+  "Fiction.Bank:Pl7.Tables.LiquidAssets:unrestrictedAsset.type#marketValue": [
+    {
+      "section": "Market Value",
+      "url": "specs/pl7-liquid-assets.md#market-value"
+    }
+  ],
+  "Fiction.Bank:Pl7.Tables.LiquidAssets:unrestrictedAsset.type#liquidityDeskControl": [
+    {
+      "section": "Liquidity Desk Control",
+      "url": "specs/pl7-liquid-assets.md#liquidity-desk-control"
+    }
+  ],
+  "Fiction.Bank:Pl7.Tables.RetailDeposits:retailDeposit.type": [
+    {
+      "section": "Part R: Retail Deposits",
+      "url": "specs/pl7-retail-deposits.md#part-r-retail-deposits"
+    }
+  ],
+  "Fiction.Bank:Pl7.Tables.RetailDeposits:product.type": [
+    {
+      "section": "Part R: Retail Deposits",
+      "url": "specs/pl7-retail-deposits.md#part-r-retail-deposits"
+    },
+    {
+      "section": "R.1: Operating Accounts",
+      "url": "specs/pl7-retail-deposits.md#r1-operating-accounts"
+    },
+    {
+      "section": "R.2: Relationship Savings Accounts",
+      "url": "specs/pl7-retail-deposits.md#r2-relationship-savings-accounts"
+    },
+    {
+      "section": "R.3: Rate-Seeking Savings Accounts",
+      "url": "specs/pl7-retail-deposits.md#r3-rate-seeking-savings-accounts"
+    },
+    {
+      "section": "R.4: Intermediated Deposits",
+      "url": "specs/pl7-retail-deposits.md#r4-intermediated-deposits"
+    },
+    {
+      "section": "R.5: Other Retail Balances",
+      "url": "specs/pl7-retail-deposits.md#r5-other-retail-balances"
+    }
+  ],
+  "Fiction.Bank:Pl7.Tables.RetailDeposits:retailDeposit.type#product": [
+    {
+      "section": "Part R: Retail Deposits",
+      "url": "specs/pl7-retail-deposits.md#part-r-retail-deposits"
+    }
+  ],
+  "Fiction.Bank:Pl7.Tables.RetailDeposits:retailDeposit.type#counterparty": [
+    {
+      "section": "Counterparty",
+      "url": "specs/pl7-retail-deposits.md#counterparty"
+    }
+  ],
+  "Fiction.Bank:Pl7.Tables.RetailDeposits:retailDeposit.type#guarantee": [
+    {
+      "section": "Guarantee",
+      "url": "specs/pl7-retail-deposits.md#guarantee"
+    }
+  ],
+  "Fiction.Bank:Pl7.Tables.RetailDeposits:retailDeposit.type#balance": [
+    {
+      "section": "Balance",
+      "url": "specs/pl7-retail-deposits.md#balance"
+    }
+  ],
+  "Fiction.Bank:Pl7.Tables.RetailDeposits:product.type#operatingAccounts": [
+    {
+      "section": "R.1: Operating Accounts",
+      "url": "specs/pl7-retail-deposits.md#r1-operating-accounts"
+    }
+  ],
+  "Fiction.Bank:Pl7.Tables.RetailDeposits:product.type#relationshipSavingsAccounts": [
+    {
+      "section": "R.2: Relationship Savings Accounts",
+      "url": "specs/pl7-retail-deposits.md#r2-relationship-savings-accounts"
+    }
+  ],
+  "Fiction.Bank:Pl7.Tables.RetailDeposits:product.type#rateSeekingSavingsAccounts": [
+    {
+      "section": "R.3: Rate-Seeking Savings Accounts",
+      "url": "specs/pl7-retail-deposits.md#r3-rate-seeking-savings-accounts"
+    }
+  ],
+  "Fiction.Bank:Pl7.Tables.RetailDeposits:product.type#intermediatedDeposits": [
+    {
+      "section": "R.4: Intermediated Deposits",
+      "url": "specs/pl7-retail-deposits.md#r4-intermediated-deposits"
+    }
+  ],
+  "Fiction.Bank:Pl7.Tables.RetailDeposits:product.type#otherRetailBalances": [
+    {
+      "section": "R.5: Other Retail Balances",
+      "url": "specs/pl7-retail-deposits.md#r5-other-retail-balances"
+    }
+  ],
+  "Fiction.Bank:Lrr.LiquidAssets:eligibleLiquidAsset.value": [
+    {
+      "section": "(14.6) Eligible Liquid Assets",
+      "url": "specs/pl7-liquid-assets.md#146-eligible-liquid-assets"
+    }
+  ],
+  "Fiction.Bank:Lrr.LiquidAssets:tierOf.value": [
+    {
+      "section": "(14.6) Eligible Liquid Assets",
+      "url": "specs/pl7-liquid-assets.md#146-eligible-liquid-assets"
+    }
+  ],
+  "Fiction.Bank:Lrr.LiquidAssets:tier1Value.value": [
+    {
+      "section": "(14.6) Eligible Liquid Assets",
+      "url": "specs/pl7-liquid-assets.md#146-eligible-liquid-assets"
+    },
+    {
+      "section": "LRR Calculation",
+      "url": "specs/pl7-liquid-assets.md#lrr-calculation"
+    }
+  ],
+  "Fiction.Bank:Lrr.LiquidAssets:tier2Value.value": [
+    {
+      "section": "(14.6) Eligible Liquid Assets",
+      "url": "specs/pl7-liquid-assets.md#146-eligible-liquid-assets"
+    },
+    {
+      "section": "LRR Calculation",
+      "url": "specs/pl7-liquid-assets.md#lrr-calculation"
+    }
+  ],
+  "Fiction.Bank:Lrr.LiquidAssets:tier3Value.value": [
+    {
+      "section": "(14.6) Eligible Liquid Assets",
+      "url": "specs/pl7-liquid-assets.md#146-eligible-liquid-assets"
+    },
+    {
+      "section": "LRR Calculation",
+      "url": "specs/pl7-liquid-assets.md#lrr-calculation"
+    }
+  ],
+  "Fiction.Bank:Lrr.LiquidAssets:tier1Values.value": [
+    {
+      "section": "LRR Calculation",
+      "url": "specs/pl7-liquid-assets.md#lrr-calculation"
+    }
+  ],
+  "Fiction.Bank:Lrr.LiquidAssets:tier2Values.value": [
+    {
+      "section": "LRR Calculation",
+      "url": "specs/pl7-liquid-assets.md#lrr-calculation"
+    }
+  ],
+  "Fiction.Bank:Lrr.LiquidAssets:tier3Values.value": [
+    {
+      "section": "LRR Calculation",
+      "url": "specs/pl7-liquid-assets.md#lrr-calculation"
+    }
+  ],
+  "Fiction.Bank:Lrr.LiquidAssets:tier2Weight.value": [
+    {
+      "section": "LRR Calculation",
+      "url": "specs/pl7-liquid-assets.md#lrr-calculation"
+    }
+  ],
+  "Fiction.Bank:Lrr.LiquidAssets:tier3Weight.value": [
+    {
+      "section": "LRR Calculation",
+      "url": "specs/pl7-liquid-assets.md#lrr-calculation"
+    }
+  ],
+  "Fiction.Bank:Lrr.LiquidAssets:tier2And3LimitFactor.value": [
+    {
+      "section": "LRR Calculation",
+      "url": "specs/pl7-liquid-assets.md#lrr-calculation"
+    }
+  ],
+  "Fiction.Bank:Lrr.LiquidAssets:tier3LimitFactor.value": [
+    {
+      "section": "LRR Calculation",
+      "url": "specs/pl7-liquid-assets.md#lrr-calculation"
+    }
+  ],
+  "Fiction.Bank:Lrr.LiquidAssets:atLeastZero.value": [
+    {
+      "section": "LRR Calculation",
+      "url": "specs/pl7-liquid-assets.md#lrr-calculation"
+    }
+  ],
+  "Fiction.Bank:Lrr.LiquidAssets:tier2And3LimitExcess.value": [
+    {
+      "section": "LRR Calculation",
+      "url": "specs/pl7-liquid-assets.md#lrr-calculation"
+    }
+  ],
+  "Fiction.Bank:Lrr.LiquidAssets:tier3LimitExcess.value": [
+    {
+      "section": "LRR Calculation",
+      "url": "specs/pl7-liquid-assets.md#lrr-calculation"
+    }
+  ],
+  "Fiction.Bank:Lrr.LiquidAssets:excessOverTierLimits.value": [
+    {
+      "section": "LRR Calculation",
+      "url": "specs/pl7-liquid-assets.md#lrr-calculation"
+    }
+  ],
+  "Fiction.Bank:Lrr.LiquidAssets:stockOfEligibleLiquidAssets.value": [
+    {
+      "section": "LRR Calculation",
+      "url": "specs/pl7-liquid-assets.md#lrr-calculation"
+    }
+  ],
+  "Fiction.Bank:Lrr.Outflows.RetailDeposits:outflowRule.type": [
+    {
+      "section": "Rule 14: Retail Outflow Rules",
+      "url": "specs/pl7-retail-deposits.md#rule-14-retail-outflow-rules"
+    },
+    {
+      "section": "(14.21) Guaranteed Core Retail Deposits",
+      "url": "specs/pl7-retail-deposits.md#1421-guaranteed-core-retail-deposits"
+    },
+    {
+      "section": "(14.22) Unguaranteed Core Retail Deposits",
+      "url": "specs/pl7-retail-deposits.md#1422-unguaranteed-core-retail-deposits"
+    },
+    {
+      "section": "(14.23) Rate-Seeking Retail Deposits",
+      "url": "specs/pl7-retail-deposits.md#1423-rate-seeking-retail-deposits"
+    },
+    {
+      "section": "(14.24) Intermediated Retail Deposits",
+      "url": "specs/pl7-retail-deposits.md#1424-intermediated-retail-deposits"
+    },
+    {
+      "section": "(14.25) Other Retail Balances",
+      "url": "specs/pl7-retail-deposits.md#1425-other-retail-balances"
+    }
+  ],
+  "Fiction.Bank:Lrr.Outflows.RetailDeposits:outflowRule.value": [
+    {
+      "section": "Rule 14: Retail Outflow Rules",
+      "url": "specs/pl7-retail-deposits.md#rule-14-retail-outflow-rules"
+    },
+    {
+      "section": "(14.21) Guaranteed Core Retail Deposits",
+      "url": "specs/pl7-retail-deposits.md#1421-guaranteed-core-retail-deposits"
+    },
+    {
+      "section": "(14.22) Unguaranteed Core Retail Deposits",
+      "url": "specs/pl7-retail-deposits.md#1422-unguaranteed-core-retail-deposits"
+    },
+    {
+      "section": "(14.23) Rate-Seeking Retail Deposits",
+      "url": "specs/pl7-retail-deposits.md#1423-rate-seeking-retail-deposits"
+    },
+    {
+      "section": "(14.24) Intermediated Retail Deposits",
+      "url": "specs/pl7-retail-deposits.md#1424-intermediated-retail-deposits"
+    },
+    {
+      "section": "(14.25) Other Retail Balances",
+      "url": "specs/pl7-retail-deposits.md#1425-other-retail-balances"
+    }
+  ],
+  "Fiction.Bank:Lrr.Outflows.RetailDeposits:isCoreRetailProduct.value": [
+    {
+      "section": "R.1: Operating Accounts",
+      "url": "specs/pl7-retail-deposits.md#r1-operating-accounts"
+    },
+    {
+      "section": "R.2: Relationship Savings Accounts",
+      "url": "specs/pl7-retail-deposits.md#r2-relationship-savings-accounts"
+    },
+    {
+      "section": "(14.21) Guaranteed Core Retail Deposits",
+      "url": "specs/pl7-retail-deposits.md#1421-guaranteed-core-retail-deposits"
+    },
+    {
+      "section": "(14.22) Unguaranteed Core Retail Deposits",
+      "url": "specs/pl7-retail-deposits.md#1422-unguaranteed-core-retail-deposits"
+    }
+  ],
+  "Fiction.Bank:Lrr.Outflows.RetailDeposits:guaranteedCoreRetailDeposits.value": [
+    {
+      "section": "(14.21) Guaranteed Core Retail Deposits",
+      "url": "specs/pl7-retail-deposits.md#1421-guaranteed-core-retail-deposits"
+    }
+  ],
+  "Fiction.Bank:Lrr.Outflows.RetailDeposits:unguaranteedCoreRetailDeposits.value": [
+    {
+      "section": "(14.22) Unguaranteed Core Retail Deposits",
+      "url": "specs/pl7-retail-deposits.md#1422-unguaranteed-core-retail-deposits"
+    }
+  ],
+  "Fiction.Bank:Lrr.Outflows.RetailDeposits:rateSeekingRetailDeposits.value": [
+    {
+      "section": "(14.23) Rate-Seeking Retail Deposits",
+      "url": "specs/pl7-retail-deposits.md#1423-rate-seeking-retail-deposits"
+    }
+  ],
+  "Fiction.Bank:Lrr.Outflows.RetailDeposits:intermediatedRetailDeposits.value": [
+    {
+      "section": "(14.24) Intermediated Retail Deposits",
+      "url": "specs/pl7-retail-deposits.md#1424-intermediated-retail-deposits"
+    }
+  ],
+  "Fiction.Bank:Lrr.Outflows.RetailDeposits:otherRetailBalances.value": [
+    {
+      "section": "(14.25) Other Retail Balances",
+      "url": "specs/pl7-retail-deposits.md#1425-other-retail-balances"
+    }
+  ],
+  "Fiction.Bank:Lrr.Outflows.RetailDeposits:outflowRule.type#guaranteedCoreRetail": [
+    {
+      "section": "(14.21) Guaranteed Core Retail Deposits",
+      "url": "specs/pl7-retail-deposits.md#1421-guaranteed-core-retail-deposits"
+    }
+  ],
+  "Fiction.Bank:Lrr.Outflows.RetailDeposits:outflowRule.type#unguaranteedCoreRetail": [
+    {
+      "section": "(14.22) Unguaranteed Core Retail Deposits",
+      "url": "specs/pl7-retail-deposits.md#1422-unguaranteed-core-retail-deposits"
+    }
+  ],
+  "Fiction.Bank:Lrr.Outflows.RetailDeposits:outflowRule.type#rateSeekingRetail": [
+    {
+      "section": "(14.23) Rate-Seeking Retail Deposits",
+      "url": "specs/pl7-retail-deposits.md#1423-rate-seeking-retail-deposits"
+    }
+  ],
+  "Fiction.Bank:Lrr.Outflows.RetailDeposits:outflowRule.type#intermediatedRetail": [
+    {
+      "section": "(14.24) Intermediated Retail Deposits",
+      "url": "specs/pl7-retail-deposits.md#1424-intermediated-retail-deposits"
+    }
+  ],
+  "Fiction.Bank:Lrr.Outflows.RetailDeposits:outflowRule.type#otherRetail": [
+    {
+      "section": "(14.25) Other Retail Balances",
+      "url": "specs/pl7-retail-deposits.md#1425-other-retail-balances"
+    }
+  ],
+  "Fiction.Bank:Lrr.Outflows.RetailDeposits:outflowRule.type#notARetailOutflowRule": [
+    {
+      "section": "Rule 14: Retail Outflow Rules",
+      "url": "specs/pl7-retail-deposits.md#rule-14-retail-outflow-rules"
+    }
+  ],
+  "Fiction.Bank:Lrr.Outflows.RetailDeposits:runoffRate.value": [
+    {
+      "section": "(14.21) Guaranteed Core Retail Deposits",
+      "url": "specs/pl7-retail-deposits.md#1421-guaranteed-core-retail-deposits"
+    },
+    {
+      "section": "(14.22) Unguaranteed Core Retail Deposits",
+      "url": "specs/pl7-retail-deposits.md#1422-unguaranteed-core-retail-deposits"
+    },
+    {
+      "section": "(14.23) Rate-Seeking Retail Deposits",
+      "url": "specs/pl7-retail-deposits.md#1423-rate-seeking-retail-deposits"
+    },
+    {
+      "section": "(14.24) Intermediated Retail Deposits",
+      "url": "specs/pl7-retail-deposits.md#1424-intermediated-retail-deposits"
+    },
+    {
+      "section": "(14.25) Other Retail Balances",
+      "url": "specs/pl7-retail-deposits.md#1425-other-retail-balances"
+    }
+  ],
+  "Fiction.Bank:Lrr.Outflows.RetailDeposits:stressedOutflow.value": [
+    {
+      "section": "Balance",
+      "url": "specs/pl7-retail-deposits.md#balance"
+    },
+    {
+      "section": "Rule 14: Retail Outflow Rules",
+      "url": "specs/pl7-retail-deposits.md#rule-14-retail-outflow-rules"
+    }
+  ],
+  "Fiction.Bank:Lrr.Outflows.RetailDeposits:totalRetailOutflows.value": [
+    {
+      "section": "Rule 14: Retail Outflow Rules",
+      "url": "specs/pl7-retail-deposits.md#rule-14-retail-outflow-rules"
+    },
+    {
+      "section": "LRR Calculation",
+      "url": "specs/pl7-liquid-assets.md#lrr-calculation"
+    }
+  ],
+  "Fiction.Bank:Lrr.Calculation:lrrCalculation.type": [
+    {
+      "section": "LRR Calculation",
+      "url": "specs/pl7-liquid-assets.md#lrr-calculation"
+    }
+  ],
+  "Fiction.Bank:Lrr.Calculation:supervisoryCategory.type": [
+    {
+      "section": "Scaling Factor Table",
+      "url": "specs/pl7-liquid-assets.md#scaling-factor-table"
+    }
+  ],
+  "Fiction.Bank:Lrr.Calculation:lrrCalculation.type#supervisoryCategory": [
+    {
+      "section": "Scaling Factor Table",
+      "url": "specs/pl7-liquid-assets.md#scaling-factor-table"
+    }
+  ],
+  "Fiction.Bank:Lrr.Calculation:lrrCalculation.type#stockOfEligibleLiquidAssets": [
+    {
+      "section": "LRR Calculation",
+      "url": "specs/pl7-liquid-assets.md#lrr-calculation"
+    }
+  ],
+  "Fiction.Bank:Lrr.Calculation:lrrCalculation.type#retailOutflowAmount": [
+    {
+      "section": "LRR Calculation",
+      "url": "specs/pl7-liquid-assets.md#lrr-calculation"
+    }
+  ],
+  "Fiction.Bank:Lrr.Calculation:lrrCalculation.type#otherOutflowAmount": [
+    {
+      "section": "LRR Calculation",
+      "url": "specs/pl7-liquid-assets.md#lrr-calculation"
+    }
+  ],
+  "Fiction.Bank:Lrr.Calculation:lrrCalculation.type#inflowAmount": [
+    {
+      "section": "LRR Calculation",
+      "url": "specs/pl7-liquid-assets.md#lrr-calculation"
+    }
+  ],
+  "Fiction.Bank:Lrr.Calculation:lrrCalculation.type#concentrationAddOn": [
+    {
+      "section": "LRR Calculation",
+      "url": "specs/pl7-liquid-assets.md#lrr-calculation"
+    }
+  ],
+  "Fiction.Bank:Lrr.Calculation:supervisoryCategory.type#systemicInstitution": [
+    {
+      "section": "Scaling Factor Table",
+      "url": "specs/pl7-liquid-assets.md#scaling-factor-table"
+    }
+  ],
+  "Fiction.Bank:Lrr.Calculation:supervisoryCategory.type#largeInstitution": [
+    {
+      "section": "Scaling Factor Table",
+      "url": "specs/pl7-liquid-assets.md#scaling-factor-table"
+    }
+  ],
+  "Fiction.Bank:Lrr.Calculation:supervisoryCategory.type#midSizedWithLargeWholesaleFunding": [
+    {
+      "section": "Scaling Factor Table",
+      "url": "specs/pl7-liquid-assets.md#scaling-factor-table"
+    }
+  ],
+  "Fiction.Bank:Lrr.Calculation:supervisoryCategory.type#midSizedWithSmallWholesaleFunding": [
+    {
+      "section": "Scaling Factor Table",
+      "url": "specs/pl7-liquid-assets.md#scaling-factor-table"
+    }
+  ],
+  "Fiction.Bank:Lrr.Calculation:supervisoryCategory.type#regionalInstitution": [
+    {
+      "section": "Scaling Factor Table",
+      "url": "specs/pl7-liquid-assets.md#scaling-factor-table"
+    }
+  ],
+  "Fiction.Bank:Lrr.Calculation:scalingFactor.value": [
+    {
+      "section": "Scaling Factor Table",
+      "url": "specs/pl7-liquid-assets.md#scaling-factor-table"
+    }
+  ],
+  "Fiction.Bank:Lrr.Calculation:totalStressedOutflows.value": [
+    {
+      "section": "LRR Calculation",
+      "url": "specs/pl7-liquid-assets.md#lrr-calculation"
+    }
+  ],
+  "Fiction.Bank:Lrr.Calculation:inflowCapFactor.value": [
+    {
+      "section": "LRR Calculation",
+      "url": "specs/pl7-liquid-assets.md#lrr-calculation"
+    }
+  ],
+  "Fiction.Bank:Lrr.Calculation:cappedInflowAmount.value": [
+    {
+      "section": "LRR Calculation",
+      "url": "specs/pl7-liquid-assets.md#lrr-calculation"
+    }
+  ],
+  "Fiction.Bank:Lrr.Calculation:netStressedOutflows.value": [
+    {
+      "section": "LRR Calculation",
+      "url": "specs/pl7-liquid-assets.md#lrr-calculation"
+    }
+  ],
+  "Fiction.Bank:Lrr.Calculation:liquidityResilienceRatio.value": [
+    {
+      "section": "LRR Calculation",
+      "url": "specs/pl7-liquid-assets.md#lrr-calculation"
+    }
+  ],
+  "Fiction.Bank:Lrr.Calculation:minimumRatio.value": [
+    {
+      "section": "Minimum Requirement",
+      "url": "specs/pl7-liquid-assets.md#minimum-requirement"
+    }
+  ],
+  "Fiction.Bank:Lrr.Calculation:meetsMinimumRequirement.value": [
+    {
+      "section": "Minimum Requirement",
+      "url": "specs/pl7-liquid-assets.md#minimum-requirement"
+    }
+  ]
+}

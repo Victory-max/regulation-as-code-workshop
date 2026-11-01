@@ -1,0 +1,660 @@
+# A subset of the FINOS Common Domain Model (CDM) for the Fiction Bank policy workspace: the
+# types, enumerations and attributes the policies' concepts and fields can be aligned to.
+#
+# Attribution (Community Specification License 1.0, section 1.2): derived from the FINOS Common
+# Domain Model, Rosetta sources at commit ced66d4 (2026-10-28), retrieved from
+# https://github.com/finos/common-domain-model. Licensed under the Community Specification
+# License 1.0: https://github.com/finos/common-domain-model/blob/master/LICENSE.md
+#
+# CDM is defined in Rosetta DSL, not RDF. This file is a derived rendering: CDM types and
+# enumerations are classes (and SKOS concepts), enumeration values are individuals, attributes
+# are properties and SKOS concepts narrower than their type, so policy fields can be
+# aligned to them. The IRIs are ours (cdm.finos.example), not official CDM identifiers; each
+# resource points to its CDM source with rdfs:isDefinedBy. Use only the IRIs in this file.
+
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<https://cdm.finos.example/subset> a owl:Ontology ;
+    rdfs:label "FINOS CDM subset (derived)" .
+
+<https://cdm.finos.example/cdm/base/staticdata/asset/common/AssetType> a owl:Class , skos:Concept ;
+    rdfs:label "AssetType" ;
+    skos:notation "cdm.base.staticdata.asset.common.AssetType" ;
+    skos:definition "Represents a class to allow specification of the asset product type." ;
+    rdfs:isDefinedBy <https://github.com/finos/common-domain-model/blob/ced66d4/rosetta-source/src/main/rosetta/base-staticdata-asset-common-type.rosetta> .
+
+<https://cdm.finos.example/cdm/base/staticdata/asset/common/AssetType/assetType> a owl:ObjectProperty , skos:Concept ;
+    skos:broader <https://cdm.finos.example/cdm/base/staticdata/asset/common/AssetType> ;
+    rdfs:label "AssetType.assetType" ;
+    skos:notation "cdm.base.staticdata.asset.common.AssetType.assetType" ;
+    skos:definition "Represents a filter based on the type of collateral asset." ;
+    rdfs:domain <https://cdm.finos.example/cdm/base/staticdata/asset/common/AssetType> ;
+    rdfs:range <https://cdm.finos.example/cdm/base/staticdata/asset/common/AssetTypeEnum> ;
+    skos:scopeNote "cardinality 1..1" .
+
+<https://cdm.finos.example/cdm/base/staticdata/asset/common/AssetType/securityType> a owl:ObjectProperty , skos:Concept ;
+    skos:broader <https://cdm.finos.example/cdm/base/staticdata/asset/common/AssetType> ;
+    rdfs:label "AssetType.securityType" ;
+    skos:notation "cdm.base.staticdata.asset.common.AssetType.securityType" ;
+    skos:definition "Represents a filter based on the type of security." ;
+    rdfs:domain <https://cdm.finos.example/cdm/base/staticdata/asset/common/AssetType> ;
+    rdfs:range <https://cdm.finos.example/cdm/base/staticdata/asset/common/SecurityTypeEnum> ;
+    skos:scopeNote "cardinality 0..1" .
+
+<https://cdm.finos.example/cdm/base/staticdata/asset/common/AssetType/debtType> a owl:ObjectProperty , skos:Concept ;
+    skos:broader <https://cdm.finos.example/cdm/base/staticdata/asset/common/AssetType> ;
+    rdfs:label "AssetType.debtType" ;
+    skos:notation "cdm.base.staticdata.asset.common.AssetType.debtType" ;
+    skos:definition "Represents a filter based on the type of bond. (CDM type: DebtType)" ;
+    rdfs:domain <https://cdm.finos.example/cdm/base/staticdata/asset/common/AssetType> ;
+    skos:scopeNote "cardinality 0..1" .
+
+<https://cdm.finos.example/cdm/base/staticdata/asset/common/AssetType/equityType> a owl:ObjectProperty , skos:Concept ;
+    skos:broader <https://cdm.finos.example/cdm/base/staticdata/asset/common/AssetType> ;
+    rdfs:label "AssetType.equityType" ;
+    skos:notation "cdm.base.staticdata.asset.common.AssetType.equityType" ;
+    skos:definition "Represents a filter based on the type of equity. (CDM type: EquityType)" ;
+    rdfs:domain <https://cdm.finos.example/cdm/base/staticdata/asset/common/AssetType> ;
+    skos:scopeNote "cardinality 0..1" .
+
+<https://cdm.finos.example/cdm/base/staticdata/asset/common/AssetType/fundType> a owl:ObjectProperty , skos:Concept ;
+    skos:broader <https://cdm.finos.example/cdm/base/staticdata/asset/common/AssetType> ;
+    rdfs:label "AssetType.fundType" ;
+    skos:notation "cdm.base.staticdata.asset.common.AssetType.fundType" ;
+    skos:definition "Represents a filter based on the type of fund. (CDM type: FundProductTypeEnum)" ;
+    rdfs:domain <https://cdm.finos.example/cdm/base/staticdata/asset/common/AssetType> ;
+    skos:scopeNote "cardinality 0..1" .
+
+<https://cdm.finos.example/cdm/base/staticdata/asset/common/AssetType/otherAssetType> a owl:DatatypeProperty , skos:Concept ;
+    skos:broader <https://cdm.finos.example/cdm/base/staticdata/asset/common/AssetType> ;
+    rdfs:label "AssetType.otherAssetType" ;
+    skos:notation "cdm.base.staticdata.asset.common.AssetType.otherAssetType" ;
+    skos:definition "Specifies the eligible asset type when not enumerated." ;
+    rdfs:domain <https://cdm.finos.example/cdm/base/staticdata/asset/common/AssetType> ;
+    rdfs:range xsd:string ;
+    skos:scopeNote "cardinality 0..*" .
+
+<https://cdm.finos.example/cdm/base/staticdata/asset/common/CollateralIssuerType> a owl:Class , skos:Concept ;
+    rdfs:label "CollateralIssuerType" ;
+    skos:notation "cdm.base.staticdata.asset.common.CollateralIssuerType" ;
+    skos:definition "Represents a class to allow specification of the type of entity issuing the collateral." ;
+    rdfs:isDefinedBy <https://github.com/finos/common-domain-model/blob/ced66d4/rosetta-source/src/main/rosetta/base-staticdata-asset-common-type.rosetta> .
+
+<https://cdm.finos.example/cdm/base/staticdata/asset/common/CollateralIssuerType/issuerType> a owl:ObjectProperty , skos:Concept ;
+    skos:broader <https://cdm.finos.example/cdm/base/staticdata/asset/common/CollateralIssuerType> ;
+    rdfs:label "CollateralIssuerType.issuerType" ;
+    skos:notation "cdm.base.staticdata.asset.common.CollateralIssuerType.issuerType" ;
+    skos:definition "Specifies the origin of entity issuing the collateral." ;
+    rdfs:domain <https://cdm.finos.example/cdm/base/staticdata/asset/common/CollateralIssuerType> ;
+    rdfs:range <https://cdm.finos.example/cdm/base/staticdata/asset/common/CollateralEntityTypeEnum> ;
+    skos:scopeNote "cardinality 1..1" .
+
+<https://cdm.finos.example/cdm/base/staticdata/asset/common/CollateralIssuerType/supraNationalType> a owl:ObjectProperty , skos:Concept ;
+    skos:broader <https://cdm.finos.example/cdm/base/staticdata/asset/common/CollateralIssuerType> ;
+    rdfs:label "CollateralIssuerType.supraNationalType" ;
+    skos:notation "cdm.base.staticdata.asset.common.CollateralIssuerType.supraNationalType" ;
+    skos:definition "Specifies debt issued by international organisations and multilateral banks." ;
+    rdfs:domain <https://cdm.finos.example/cdm/base/staticdata/asset/common/CollateralIssuerType> ;
+    rdfs:range <https://cdm.finos.example/cdm/base/staticdata/asset/common/SupraNationalIssuerTypeEnum> ;
+    skos:scopeNote "cardinality 0..1" .
+
+<https://cdm.finos.example/cdm/base/staticdata/asset/common/CollateralIssuerType/quasiGovernmentType> a owl:ObjectProperty , skos:Concept ;
+    skos:broader <https://cdm.finos.example/cdm/base/staticdata/asset/common/CollateralIssuerType> ;
+    rdfs:label "CollateralIssuerType.quasiGovernmentType" ;
+    skos:notation "cdm.base.staticdata.asset.common.CollateralIssuerType.quasiGovernmentType" ;
+    skos:definition "Specifies debt issues by institutions or bodies, typically constituted by statute, with a function mandated by the government and subject to government supervision inclusive of profit- and non-profit making bodies. Includes the US Agencies and GSEs and the EU concept of public sector entities. Excluding any entities which are also Regional Government. (CDM type: QuasiGovernmentIssuerType)" ;
+    rdfs:domain <https://cdm.finos.example/cdm/base/staticdata/asset/common/CollateralIssuerType> ;
+    skos:scopeNote "cardinality 0..1" .
+
+<https://cdm.finos.example/cdm/base/staticdata/asset/common/CollateralIssuerType/regionalGovernmentType> a owl:ObjectProperty , skos:Concept ;
+    skos:broader <https://cdm.finos.example/cdm/base/staticdata/asset/common/CollateralIssuerType> ;
+    rdfs:label "CollateralIssuerType.regionalGovernmentType" ;
+    skos:notation "cdm.base.staticdata.asset.common.CollateralIssuerType.regionalGovernmentType" ;
+    skos:definition "Specifies Regional government, local authority or municipal. (CDM type: RegionalGovernmentIssuerType)" ;
+    rdfs:domain <https://cdm.finos.example/cdm/base/staticdata/asset/common/CollateralIssuerType> ;
+    skos:scopeNote "cardinality 0..1" .
+
+<https://cdm.finos.example/cdm/base/staticdata/asset/common/CollateralIssuerType/specialPurposeVehicleType> a owl:ObjectProperty , skos:Concept ;
+    skos:broader <https://cdm.finos.example/cdm/base/staticdata/asset/common/CollateralIssuerType> ;
+    rdfs:label "CollateralIssuerType.specialPurposeVehicleType" ;
+    skos:notation "cdm.base.staticdata.asset.common.CollateralIssuerType.specialPurposeVehicleType" ;
+    skos:definition "Specifies a subsidiary company that is formed to undertake a specific business purpose of acquisition and financing of specific assets on a potentially limited recourse basis dependent of how it is designed. E.g. asset backed securities, including securitisations. (CDM type: SpecialPurposeVehicleIssuerType)" ;
+    rdfs:domain <https://cdm.finos.example/cdm/base/staticdata/asset/common/CollateralIssuerType> ;
+    skos:scopeNote "cardinality 0..1" .
+
+<https://cdm.finos.example/cdm/product/collateral/CollateralValuationTreatment> a owl:Class , skos:Concept ;
+    rdfs:label "CollateralValuationTreatment" ;
+    skos:notation "cdm.product.collateral.CollateralValuationTreatment" ;
+    skos:definition "Specification of the valuation treatment for the specified collateral." ;
+    rdfs:isDefinedBy <https://github.com/finos/common-domain-model/blob/ced66d4/rosetta-source/src/main/rosetta/product-collateral-type.rosetta> .
+
+<https://cdm.finos.example/cdm/product/collateral/CollateralValuationTreatment/haircutPercentage> a owl:DatatypeProperty , skos:Concept ;
+    skos:broader <https://cdm.finos.example/cdm/product/collateral/CollateralValuationTreatment> ;
+    rdfs:label "CollateralValuationTreatment.haircutPercentage" ;
+    skos:notation "cdm.product.collateral.CollateralValuationTreatment.haircutPercentage" ;
+    skos:definition "Specifies a haircut percentage to be applied to the value of asset and used as a discount factor to the value of the collateral asset,expressed as a percentage in decimal terms. As an example a 0.5% haircut would be represented as a decimal number 0.005." ;
+    rdfs:domain <https://cdm.finos.example/cdm/product/collateral/CollateralValuationTreatment> ;
+    rdfs:range xsd:decimal ;
+    skos:scopeNote "cardinality 0..1" .
+
+<https://cdm.finos.example/cdm/product/collateral/CollateralValuationTreatment/marginPercentage> a owl:DatatypeProperty , skos:Concept ;
+    skos:broader <https://cdm.finos.example/cdm/product/collateral/CollateralValuationTreatment> ;
+    rdfs:label "CollateralValuationTreatment.marginPercentage" ;
+    skos:notation "cdm.product.collateral.CollateralValuationTreatment.marginPercentage" ;
+    skos:definition "Specifies a percentage value of transaction needing to be posted as collateral expressed as a valuation. As an example a 104% requirement would be represented as a decimal number 1.04." ;
+    rdfs:domain <https://cdm.finos.example/cdm/product/collateral/CollateralValuationTreatment> ;
+    rdfs:range xsd:decimal ;
+    skos:scopeNote "cardinality 0..1" .
+
+<https://cdm.finos.example/cdm/product/collateral/CollateralValuationTreatment/fxHaircutPercentage> a owl:DatatypeProperty , skos:Concept ;
+    skos:broader <https://cdm.finos.example/cdm/product/collateral/CollateralValuationTreatment> ;
+    rdfs:label "CollateralValuationTreatment.fxHaircutPercentage" ;
+    skos:notation "cdm.product.collateral.CollateralValuationTreatment.fxHaircutPercentage" ;
+    skos:definition "Specifies an FX haircut applied to a specific asset which is agreed between the parties (for example, if pledgor eligible collateral is not denominated in the termination currency or under other specified cases in collateral support documents both for initial margin and variation margin).The percentage value is expressed as the discount haircut to the value of the collateral- as an example an 8% FX haircut would be expressed as 0.08." ;
+    rdfs:domain <https://cdm.finos.example/cdm/product/collateral/CollateralValuationTreatment> ;
+    rdfs:range xsd:decimal ;
+    skos:scopeNote "cardinality 0..1" .
+
+<https://cdm.finos.example/cdm/product/collateral/CollateralValuationTreatment/additionalHaircutPercentage> a owl:DatatypeProperty , skos:Concept ;
+    skos:broader <https://cdm.finos.example/cdm/product/collateral/CollateralValuationTreatment> ;
+    rdfs:label "CollateralValuationTreatment.additionalHaircutPercentage" ;
+    skos:notation "cdm.product.collateral.CollateralValuationTreatment.additionalHaircutPercentage" ;
+    skos:definition "Specifies a percentage value of any additional haircut to be applied to a collateral asset,the percentage value is expressed as the discount haircut to the value of the collateral- as an example a 5% haircut would be expressed as 0.05. " ;
+    rdfs:domain <https://cdm.finos.example/cdm/product/collateral/CollateralValuationTreatment> ;
+    rdfs:range xsd:decimal ;
+    skos:scopeNote "cardinality 0..1" .
+
+<https://cdm.finos.example/cdm/event/common/Valuation> a owl:Class , skos:Concept ;
+    rdfs:label "Valuation" ;
+    skos:notation "cdm.event.common.Valuation" ;
+    skos:definition "Defines the value of an investment, asset, or security" ;
+    rdfs:isDefinedBy <https://github.com/finos/common-domain-model/blob/ced66d4/rosetta-source/src/main/rosetta/event-common-type.rosetta> .
+
+<https://cdm.finos.example/cdm/event/common/Valuation/amount> a owl:ObjectProperty , skos:Concept ;
+    skos:broader <https://cdm.finos.example/cdm/event/common/Valuation> ;
+    rdfs:label "Valuation.amount" ;
+    skos:notation "cdm.event.common.Valuation.amount" ;
+    skos:definition "Current value of the outstanding contract" ;
+    rdfs:domain <https://cdm.finos.example/cdm/event/common/Valuation> ;
+    rdfs:range <https://cdm.finos.example/cdm/observable/asset/Money> ;
+    skos:scopeNote "cardinality 1..1" .
+
+<https://cdm.finos.example/cdm/event/common/Valuation/timestamp> a owl:DatatypeProperty , skos:Concept ;
+    skos:broader <https://cdm.finos.example/cdm/event/common/Valuation> ;
+    rdfs:label "Valuation.timestamp" ;
+    skos:notation "cdm.event.common.Valuation.timestamp" ;
+    skos:definition "Date and time of the last valuation marked to market, provided by the central counterparty (CCP) or calculated using the current or last available market price of the inputs." ;
+    rdfs:domain <https://cdm.finos.example/cdm/event/common/Valuation> ;
+    rdfs:range xsd:dateTime ;
+    skos:scopeNote "cardinality 1..1" .
+
+<https://cdm.finos.example/cdm/event/common/Valuation/method> a owl:ObjectProperty , skos:Concept ;
+    skos:broader <https://cdm.finos.example/cdm/event/common/Valuation> ;
+    rdfs:label "Valuation.method" ;
+    skos:notation "cdm.event.common.Valuation.method" ;
+    skos:definition "Method used for the valuation of the transaction by the valuation party." ;
+    rdfs:domain <https://cdm.finos.example/cdm/event/common/Valuation> ;
+    rdfs:range <https://cdm.finos.example/cdm/event/common/ValuationTypeEnum> ;
+    skos:scopeNote "cardinality 0..1" .
+
+<https://cdm.finos.example/cdm/event/common/Valuation/source> a owl:ObjectProperty , skos:Concept ;
+    skos:broader <https://cdm.finos.example/cdm/event/common/Valuation> ;
+    rdfs:label "Valuation.source" ;
+    skos:notation "cdm.event.common.Valuation.source" ;
+    skos:definition "Source of the valuation of the transaction by the valuation party. (CDM type: ValuationSourceEnum)" ;
+    rdfs:domain <https://cdm.finos.example/cdm/event/common/Valuation> ;
+    skos:scopeNote "cardinality 0..1" .
+
+<https://cdm.finos.example/cdm/event/common/Valuation/scope> a owl:ObjectProperty , skos:Concept ;
+    skos:broader <https://cdm.finos.example/cdm/event/common/Valuation> ;
+    rdfs:label "Valuation.scope" ;
+    skos:notation "cdm.event.common.Valuation.scope" ;
+    skos:definition " Defines the scope of the valuation, what it applies to e.g. the collateral or the trade (CDM type: ValuationScopeEnum)" ;
+    rdfs:domain <https://cdm.finos.example/cdm/event/common/Valuation> ;
+    skos:scopeNote "cardinality 1..1" .
+
+<https://cdm.finos.example/cdm/event/common/Valuation/delta> a owl:DatatypeProperty , skos:Concept ;
+    skos:broader <https://cdm.finos.example/cdm/event/common/Valuation> ;
+    rdfs:label "Valuation.delta" ;
+    skos:notation "cdm.event.common.Valuation.delta" ;
+    skos:definition "The ratio of the change in the price of a derivative transaction to the change in the price of the underlying. This field is applicable only to options and swaptions." ;
+    rdfs:domain <https://cdm.finos.example/cdm/event/common/Valuation> ;
+    rdfs:range xsd:decimal ;
+    skos:scopeNote "cardinality 0..1" .
+
+<https://cdm.finos.example/cdm/event/common/Valuation/valuationTiming> a owl:ObjectProperty , skos:Concept ;
+    skos:broader <https://cdm.finos.example/cdm/event/common/Valuation> ;
+    rdfs:label "Valuation.valuationTiming" ;
+    skos:notation "cdm.event.common.Valuation.valuationTiming" ;
+    skos:definition "Denotes when the valuation was sourced during a business day. (CDM type: PriceTimingEnum)" ;
+    rdfs:domain <https://cdm.finos.example/cdm/event/common/Valuation> ;
+    skos:scopeNote "cardinality 0..1" .
+
+<https://cdm.finos.example/cdm/event/common/Valuation/priceComponent> a owl:ObjectProperty , skos:Concept ;
+    skos:broader <https://cdm.finos.example/cdm/event/common/Valuation> ;
+    rdfs:label "Valuation.priceComponent" ;
+    skos:notation "cdm.event.common.Valuation.priceComponent" ;
+    skos:definition "Denotes the price used to compute the valuation. (CDM type: Price)" ;
+    rdfs:domain <https://cdm.finos.example/cdm/event/common/Valuation> ;
+    skos:scopeNote "cardinality 0..1" .
+
+<https://cdm.finos.example/cdm/observable/asset/Money> a owl:Class , skos:Concept ;
+    rdfs:label "Money" ;
+    skos:notation "cdm.observable.asset.Money" ;
+    skos:definition "Defines a monetary amount in a specified currency." ;
+    rdfs:isDefinedBy <https://github.com/finos/common-domain-model/blob/ced66d4/rosetta-source/src/main/rosetta/observable-asset-type.rosetta> .
+
+<https://cdm.finos.example/cdm/base/staticdata/party/Counterparty> a owl:Class , skos:Concept ;
+    rdfs:label "Counterparty" ;
+    skos:notation "cdm.base.staticdata.party.Counterparty" ;
+    skos:definition "Defines a counterparty enumerated value, e.g. Party1 or Party2, with an associated party reference. The product is agnostic to the actual parties to the transaction, with the party references abstracted away from the product definition and replaced by the CounterpartyEnum (e.g. values Party1 or Party2). The CounterpartyEnum can then be positioned in the product (e.g. to specify which counterparty is the payer, receiver etc) and this Counterparty type, which is positioned outside of the product definition, allows the CounterpartyEnum to be associated with an actual party reference." ;
+    rdfs:isDefinedBy <https://github.com/finos/common-domain-model/blob/ced66d4/rosetta-source/src/main/rosetta/base-staticdata-party-type.rosetta> .
+
+<https://cdm.finos.example/cdm/base/staticdata/party/Counterparty/role> a owl:ObjectProperty , skos:Concept ;
+    skos:broader <https://cdm.finos.example/cdm/base/staticdata/party/Counterparty> ;
+    rdfs:label "Counterparty.role" ;
+    skos:notation "cdm.base.staticdata.party.Counterparty.role" ;
+    skos:definition "Specifies the CounterpartyEnum, e.g. either Party1 or Party2, that is associated to the partyReference." ;
+    rdfs:domain <https://cdm.finos.example/cdm/base/staticdata/party/Counterparty> ;
+    rdfs:range <https://cdm.finos.example/cdm/base/staticdata/party/CounterpartyRoleEnum> ;
+    skos:scopeNote "cardinality 1..1" .
+
+<https://cdm.finos.example/cdm/base/staticdata/party/Counterparty/partyReference> a owl:ObjectProperty , skos:Concept ;
+    skos:broader <https://cdm.finos.example/cdm/base/staticdata/party/Counterparty> ;
+    rdfs:label "Counterparty.partyReference" ;
+    skos:notation "cdm.base.staticdata.party.Counterparty.partyReference" ;
+    skos:definition "Specifies the party that is associated to the counterparty." ;
+    rdfs:domain <https://cdm.finos.example/cdm/base/staticdata/party/Counterparty> ;
+    rdfs:range <https://cdm.finos.example/cdm/base/staticdata/party/Party> ;
+    skos:scopeNote "cardinality 1..1" .
+
+<https://cdm.finos.example/cdm/base/staticdata/party/Party> a owl:Class , skos:Concept ;
+    rdfs:label "Party" ;
+    skos:notation "cdm.base.staticdata.party.Party" ;
+    skos:definition "A class to specify a party, without a qualification as to whether this party is a legal entity or a natural person, although the model provides the ability to associate a person (or set of persons) to a party, which use case would imply that such party would be a legal entity (even if not formally specified as such). " ;
+    rdfs:isDefinedBy <https://github.com/finos/common-domain-model/blob/ced66d4/rosetta-source/src/main/rosetta/base-staticdata-party-type.rosetta> .
+
+<https://cdm.finos.example/cdm/base/staticdata/party/Party/partyId> a owl:ObjectProperty , skos:Concept ;
+    skos:broader <https://cdm.finos.example/cdm/base/staticdata/party/Party> ;
+    rdfs:label "Party.partyId" ;
+    skos:notation "cdm.base.staticdata.party.Party.partyId" ;
+    skos:definition "The identifier associated with a party, e.g. the 20 digits LEI code. (CDM type: PartyIdentifier)" ;
+    rdfs:domain <https://cdm.finos.example/cdm/base/staticdata/party/Party> ;
+    skos:scopeNote "cardinality 1..*" .
+
+<https://cdm.finos.example/cdm/base/staticdata/party/Party/name> a owl:DatatypeProperty , skos:Concept ;
+    skos:broader <https://cdm.finos.example/cdm/base/staticdata/party/Party> ;
+    rdfs:label "Party.name" ;
+    skos:notation "cdm.base.staticdata.party.Party.name" ;
+    skos:definition "The party name." ;
+    rdfs:domain <https://cdm.finos.example/cdm/base/staticdata/party/Party> ;
+    rdfs:range xsd:string ;
+    skos:scopeNote "cardinality 0..1" .
+
+<https://cdm.finos.example/cdm/base/staticdata/party/Party/businessUnit> a owl:ObjectProperty , skos:Concept ;
+    skos:broader <https://cdm.finos.example/cdm/base/staticdata/party/Party> ;
+    rdfs:label "Party.businessUnit" ;
+    skos:notation "cdm.base.staticdata.party.Party.businessUnit" ;
+    skos:definition "Optional organization unit information used to describe the organization units (e.g. trading desks) involved in a transaction or business process, incl. the contact information (when relevant). (CDM type: BusinessUnit)" ;
+    rdfs:domain <https://cdm.finos.example/cdm/base/staticdata/party/Party> ;
+    skos:scopeNote "cardinality 0..*" .
+
+<https://cdm.finos.example/cdm/base/staticdata/party/Party/person> a owl:ObjectProperty , skos:Concept ;
+    skos:broader <https://cdm.finos.example/cdm/base/staticdata/party/Party> ;
+    rdfs:label "Party.person" ;
+    skos:notation "cdm.base.staticdata.party.Party.person" ;
+    skos:definition "The person(s) who might be associated with the party as part of the execution, contract or legal document. (CDM type: NaturalPerson)" ;
+    rdfs:domain <https://cdm.finos.example/cdm/base/staticdata/party/Party> ;
+    skos:scopeNote "cardinality 0..*" .
+
+<https://cdm.finos.example/cdm/base/staticdata/party/Party/personRole> a owl:ObjectProperty , skos:Concept ;
+    skos:broader <https://cdm.finos.example/cdm/base/staticdata/party/Party> ;
+    rdfs:label "Party.personRole" ;
+    skos:notation "cdm.base.staticdata.party.Party.personRole" ;
+    skos:definition "The role of the person(s)  (CDM type: NaturalPersonRole)" ;
+    rdfs:domain <https://cdm.finos.example/cdm/base/staticdata/party/Party> ;
+    skos:scopeNote "cardinality 0..*" .
+
+<https://cdm.finos.example/cdm/base/staticdata/party/Party/account> a owl:ObjectProperty , skos:Concept ;
+    skos:broader <https://cdm.finos.example/cdm/base/staticdata/party/Party> ;
+    rdfs:label "Party.account" ;
+    skos:notation "cdm.base.staticdata.party.Party.account" ;
+    skos:definition "The account that might be associated with the party. At most one account can be specified, as it is expected that this information is used in the context of a contract or legal document where only one account per party can be associated with such object." ;
+    rdfs:domain <https://cdm.finos.example/cdm/base/staticdata/party/Party> ;
+    rdfs:range <https://cdm.finos.example/cdm/base/staticdata/party/Account> ;
+    skos:scopeNote "cardinality 0..1" .
+
+<https://cdm.finos.example/cdm/base/staticdata/party/Party/contactInformation> a owl:ObjectProperty , skos:Concept ;
+    skos:broader <https://cdm.finos.example/cdm/base/staticdata/party/Party> ;
+    rdfs:label "Party.contactInformation" ;
+    skos:notation "cdm.base.staticdata.party.Party.contactInformation" ;
+    skos:definition "The postal/street address, telephone number, email address and/or web page. If the contact information is specific to the associated business unit(s) or person (s), it should be associated with those. (CDM type: ContactInformation)" ;
+    rdfs:domain <https://cdm.finos.example/cdm/base/staticdata/party/Party> ;
+    skos:scopeNote "cardinality 0..1" .
+
+<https://cdm.finos.example/cdm/base/staticdata/party/Account> a owl:Class , skos:Concept ;
+    rdfs:label "Account" ;
+    skos:notation "cdm.base.staticdata.party.Account" ;
+    skos:definition "A class to specify an account as an account number alongside, optionally. an account name, an account type, an account beneficiary and a servicing party." ;
+    rdfs:isDefinedBy <https://github.com/finos/common-domain-model/blob/ced66d4/rosetta-source/src/main/rosetta/base-staticdata-party-type.rosetta> .
+
+<https://cdm.finos.example/cdm/base/staticdata/party/Account/partyReference> a owl:ObjectProperty , skos:Concept ;
+    skos:broader <https://cdm.finos.example/cdm/base/staticdata/party/Account> ;
+    rdfs:label "Account.partyReference" ;
+    skos:notation "cdm.base.staticdata.party.Account.partyReference" ;
+    skos:definition "A reference to the party to which the account refers to." ;
+    rdfs:domain <https://cdm.finos.example/cdm/base/staticdata/party/Account> ;
+    rdfs:range <https://cdm.finos.example/cdm/base/staticdata/party/Party> ;
+    skos:scopeNote "cardinality 0..1" .
+
+<https://cdm.finos.example/cdm/base/staticdata/party/Account/accountNumber> a owl:DatatypeProperty , skos:Concept ;
+    skos:broader <https://cdm.finos.example/cdm/base/staticdata/party/Account> ;
+    rdfs:label "Account.accountNumber" ;
+    skos:notation "cdm.base.staticdata.party.Account.accountNumber" ;
+    skos:definition "The account number." ;
+    rdfs:domain <https://cdm.finos.example/cdm/base/staticdata/party/Account> ;
+    rdfs:range xsd:string ;
+    skos:scopeNote "cardinality 1..1" .
+
+<https://cdm.finos.example/cdm/base/staticdata/party/Account/accountName> a owl:DatatypeProperty , skos:Concept ;
+    skos:broader <https://cdm.finos.example/cdm/base/staticdata/party/Account> ;
+    rdfs:label "Account.accountName" ;
+    skos:notation "cdm.base.staticdata.party.Account.accountName" ;
+    skos:definition "The name by which the account is known." ;
+    rdfs:domain <https://cdm.finos.example/cdm/base/staticdata/party/Account> ;
+    rdfs:range xsd:string ;
+    skos:scopeNote "cardinality 0..1" .
+
+<https://cdm.finos.example/cdm/base/staticdata/party/Account/accountType> a owl:ObjectProperty , skos:Concept ;
+    skos:broader <https://cdm.finos.example/cdm/base/staticdata/party/Account> ;
+    rdfs:label "Account.accountType" ;
+    skos:notation "cdm.base.staticdata.party.Account.accountType" ;
+    skos:definition "The type of account, e.g. client, house." ;
+    rdfs:domain <https://cdm.finos.example/cdm/base/staticdata/party/Account> ;
+    rdfs:range <https://cdm.finos.example/cdm/base/staticdata/party/AccountTypeEnum> ;
+    skos:scopeNote "cardinality 0..1" .
+
+<https://cdm.finos.example/cdm/base/staticdata/party/Account/accountBeneficiary> a owl:ObjectProperty , skos:Concept ;
+    skos:broader <https://cdm.finos.example/cdm/base/staticdata/party/Account> ;
+    rdfs:label "Account.accountBeneficiary" ;
+    skos:notation "cdm.base.staticdata.party.Account.accountBeneficiary" ;
+    skos:definition "A reference to the party beneficiary of the account." ;
+    rdfs:domain <https://cdm.finos.example/cdm/base/staticdata/party/Account> ;
+    rdfs:range <https://cdm.finos.example/cdm/base/staticdata/party/Party> ;
+    skos:scopeNote "cardinality 0..1" .
+
+<https://cdm.finos.example/cdm/base/staticdata/party/Account/servicingParty> a owl:ObjectProperty , skos:Concept ;
+    skos:broader <https://cdm.finos.example/cdm/base/staticdata/party/Account> ;
+    rdfs:label "Account.servicingParty" ;
+    skos:notation "cdm.base.staticdata.party.Account.servicingParty" ;
+    skos:definition "The reference to the legal entity that services the account, i.e. in the books of which the account is held." ;
+    rdfs:domain <https://cdm.finos.example/cdm/base/staticdata/party/Account> ;
+    rdfs:range <https://cdm.finos.example/cdm/base/staticdata/party/Party> ;
+    skos:scopeNote "cardinality 0..1" .
+
+<https://cdm.finos.example/cdm/base/staticdata/asset/common/AssetTypeEnum> a owl:Class , skos:Concept ;
+    rdfs:label "AssetTypeEnum" ;
+    skos:notation "cdm.base.staticdata.asset.common.AssetTypeEnum" ;
+    skos:definition "Represents an enumeration list to identify the asset type." ;
+    rdfs:isDefinedBy <https://github.com/finos/common-domain-model/blob/ced66d4/rosetta-source/src/main/rosetta/base-staticdata-asset-common-enum.rosetta> .
+
+<https://cdm.finos.example/cdm/base/staticdata/asset/common/AssetTypeEnum/Security> a owl:NamedIndividual , skos:Concept , <https://cdm.finos.example/cdm/base/staticdata/asset/common/AssetTypeEnum> ;
+    rdfs:label "Security" ;
+    skos:notation "cdm.base.staticdata.asset.common.AssetTypeEnum.Security" ;
+    skos:definition "Identifies negotiable financial instrument of monetary value with an issue ownership position." ;
+    skos:broader <https://cdm.finos.example/cdm/base/staticdata/asset/common/AssetTypeEnum> .
+
+<https://cdm.finos.example/cdm/base/staticdata/asset/common/AssetTypeEnum/Cash> a owl:NamedIndividual , skos:Concept , <https://cdm.finos.example/cdm/base/staticdata/asset/common/AssetTypeEnum> ;
+    rdfs:label "Cash" ;
+    skos:notation "cdm.base.staticdata.asset.common.AssetTypeEnum.Cash" ;
+    skos:definition "Identifies cash in a currency form." ;
+    skos:broader <https://cdm.finos.example/cdm/base/staticdata/asset/common/AssetTypeEnum> .
+
+<https://cdm.finos.example/cdm/base/staticdata/asset/common/AssetTypeEnum/Commodity> a owl:NamedIndividual , skos:Concept , <https://cdm.finos.example/cdm/base/staticdata/asset/common/AssetTypeEnum> ;
+    rdfs:label "Commodity" ;
+    skos:notation "cdm.base.staticdata.asset.common.AssetTypeEnum.Commodity" ;
+    skos:definition "Identifies basic good used in commerce that is interchangeable with other goods of the same type." ;
+    skos:broader <https://cdm.finos.example/cdm/base/staticdata/asset/common/AssetTypeEnum> .
+
+<https://cdm.finos.example/cdm/base/staticdata/asset/common/AssetTypeEnum/ListedDerivative> a owl:NamedIndividual , skos:Concept , <https://cdm.finos.example/cdm/base/staticdata/asset/common/AssetTypeEnum> ;
+    rdfs:label "ListedDerivative" ;
+    skos:notation "cdm.base.staticdata.asset.common.AssetTypeEnum.ListedDerivative" ;
+    skos:definition "Identifies an asset as a listed derivative on an exchange." ;
+    skos:broader <https://cdm.finos.example/cdm/base/staticdata/asset/common/AssetTypeEnum> .
+
+<https://cdm.finos.example/cdm/base/staticdata/asset/common/AssetTypeEnum/Loan> a owl:NamedIndividual , skos:Concept , <https://cdm.finos.example/cdm/base/staticdata/asset/common/AssetTypeEnum> ;
+    rdfs:label "Loan" ;
+    skos:notation "cdm.base.staticdata.asset.common.AssetTypeEnum.Loan" ;
+    skos:definition "An asset that represents a loan or borrow obligation." ;
+    skos:broader <https://cdm.finos.example/cdm/base/staticdata/asset/common/AssetTypeEnum> .
+
+<https://cdm.finos.example/cdm/base/staticdata/asset/common/AssetTypeEnum/LetterOfCredit> a owl:NamedIndividual , skos:Concept , <https://cdm.finos.example/cdm/base/staticdata/asset/common/AssetTypeEnum> ;
+    rdfs:label "LetterOfCredit" ;
+    skos:notation "cdm.base.staticdata.asset.common.AssetTypeEnum.LetterOfCredit" ;
+    skos:definition "Identifies an asset as a letter of credit or documentary credit/ bankers commercial credit.  A payment mechanism used in international trade to provide economic guarantee of payment by a creditworthy issuer for payment of exported goods." ;
+    skos:broader <https://cdm.finos.example/cdm/base/staticdata/asset/common/AssetTypeEnum> .
+
+<https://cdm.finos.example/cdm/base/staticdata/asset/common/AssetTypeEnum/Other> a owl:NamedIndividual , skos:Concept , <https://cdm.finos.example/cdm/base/staticdata/asset/common/AssetTypeEnum> ;
+    rdfs:label "Other" ;
+    skos:notation "cdm.base.staticdata.asset.common.AssetTypeEnum.Other" ;
+    skos:definition "Identifies other asset types." ;
+    skos:broader <https://cdm.finos.example/cdm/base/staticdata/asset/common/AssetTypeEnum> .
+
+<https://cdm.finos.example/cdm/base/staticdata/asset/common/SecurityTypeEnum> a owl:Class , skos:Concept ;
+    rdfs:label "SecurityTypeEnum" ;
+    skos:notation "cdm.base.staticdata.asset.common.SecurityTypeEnum" ;
+    skos:definition "Represents an enumeration list to indentify the type of a security." ;
+    rdfs:isDefinedBy <https://github.com/finos/common-domain-model/blob/ced66d4/rosetta-source/src/main/rosetta/base-staticdata-asset-common-enum.rosetta> .
+
+<https://cdm.finos.example/cdm/base/staticdata/asset/common/SecurityTypeEnum/Debt> a owl:NamedIndividual , skos:Concept , <https://cdm.finos.example/cdm/base/staticdata/asset/common/SecurityTypeEnum> ;
+    rdfs:label "Debt" ;
+    skos:notation "cdm.base.staticdata.asset.common.SecurityTypeEnum.Debt" ;
+    skos:definition "Identifies a security as a fixed income security of debt issued and securitized as a tradable asset." ;
+    skos:broader <https://cdm.finos.example/cdm/base/staticdata/asset/common/SecurityTypeEnum> .
+
+<https://cdm.finos.example/cdm/base/staticdata/asset/common/SecurityTypeEnum/Equity> a owl:NamedIndividual , skos:Concept , <https://cdm.finos.example/cdm/base/staticdata/asset/common/SecurityTypeEnum> ;
+    rdfs:label "Equity" ;
+    skos:notation "cdm.base.staticdata.asset.common.SecurityTypeEnum.Equity" ;
+    skos:definition "Identifies a security as an Equity value of holding of shares in listed company." ;
+    skos:broader <https://cdm.finos.example/cdm/base/staticdata/asset/common/SecurityTypeEnum> .
+
+<https://cdm.finos.example/cdm/base/staticdata/asset/common/SecurityTypeEnum/Fund> a owl:NamedIndividual , skos:Concept , <https://cdm.finos.example/cdm/base/staticdata/asset/common/SecurityTypeEnum> ;
+    rdfs:label "Fund" ;
+    skos:notation "cdm.base.staticdata.asset.common.SecurityTypeEnum.Fund" ;
+    skos:definition "Identifies a security as representing holding in an investment fund." ;
+    skos:broader <https://cdm.finos.example/cdm/base/staticdata/asset/common/SecurityTypeEnum> .
+
+<https://cdm.finos.example/cdm/base/staticdata/asset/common/SecurityTypeEnum/Warrant> a owl:NamedIndividual , skos:Concept , <https://cdm.finos.example/cdm/base/staticdata/asset/common/SecurityTypeEnum> ;
+    rdfs:label "Warrant" ;
+    skos:notation "cdm.base.staticdata.asset.common.SecurityTypeEnum.Warrant" ;
+    skos:definition "Identifies a security as a Warrant that give the right, but not the obligation, to buy or sell a security — most commonly an equity — at a certain price before expiration, or to receive the cash equivalent." ;
+    skos:broader <https://cdm.finos.example/cdm/base/staticdata/asset/common/SecurityTypeEnum> .
+
+<https://cdm.finos.example/cdm/base/staticdata/asset/common/SecurityTypeEnum/Certificate> a owl:NamedIndividual , skos:Concept , <https://cdm.finos.example/cdm/base/staticdata/asset/common/SecurityTypeEnum> ;
+    rdfs:label "Certificate" ;
+    skos:notation "cdm.base.staticdata.asset.common.SecurityTypeEnum.Certificate" ;
+    skos:definition "Identifies a security as one that that offers a derivative-based economic return which is not structured as a bond, an equity or a warrant. Note that this security type is not a Certificate of Deposit (aka CD)." ;
+    skos:broader <https://cdm.finos.example/cdm/base/staticdata/asset/common/SecurityTypeEnum> .
+
+<https://cdm.finos.example/cdm/base/staticdata/asset/common/EquityTypeEnum> a owl:Class , skos:Concept ;
+    rdfs:label "EquityTypeEnum" ;
+    skos:notation "cdm.base.staticdata.asset.common.EquityTypeEnum" ;
+    skos:definition "Represents an enumeration list to identify the type of Equity." ;
+    rdfs:isDefinedBy <https://github.com/finos/common-domain-model/blob/ced66d4/rosetta-source/src/main/rosetta/base-staticdata-asset-common-enum.rosetta> .
+
+<https://cdm.finos.example/cdm/base/staticdata/asset/common/EquityTypeEnum/Ordinary> a owl:NamedIndividual , skos:Concept , <https://cdm.finos.example/cdm/base/staticdata/asset/common/EquityTypeEnum> ;
+    rdfs:label "Ordinary" ;
+    skos:notation "cdm.base.staticdata.asset.common.EquityTypeEnum.Ordinary" ;
+    skos:definition "Identifies an Equity of Common stocks and shares." ;
+    skos:broader <https://cdm.finos.example/cdm/base/staticdata/asset/common/EquityTypeEnum> .
+
+<https://cdm.finos.example/cdm/base/staticdata/asset/common/EquityTypeEnum/NonConvertiblePreference> a owl:NamedIndividual , skos:Concept , <https://cdm.finos.example/cdm/base/staticdata/asset/common/EquityTypeEnum> ;
+    rdfs:label "NonConvertiblePreference" ;
+    skos:notation "cdm.base.staticdata.asset.common.EquityTypeEnum.NonConvertiblePreference" ;
+    skos:definition "Identifies an Equity of Non-Convertible Preference, Shares which hold priority to receive capital return in event of issuer liquidation." ;
+    skos:broader <https://cdm.finos.example/cdm/base/staticdata/asset/common/EquityTypeEnum> .
+
+<https://cdm.finos.example/cdm/base/staticdata/asset/common/EquityTypeEnum/DepositaryReceipt> a owl:NamedIndividual , skos:Concept , <https://cdm.finos.example/cdm/base/staticdata/asset/common/EquityTypeEnum> ;
+    rdfs:label "DepositaryReceipt" ;
+    skos:notation "cdm.base.staticdata.asset.common.EquityTypeEnum.DepositaryReceipt" ;
+    skos:definition "Identifies a negotiable depositary receipt certificate issued by a bank representing shares in a foreign company traded on a local stock exchange." ;
+    skos:broader <https://cdm.finos.example/cdm/base/staticdata/asset/common/EquityTypeEnum> .
+
+<https://cdm.finos.example/cdm/base/staticdata/asset/common/EquityTypeEnum/ConvertiblePreference> a owl:NamedIndividual , skos:Concept , <https://cdm.finos.example/cdm/base/staticdata/asset/common/EquityTypeEnum> ;
+    rdfs:label "ConvertiblePreference" ;
+    skos:notation "cdm.base.staticdata.asset.common.EquityTypeEnum.ConvertiblePreference" ;
+    skos:definition "Identifies an Equity of Convertible Preference, a stock which can be converted into a predetermined number of common shares and holds priority to receive capital return in event of issuer liquidation." ;
+    skos:broader <https://cdm.finos.example/cdm/base/staticdata/asset/common/EquityTypeEnum> .
+
+<https://cdm.finos.example/cdm/base/staticdata/asset/common/CollateralEntityTypeEnum> a owl:Class , skos:Concept ;
+    rdfs:label "CollateralEntityTypeEnum" ;
+    skos:notation "cdm.base.staticdata.asset.common.CollateralEntityTypeEnum" ;
+    skos:definition "Represents an enumeration list to identify the type of entity issuing or guaranteeing the collateral asset." ;
+    rdfs:isDefinedBy <https://github.com/finos/common-domain-model/blob/ced66d4/rosetta-source/src/main/rosetta/base-staticdata-asset-common-enum.rosetta> .
+
+<https://cdm.finos.example/cdm/base/staticdata/asset/common/CollateralEntityTypeEnum/SupraNational> a owl:NamedIndividual , skos:Concept , <https://cdm.finos.example/cdm/base/staticdata/asset/common/CollateralEntityTypeEnum> ;
+    rdfs:label "SupraNational" ;
+    skos:notation "cdm.base.staticdata.asset.common.CollateralEntityTypeEnum.SupraNational" ;
+    skos:definition "Specifies international organisations and multilateral banks, entities constituted by treaties or with multiple sovereign members includes Multilateral development Banks." ;
+    skos:broader <https://cdm.finos.example/cdm/base/staticdata/asset/common/CollateralEntityTypeEnum> .
+
+<https://cdm.finos.example/cdm/base/staticdata/asset/common/CollateralEntityTypeEnum/SovereignCentralBank> a owl:NamedIndividual , skos:Concept , <https://cdm.finos.example/cdm/base/staticdata/asset/common/CollateralEntityTypeEnum> ;
+    rdfs:label "SovereignCentralBank" ;
+    skos:notation "cdm.base.staticdata.asset.common.CollateralEntityTypeEnum.SovereignCentralBank" ;
+    skos:definition "Specifies Sovereign, Government Debt Securities including Central Banks." ;
+    skos:broader <https://cdm.finos.example/cdm/base/staticdata/asset/common/CollateralEntityTypeEnum> .
+
+<https://cdm.finos.example/cdm/base/staticdata/asset/common/CollateralEntityTypeEnum/QuasiGovernment> a owl:NamedIndividual , skos:Concept , <https://cdm.finos.example/cdm/base/staticdata/asset/common/CollateralEntityTypeEnum> ;
+    rdfs:label "QuasiGovernment" ;
+    skos:notation "cdm.base.staticdata.asset.common.CollateralEntityTypeEnum.QuasiGovernment" ;
+    skos:definition "Specifies institutions or bodies, typically constituted by statute, with a function mandated by the government and subject to government supervision inclusive of profit- and non-profit making bodies. Includes the US Agencies and GSEs and the EU concept of public sector entities. Excluding any entities which are also Regional Government." ;
+    skos:broader <https://cdm.finos.example/cdm/base/staticdata/asset/common/CollateralEntityTypeEnum> .
+
+<https://cdm.finos.example/cdm/base/staticdata/asset/common/CollateralEntityTypeEnum/RegionalGovernment> a owl:NamedIndividual , skos:Concept , <https://cdm.finos.example/cdm/base/staticdata/asset/common/CollateralEntityTypeEnum> ;
+    rdfs:label "RegionalGovernment" ;
+    skos:notation "cdm.base.staticdata.asset.common.CollateralEntityTypeEnum.RegionalGovernment" ;
+    skos:definition "Specifies Regional Governments including states within countries, local authorities and municipalities." ;
+    skos:broader <https://cdm.finos.example/cdm/base/staticdata/asset/common/CollateralEntityTypeEnum> .
+
+<https://cdm.finos.example/cdm/base/staticdata/asset/common/CollateralEntityTypeEnum/Corporate> a owl:NamedIndividual , skos:Concept , <https://cdm.finos.example/cdm/base/staticdata/asset/common/CollateralEntityTypeEnum> ;
+    rdfs:label "Corporate" ;
+    skos:notation "cdm.base.staticdata.asset.common.CollateralEntityTypeEnum.Corporate" ;
+    skos:definition "Specifies corporate bodies including Banks." ;
+    skos:broader <https://cdm.finos.example/cdm/base/staticdata/asset/common/CollateralEntityTypeEnum> .
+
+<https://cdm.finos.example/cdm/base/staticdata/asset/common/CollateralEntityTypeEnum/Fund> a owl:NamedIndividual , skos:Concept , <https://cdm.finos.example/cdm/base/staticdata/asset/common/CollateralEntityTypeEnum> ;
+    rdfs:label "Fund" ;
+    skos:notation "cdm.base.staticdata.asset.common.CollateralEntityTypeEnum.Fund" ;
+    skos:definition "Specifies a vehicle (with or without separate legal personality) designed for the purposes of collective investment towards a defined investment goal." ;
+    skos:broader <https://cdm.finos.example/cdm/base/staticdata/asset/common/CollateralEntityTypeEnum> .
+
+<https://cdm.finos.example/cdm/base/staticdata/asset/common/CollateralEntityTypeEnum/SpecialPurposeVehicle> a owl:NamedIndividual , skos:Concept , <https://cdm.finos.example/cdm/base/staticdata/asset/common/CollateralEntityTypeEnum> ;
+    rdfs:label "SpecialPurposeVehicle" ;
+    skos:notation "cdm.base.staticdata.asset.common.CollateralEntityTypeEnum.SpecialPurposeVehicle" ;
+    skos:definition "Specifies a vehicle setup for the purpose of acquisition and financing of specific assets on a limited recourse basis. E.g. asset backed securities, including securitisations." ;
+    skos:broader <https://cdm.finos.example/cdm/base/staticdata/asset/common/CollateralEntityTypeEnum> .
+
+<https://cdm.finos.example/cdm/base/staticdata/asset/common/SupraNationalIssuerTypeEnum> a owl:Class , skos:Concept ;
+    rdfs:label "SupraNationalIssuerTypeEnum" ;
+    skos:notation "cdm.base.staticdata.asset.common.SupraNationalIssuerTypeEnum" ;
+    skos:definition "Represents an enumeration list to identify the type of supranational entity issuing the asset." ;
+    rdfs:isDefinedBy <https://github.com/finos/common-domain-model/blob/ced66d4/rosetta-source/src/main/rosetta/base-staticdata-asset-common-enum.rosetta> .
+
+<https://cdm.finos.example/cdm/base/staticdata/asset/common/SupraNationalIssuerTypeEnum/InternationalOrganisation> a owl:NamedIndividual , skos:Concept , <https://cdm.finos.example/cdm/base/staticdata/asset/common/SupraNationalIssuerTypeEnum> ;
+    rdfs:label "InternationalOrganisation" ;
+    skos:notation "cdm.base.staticdata.asset.common.SupraNationalIssuerTypeEnum.InternationalOrganisation" ;
+    skos:definition "Specifies International Financial Institution." ;
+    skos:broader <https://cdm.finos.example/cdm/base/staticdata/asset/common/SupraNationalIssuerTypeEnum> .
+
+<https://cdm.finos.example/cdm/base/staticdata/asset/common/SupraNationalIssuerTypeEnum/MultilateralBank> a owl:NamedIndividual , skos:Concept , <https://cdm.finos.example/cdm/base/staticdata/asset/common/SupraNationalIssuerTypeEnum> ;
+    rdfs:label "MultilateralBank" ;
+    skos:notation "cdm.base.staticdata.asset.common.SupraNationalIssuerTypeEnum.MultilateralBank" ;
+    skos:definition "Specifies Multilateral Bank or Multilateral Development Bank." ;
+    skos:broader <https://cdm.finos.example/cdm/base/staticdata/asset/common/SupraNationalIssuerTypeEnum> .
+
+<https://cdm.finos.example/cdm/base/staticdata/asset/common/DebtSeniorityEnum> a owl:Class , skos:Concept ;
+    rdfs:label "DebtSeniorityEnum" ;
+    skos:notation "cdm.base.staticdata.asset.common.DebtSeniorityEnum" ;
+    skos:definition "Specifies the order of repayment in the event of a sale or bankruptcy of the issuer or a related party (eg guarantor)." ;
+    rdfs:isDefinedBy <https://github.com/finos/common-domain-model/blob/ced66d4/rosetta-source/src/main/rosetta/base-staticdata-asset-common-enum.rosetta> .
+
+<https://cdm.finos.example/cdm/base/staticdata/asset/common/DebtSeniorityEnum/Secured> a owl:NamedIndividual , skos:Concept , <https://cdm.finos.example/cdm/base/staticdata/asset/common/DebtSeniorityEnum> ;
+    rdfs:label "Secured" ;
+    skos:notation "cdm.base.staticdata.asset.common.DebtSeniorityEnum.Secured" ;
+    skos:definition "Denotes debt which is secured over assets of the issuer or a related party (eg guarantor)." ;
+    skos:broader <https://cdm.finos.example/cdm/base/staticdata/asset/common/DebtSeniorityEnum> .
+
+<https://cdm.finos.example/cdm/base/staticdata/asset/common/DebtSeniorityEnum/Senior> a owl:NamedIndividual , skos:Concept , <https://cdm.finos.example/cdm/base/staticdata/asset/common/DebtSeniorityEnum> ;
+    rdfs:label "Senior" ;
+    skos:notation "cdm.base.staticdata.asset.common.DebtSeniorityEnum.Senior" ;
+    skos:definition "Denotes debt  which ranks pari passu with all other unsecured creditors of the issuer." ;
+    skos:broader <https://cdm.finos.example/cdm/base/staticdata/asset/common/DebtSeniorityEnum> .
+
+<https://cdm.finos.example/cdm/base/staticdata/asset/common/DebtSeniorityEnum/Subordinated> a owl:NamedIndividual , skos:Concept , <https://cdm.finos.example/cdm/base/staticdata/asset/common/DebtSeniorityEnum> ;
+    rdfs:label "Subordinated" ;
+    skos:notation "cdm.base.staticdata.asset.common.DebtSeniorityEnum.Subordinated" ;
+    skos:definition "Denotes debt  owed to an unsecured creditor that in the event of a liquidation can only be paid after the claims of secured and senior creditors have been met." ;
+    skos:broader <https://cdm.finos.example/cdm/base/staticdata/asset/common/DebtSeniorityEnum> .
+
+<https://cdm.finos.example/cdm/base/staticdata/party/CounterpartyRoleEnum> a owl:Class , skos:Concept ;
+    rdfs:label "CounterpartyRoleEnum" ;
+    skos:notation "cdm.base.staticdata.party.CounterpartyRoleEnum" ;
+    skos:definition "Defines the enumerated values to specify the two counterparties to the transaction." ;
+    rdfs:isDefinedBy <https://github.com/finos/common-domain-model/blob/ced66d4/rosetta-source/src/main/rosetta/base-staticdata-party-enum.rosetta> .
+
+<https://cdm.finos.example/cdm/base/staticdata/party/CounterpartyRoleEnum/Party1> a owl:NamedIndividual , skos:Concept , <https://cdm.finos.example/cdm/base/staticdata/party/CounterpartyRoleEnum> ;
+    rdfs:label "Party1" ;
+    skos:notation "cdm.base.staticdata.party.CounterpartyRoleEnum.Party1" ;
+    skos:definition "Party1" ;
+    skos:broader <https://cdm.finos.example/cdm/base/staticdata/party/CounterpartyRoleEnum> .
+
+<https://cdm.finos.example/cdm/base/staticdata/party/CounterpartyRoleEnum/Party2> a owl:NamedIndividual , skos:Concept , <https://cdm.finos.example/cdm/base/staticdata/party/CounterpartyRoleEnum> ;
+    rdfs:label "Party2" ;
+    skos:notation "cdm.base.staticdata.party.CounterpartyRoleEnum.Party2" ;
+    skos:definition "Party2" ;
+    skos:broader <https://cdm.finos.example/cdm/base/staticdata/party/CounterpartyRoleEnum> .
+
+<https://cdm.finos.example/cdm/base/staticdata/party/AccountTypeEnum> a owl:Class , skos:Concept ;
+    rdfs:label "AccountTypeEnum" ;
+    skos:notation "cdm.base.staticdata.party.AccountTypeEnum" ;
+    skos:definition "The enumeration values to qualify the type of account." ;
+    rdfs:isDefinedBy <https://github.com/finos/common-domain-model/blob/ced66d4/rosetta-source/src/main/rosetta/base-staticdata-party-enum.rosetta> .
+
+<https://cdm.finos.example/cdm/base/staticdata/party/AccountTypeEnum/AggregateClient> a owl:NamedIndividual , skos:Concept , <https://cdm.finos.example/cdm/base/staticdata/party/AccountTypeEnum> ;
+    rdfs:label "AggregateClient" ;
+    skos:notation "cdm.base.staticdata.party.AccountTypeEnum.AggregateClient" ;
+    skos:definition "Aggregate client account, as defined under ESMA MiFIR." ;
+    skos:broader <https://cdm.finos.example/cdm/base/staticdata/party/AccountTypeEnum> .
+
+<https://cdm.finos.example/cdm/base/staticdata/party/AccountTypeEnum/Client> a owl:NamedIndividual , skos:Concept , <https://cdm.finos.example/cdm/base/staticdata/party/AccountTypeEnum> ;
+    rdfs:label "Client" ;
+    skos:notation "cdm.base.staticdata.party.AccountTypeEnum.Client" ;
+    skos:definition "The account contains trading activity or positions that belong to a client of the firm that opened the account." ;
+    skos:broader <https://cdm.finos.example/cdm/base/staticdata/party/AccountTypeEnum> .
+
+<https://cdm.finos.example/cdm/base/staticdata/party/AccountTypeEnum/House> a owl:NamedIndividual , skos:Concept , <https://cdm.finos.example/cdm/base/staticdata/party/AccountTypeEnum> ;
+    rdfs:label "House" ;
+    skos:notation "cdm.base.staticdata.party.AccountTypeEnum.House" ;
+    skos:definition "The account contains proprietary trading activity or positions, belonging to the firm that is the owner of the account." ;
+    skos:broader <https://cdm.finos.example/cdm/base/staticdata/party/AccountTypeEnum> .
+
+<https://cdm.finos.example/cdm/event/common/ValuationTypeEnum> a owl:Class , skos:Concept ;
+    rdfs:label "ValuationTypeEnum" ;
+    skos:notation "cdm.event.common.ValuationTypeEnum" ;
+    skos:definition "Method used for the valuation of the transaction by the valuation party." ;
+    rdfs:isDefinedBy <https://github.com/finos/common-domain-model/blob/ced66d4/rosetta-source/src/main/rosetta/event-common-enum.rosetta> .
+
+<https://cdm.finos.example/cdm/event/common/ValuationTypeEnum/MarkToMarket> a owl:NamedIndividual , skos:Concept , <https://cdm.finos.example/cdm/event/common/ValuationTypeEnum> ;
+    rdfs:label "MarkToMarket" ;
+    skos:notation "cdm.event.common.ValuationTypeEnum.MarkToMarket" ;
+    skos:definition "Mark-to-Market" ;
+    skos:broader <https://cdm.finos.example/cdm/event/common/ValuationTypeEnum> .
+
+<https://cdm.finos.example/cdm/event/common/ValuationTypeEnum/MarkToModel> a owl:NamedIndividual , skos:Concept , <https://cdm.finos.example/cdm/event/common/ValuationTypeEnum> ;
+    rdfs:label "MarkToModel" ;
+    skos:notation "cdm.event.common.ValuationTypeEnum.MarkToModel" ;
+    skos:definition "Mark-to-Model" ;
+    skos:broader <https://cdm.finos.example/cdm/event/common/ValuationTypeEnum> .

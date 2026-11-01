@@ -181,6 +181,24 @@ function tableCells(model, t, example) {
       );
     }
   }
+  if (t.feed) {
+    const calc = t.feed.calculated.map((x) => `\`${x.column}\` (from ${x.rule})`).join(", ");
+    cells.push(
+      md(
+        "### Recalculate",
+        "",
+        `This is a calculation table. Its calculated fields, ${calc}, come from the policy's rules; the other fields are reported. \`${t.name}_feed\` shows what a recalculation would record now. Running it adds a new version of each run, and every earlier result stays in the history.`
+      ),
+      code(`con.sql(f"SELECT * FROM {TABLE}_feed").df()`),
+      code(
+        `cols = ", ".join(${py(t.feed.columns)})`,
+        `con.execute(f"INSERT INTO {TABLE} ({cols}) SELECT {cols} FROM {TABLE}_feed")`,
+        `con.sql(f"SELECT {KEY}, recorded_at, record_source, ${t.feed.calculated.map((x) => x.column).join(", ")} FROM {TABLE}_history ORDER BY {KEY}, recorded_at").df()`
+      ),
+      md("The results now come from the latest calculation:"),
+      code("policy_results().T")
+    );
+  }
   return cells;
 }
 

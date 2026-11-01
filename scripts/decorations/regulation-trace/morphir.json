@@ -3,6 +3,8 @@
     "sourceDirectory": "src",
     "exposedModules": [
         "SpecLink",
-        "Description"
+        "Description",
+        "CalculatedFrom",
+        "Domain"
     ]
 }

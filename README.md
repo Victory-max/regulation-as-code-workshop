@@ -53,26 +53,29 @@ rule by rule, asking whether each one matches your intent.
 
 This time the source is the regulation, not you. Paste:
 
-> I'm in Treasury. Our liquidity reporting follows the FR 2052a instructions in
-> specs/fr2052a-retail-deposits.md. Please formalize how our retail and small-business
-> deposits (O.D.1 to O.D.3, O.D.14 and O.D.15) map to the LCR outflow rules (10) to (14).
+> I'm in Treasury. We're supervised by the Prudential Liquidity Authority, and our liquidity
+> reporting follows PLA Rule 14 and the Form PL-7 instructions in
+> specs/pl7-retail-deposits.md. Please formalize how our retail and small-business deposits
+> (R.1 to R.5) map to the outflow rules 14.21 to 14.25.
 
 Claude reads the instructions, confirms the sections it will cover, and asks you wherever
 the text is silent or ambiguous. Every rule it produces links back to the section it came
 from: you'll see those links on the **Decorations** tab during the visual review.
 
-### Part 3 (optional, if you finish early): HQLA
+### Part 3 (optional, if you finish early): liquid assets and the LRR
 
-The other side of the LCR: the high-quality liquid assets that cover those outflows. Paste:
+The other side of the Liquidity Resilience Ratio (LRR): the eligible liquid assets that
+cover those outflows. Paste:
 
-> Next, our HQLA amount. Use the FR 2052a instructions in specs/fr2052a-hqla.md: I.A.1
-> unencumbered assets, the asset categories in Appendix III, rule (1), and the HQLA amount
-> in the LCR Calculation.
+> Next, our stock of eligible liquid assets and the LRR itself. Use specs/pl7-liquid-assets.md:
+> L.1 unrestricted assets, the asset codes in Schedule B, rule 14.6, the LRR Calculation, the
+> scaling factor and the minimum requirement.
 
-Expect Claude to agree what is out of scope (haircut values and the secured unwinds) before
-it builds. The HQLA amount is built from smaller measures (Level 1, 2A and 2B values and
-the cap excesses), and in Beat 3 each becomes a metric in the catalog, linked to the ones
-it is built from.
+The LRR needs parts this workshop doesn't model (other outflows, inflows, the concentration
+add-on): Claude keeps the full formula and treats those parts as reported, while the stock of
+liquid assets and the retail outflows are calculated from your rules. Each LRR run is
+recorded in its own table, with its history. In Beat 3 the LRR becomes the top metric in the
+catalog, linked to the measures it is built from.
 
 Beat 1 ends when you've confirmed every rule.
 
@@ -113,6 +116,18 @@ Claude generates, from the same verified policy:
 - metric definitions in the Open Semantic Interchange (OSI) format;
 - a domain ontology (Turtle), ready to link to an upper ontology such as FIBO.
 
+Then relate the policy to the industry's vocabulary:
+
+> Align our policy terms to FIBO, using the FIBO subset in ontologies/fibo/.
+
+> Now align our policy's fields and values to CDM, using the CDM subset in ontologies/cdm/.
+
+FIBO says what each concept **is**; CDM says where its data **lives** in trade and collateral
+data. For each, Claude writes a separate alignment file with the reason for every mapping, and
+lists what the standard has no counterpart for. In the catalog, each policy term then links to
+the FIBO and CDM terms by the standard SKOS predicate (close match, broad match), and every
+column reaches them through its business term.
+
 ## Beat 4: What's next in Morphir
 
 Facilitator presentation.
@@ -124,7 +139,7 @@ If Wi-Fi or Claude is slow, your facilitator may ask you to continue from a pre-
 ```bash
 bash scripts/bootstrap-enterprise.sh --cheat-sheet scra   # Beat 1 part 1
 bash scripts/bootstrap-enterprise.sh --cheat-sheet lcr    # Beat 1 part 2
-bash scripts/bootstrap-enterprise.sh --cheat-sheet hqla   # Beat 1 part 3
+bash scripts/bootstrap-enterprise.sh --cheat-sheet lcr-calculation   # Beat 1 part 3
 ```
 
 ## What's in this repo (for the curious)
@@ -134,4 +149,6 @@ bash scripts/bootstrap-enterprise.sh --cheat-sheet hqla   # Beat 1 part 3
 | `.claude/skills/morphir-logic-formalization/` | The skill that tells Claude how to formalize your policy silently |
 | `scripts/` | Compiler gate, Morphir → SQL transpilers, zero-drift check, bootstrap |
 | `cheat-sheet/` | Pre-built verified policies for the fallback |
-| `specs/` | FR 2052a excerpts used as the regulation source |
+| `specs/` | Excerpts of PLA Rule 14 and the Form PL-7 instructions, the regulation source |
+| `ontologies/fibo/` | A subset of FIBO (MIT-licensed, EDM Council) for aligning the policy's terms |
+| `ontologies/cdm/` | A subset of the FINOS CDM rendered as RDF (Community Specification License 1.0) |

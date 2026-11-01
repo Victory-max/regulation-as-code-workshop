@@ -1,0 +1,4 @@
+{
+  "Fiction.Bank:Lrr.Calculation:lrrCalculation.type#stockOfEligibleLiquidAssets": "Lrr.LiquidAssets.stockOfEligibleLiquidAssets",
+  "Fiction.Bank:Lrr.Calculation:lrrCalculation.type#retailOutflowAmount": "Lrr.Outflows.RetailDeposits.totalRetailOutflows"
+}

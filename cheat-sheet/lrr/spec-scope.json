@@ -1,0 +1,28 @@
+{
+ "include": [
+  "specs/pl7-retail-deposits.md",
+  "specs/pl7-liquid-assets.md"
+ ],
+ "outOfScope": [
+  {
+   "url": "specs/pl7-liquid-assets.md#field-definitions",
+   "reason": "Grouping heading only; its sections are linked individually."
+  },
+  {
+   "url": "specs/pl7-liquid-assets.md#key",
+   "reason": "Notation key for the rule tables; not a rule."
+  },
+  {
+   "url": "specs/pl7-liquid-assets.md#rule-14-liquidity-resilience-ratio",
+   "reason": "Grouping heading; the LRR Calculation, scaling factor, minimum requirement and rule 14.6 are linked individually."
+  },
+  {
+   "url": "specs/pl7-retail-deposits.md#field-definitions",
+   "reason": "Grouping heading only; its sections are linked individually."
+  },
+  {
+   "url": "specs/pl7-retail-deposits.md#key",
+   "reason": "Notation key for the rule tables; not a rule."
+  }
+ ]
+}

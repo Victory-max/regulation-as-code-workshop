@@ -1,0 +1,40 @@
+{
+    "name": "Fiction.Bank",
+    "sourceDirectory": "src",
+    "exposedModules": [
+        "Pl7.Fields.Counterparty",
+        "Pl7.Fields.Guarantee",
+        "Pl7.Tables.RetailDeposits",
+        "Lrr.Outflows.RetailDeposits",
+        "Pl7.Fields.AssetCode",
+        "Pl7.Tables.LiquidAssets",
+        "Lrr.LiquidAssets",
+        "Lrr.Calculation"
+    ],
+    "decorations": {
+        "specLink": {
+            "displayName": "Specification",
+            "ir": "scripts/decorations/regulation-trace/morphir-ir.json",
+            "entryPoint": "Regulation.Trace:SpecLink:SpecLinks",
+            "storageLocation": "spec-links.json"
+        },
+        "description": {
+            "displayName": "Business description",
+            "ir": "scripts/decorations/regulation-trace/morphir-ir.json",
+            "entryPoint": "Regulation.Trace:Description:Description",
+            "storageLocation": "descriptions.json"
+        },
+        "calculatedFrom": {
+            "displayName": "Calculated from",
+            "ir": "scripts/decorations/regulation-trace/morphir-ir.json",
+            "entryPoint": "Regulation.Trace:CalculatedFrom:CalculatedFrom",
+            "storageLocation": "calculated-from.json"
+        },
+        "domain": {
+            "displayName": "Business domain",
+            "ir": "scripts/decorations/regulation-trace/morphir-ir.json",
+            "entryPoint": "Regulation.Trace:Domain:Domain",
+            "storageLocation": "domains.json"
+        }
+    }
+}

@@ -64,7 +64,7 @@ function writeOntology(model, outDir, { baseIri } = {}) {
     for (const f of t.fields) {
       const r = range(f.tpe);
       out.push(
-        `<${iris.member(t, f.name)}> a ${r.object ? "owl:ObjectProperty" : "owl:DatatypeProperty"} ;`,
+        `<${iris.fieldProperty(t, f.name)}> a ${r.object ? "owl:ObjectProperty" : "owl:DatatypeProperty"} ;`,
         `    rdfs:label ${lit(f.name)} ;`,
         ...(f.description ? [`    rdfs:comment ${lit(f.description)} ;`] : []),
         ...refs(f.specLinks),
@@ -75,20 +75,17 @@ function writeOntology(model, outDir, { baseIri } = {}) {
     }
   }
 
-  // Policy rules as derived properties of the entity they are computed for.
+  // Policy functions as derived properties of the entity they are computed for, at the
+  // function's own IRI (one Morphir node, one IRI). A function returning a record ranges over
+  // that record's class, whose fields are properties of their own above.
   for (const rule of model.rules.filter((x) => !x.aggregate)) {
     const entity = model.tables.find((x) => x.name === rule.table);
     const domain = typeByFqn.get(JSON.stringify(entity.entityType[2]));
-    for (const o of rule.outputs) {
-      const fields = model.ir.recordFieldsOf(model.index, rule.def.outputType);
-      const tpe = fields ? fields.find((f) => model.ir.toSnake(f.name) === o.column.replace(/_result$/, "")).tpe : rule.def.outputType;
-      const r = range(tpe);
-      const name = fields ? `${rule.name}.${o.morphirField}` : rule.name;
-      out.push(`<${iris.member(domain, name)}> a ${r.object ? "owl:ObjectProperty" : "owl:DatatypeProperty"} ;`, `    rdfs:label ${lit(o.title)} ;`);
-      out.push(`    rdfs:comment ${lit(`Derived by policy rule ${rule.rule}.${rule.doc ? ` ${rule.doc}` : ""}`)} ;`);
-      out.push(...refs(rule.specLinks));
-      out.push(`    rdfs:domain ${cls(domain)} ;`, `    rdfs:range ${r.iri} .`, "");
-    }
+    const r = range(rule.def.outputType);
+    out.push(`<${iris.rule(rule)}> a ${r.object ? "owl:ObjectProperty" : "owl:DatatypeProperty"} ;`, `    rdfs:label ${lit(rule.title)} ;`);
+    out.push(`    rdfs:comment ${lit(`Derived by policy function ${rule.rule}.${rule.doc ? ` ${rule.doc}` : ""}`)} ;`);
+    out.push(...refs(rule.specLinks));
+    out.push(`    rdfs:domain ${cls(domain)} ;`, `    rdfs:range ${r.iri} .`, "");
   }
 
   const file = path.join(dir, `${pkg}-policy.ttl`);

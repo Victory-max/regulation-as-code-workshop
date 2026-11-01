@@ -1,6 +1,6 @@
 ---
 name: morphir-logic-formalization
-description: Silently turn a Subject Matter Expert's plain-English policy (credit card APR caps, fee waivers, SCRA relief, LCR / FR 2052a run-off rates, any business rule) into a compiled, verified Morphir model and canonical morphir-ir.json, then guide them through reviewing it visually. Use whenever the SME describes, changes, or asks about business rules, even if they never say "Morphir", "model", or "code".
+description: Silently turn a Subject Matter Expert's plain-English policy (credit card APR caps, fee waivers, SCRA relief, liquidity ratios and run-off rates from a regulator's rule, any business rule) into a compiled, verified Morphir model and canonical morphir-ir.json, then guide them through reviewing it visually. Use whenever the SME describes, changes, or asks about business rules, even if they never say "Morphir", "model", or "code".
 ---
 
 # Morphir logic formalization
@@ -45,7 +45,7 @@ Add further modules when the source's structure calls for it (see "Design for bu
 comprehension"); every module goes in `exposedModules`.
 
 `<Domain>` is a short business name you choose from the conversation: `Scra` for the
-servicemember credit-card policy, `Lcr` for liquidity outflows, etc. `morphir.json`:
+servicemember credit-card policy, `Lrr` for liquidity outflows, etc. `morphir.json`:
 
 ```json
 {
@@ -108,9 +108,16 @@ not as a later step.
 - **`spec-links.json`** (only when working from a specification): links for every type and
   rule, and for each field and case that a spec section defines. See "Working from a
   specification".
+- **`domains.json`**: the business domain that owns each entity record (`"Liquidity Risk"`,
+  `"Consumer Cards"`), keyed by the record type's node ID. Ask the SME which domain owns the
+  policy area (one short question, offering a sensible name); in the catalog its tables, rules
+  and metrics go in that domain and are grouped into the domain's data product.
+- **`calculated-from.json`** (only for a calculation record, below): for each field filled by
+  one of the model's aggregate rules, that rule's name as `<Module>.<rule>`
+  (`"Lrr.LiquidAssets.stockOfEligibleLiquidAssets"`), keyed by the field's node ID.
 - Keys are Morphir node IDs: `<Package>:<Module>:<name>.type`, `<...>.type#<fieldOrCase>`,
   `<...>.value`. Get the exact IDs from `node scripts/spec-trace.js . --nodes` after
-  compiling; Morphir title-cases module names (`Fr2052a` becomes `Fr2052A`), so never type
+  compiling; Morphir title-cases module names (`Pl7a` becomes `Pl7A`), so never type
   them by hand.
 - Register both decorations in `morphir.json`, so the viewer shows them on its Decorations
   tab:
@@ -127,10 +134,44 @@ not as a later step.
           "ir": "scripts/decorations/regulation-trace/morphir-ir.json",
           "entryPoint": "Regulation.Trace:SpecLink:SpecLinks",
           "storageLocation": "spec-links.json"
+      },
+      "domain": {
+          "displayName": "Business domain",
+          "ir": "scripts/decorations/regulation-trace/morphir-ir.json",
+          "entryPoint": "Regulation.Trace:Domain:Domain",
+          "storageLocation": "domains.json"
+      },
+      "calculatedFrom": {
+          "displayName": "Calculated from",
+          "ir": "scripts/decorations/regulation-trace/morphir-ir.json",
+          "entryPoint": "Regulation.Trace:CalculatedFrom:CalculatedFrom",
+          "storageLocation": "calculated-from.json"
       }
   }
   ```
-  (`specLink` only when working from a specification.)
+  (`specLink` only when working from a specification; `calculatedFrom` only with a
+  calculation record.)
+
+### Calculation records (a top-level figure such as a liquidity ratio)
+
+When a formula combines totals from different parts of the policy (a liquidity ratio divides the
+stock of liquid assets by net stressed outflows), model one **calculation record** holding those totals as
+fields (`LrrCalculation { calculationId, supervisoryCategory, stockOfEligibleLiquidAssets, retailOutflowAmount, ... }`)
+and write the formula as rules over it (`netStressedOutflows`, `liquidityResilienceRatio`).
+
+- Each total the model already calculates is a field marked in `calculated-from.json` with the
+  aggregate rule that produces it. When the calculation runs, the field is filled from that
+  rule's result.
+- Each part of the formula the model does not cover yet (slices not in scope) is a **reported**
+  field with no calculated-from entry, described as reported in `descriptions.json`. Keep the
+  full formula even when most parts are reported; the gaps stay visible and later slices fill
+  them in.
+- Split a total when only part of it is calculated (`retailOutflowAmount` calculated,
+  `otherOutflowAmount` reported) rather than mixing the two in one field.
+
+The calculation table is bitemporal like every other: each run, recalculation or correction is
+a new version, and earlier results stay in its history. The database gets a `<table>_feed` view
+that shows what a recalculation would record now.
 
 ## Design for business comprehension
 
@@ -143,7 +184,7 @@ would: its concepts, its decisions, and why. Optimize for that over brevity or c
   `NtRelAcct`). Rules read as the business question they answer: `isStableRetailDeposit`,
   `runoffRateFor`, `effectiveApr`.
 - **Mirror the source's structure.** One module per business area or spec section (e.g.
-  `Fr2052a.OutflowsDeposits`), definitions in the same order as the source, so a reader can
+  `Pl7.RetailDeposits`), definitions in the same order as the source, so a reader can
   hold the spec and the model side by side. The `Types` module reads like a glossary.
 - **Choices are named categories, not flags.** Prefer a custom type to a `Bool` or `String`
   whenever the business distinguishes cases (`Insured = FdicInsured | OtherInsured |
@@ -176,12 +217,12 @@ following the spec's own structure. (Reference: the FINOS `open-reg-tech-us-lcr`
 
 - **Separate what the spec separates.** A reporting spec usually has data definitions
   (fields, tables) and calculation rules that consume them. Model them as two module trees:
-  e.g. `Fr2052a.Fields.*` and `Fr2052a.DataTables.*` for the report, `Lcr.*` for the
+  e.g. `Pl7.Fields.*` and `Pl7.Tables.*` for the report, `Lrr.*` for the
   calculations over it.
 - **One module per spec unit, named and nested as the spec names it.** One module per field
-  definition (`Fr2052a.Fields.Counterparty`, `Fr2052a.Fields.MaturityBucket`), one per data
-  table (`Fr2052a.DataTables.Outflows.Deposits`), one per rule group
-  (`Lcr.Outflows.Deposits`). Don't invent groupings the spec doesn't have
+  definition (`Pl7.Fields.Counterparty`, `Pl7.Fields.Guarantee`), one per data
+  table (`Pl7.Tables.RetailDeposits`), one per rule group
+  (`Lrr.Outflows.RetailDeposits`). Don't invent groupings the spec doesn't have
   ("SecuredOutflowCriteria", "InflowCategories"), and don't pile many spec units into one
   module: a module past a few hundred lines is a missing split.
 - **Put the spec's identifiers in rule names** when the spec numbers its rules, alongside the
@@ -199,7 +240,7 @@ following the spec's own structure. (Reference: the FINOS `open-reg-tech-us-lcr`
 ## Working from a specification
 
 Sometimes the SME points at a regulation or specification instead of describing the policy
-themselves ("our deposit reporting follows the FR 2052a instructions at <link>"). The
+themselves ("our deposit reporting follows the PL-7 instructions at <link>"). The
 conversation stays the same: business language, silent technical work, gaps become
 questions. What changes is that every part of the model must trace back to the section of
 the spec it came from.
@@ -207,19 +248,23 @@ the spec it came from.
 1. **Get the spec into `specs/`.** For a GitHub folder link, run silently
    `bash scripts/fetch-specs.sh <url>`. It downloads the Markdown into `specs/` and records
    the exact revision in `specs/source.json`. If `specs/` already holds the documents, use
-   them as they are. Tell the SME only what they need: "I've loaded the FR 2052a
-   instructions, 29 documents."
+   them as they are. Tell the SME only what they need: "I've loaded the PL-7
+   instructions, 2 documents."
+   **The spec and the SME are the only sources.** Never fill a rate, threshold, category or
+   formula from general knowledge of a regulation that looks similar: a rule can resemble a
+   well-known one and still differ in every number. Anything the spec doesn't state is a gap:
+   ask the SME.
 2. **Read before modeling.** Start with the spec's README or index. Note any statement about
-   which source is authoritative (e.g. "the PDF remains authoritative") and mention it once
+   which source is authoritative (e.g. "the Rule text remains authoritative") and mention it once
    to the SME.
 3. **Agree the scope first.** A full regulation is too much for one pass. Propose a first
-   slice in business terms, naming the sections (e.g. "the Outflows-Deposits table: O.D.1
-   transactional accounts through O.D.3 non-relationship accounts"), and wait for the SME to
+   slice in business terms, naming the sections (e.g. "Part R retail deposits: R.1
+   operating accounts through R.3 rate-seeking savings"), and wait for the SME to
    agree. Record it in `spec-scope.json`:
    ```json
-   { "include": ["specs/03-product-definitions/O.D-outflows-deposits.md#od1-transactional-accounts"],
-     "outOfScope": [{ "url": "specs/03-product-definitions/O.D-outflows-deposits.md#od4-operational-account-balances",
-                      "reason": "Deferred by the SME: operational deposits come later" }] }
+   { "include": ["specs/pl7-retail-deposits.md#r1-operating-accounts"],
+     "outOfScope": [{ "url": "specs/pl7-retail-deposits.md#r4-intermediated-deposits",
+                      "reason": "Deferred by the SME: intermediated deposits come later" }] }
    ```
    An entry without `#anchor` means every section of that file. Out-of-scope reasons are the
    SME's decision, in their words.
@@ -235,14 +280,14 @@ the spec it came from.
    in its doc comment ("Interpretation confirmed by the SME: ...").
 6. **Link every type and rule** in `spec-links.json`, private helpers included, plus each
    record field and choice case that a spec section defines (e.g. each product case to its
-   O.D.n section). Values are lists of sections, most specific first:
+   R.n section). Values are lists of sections, most specific first:
    ```json
-   { "Fiction.Bank:Lcr.Outflows.Deposits:rule10StableRetailDeposits.value": [
-       { "section": "(10) Stable Retail Deposits (§.32(a)(1))",
-         "url": "specs/fr2052a-retail-deposits.md#10-stable-retail-deposits-32a1" } ],
-     "Fiction.Bank:Fr2052A.DataTables.Outflows.Deposits:product.type#transactionalAccounts": [
-       { "section": "O.D.1: Transactional Accounts",
-         "url": "specs/fr2052a-retail-deposits.md#od1-transactional-accounts" } ] }
+   { "Fiction.Bank:Lrr.Outflows.RetailDeposits:guaranteedCoreRetailDeposits.value": [
+       { "section": "(14.21) Guaranteed Core Retail Deposits",
+         "url": "specs/pl7-retail-deposits.md#1421-guaranteed-core-retail-deposits" } ],
+     "Fiction.Bank:Pl7.Tables.RetailDeposits:product.type#operatingAccounts": [
+       { "section": "R.1: Operating Accounts",
+         "url": "specs/pl7-retail-deposits.md#r1-operating-accounts" } ] }
    ```
    - Node IDs: see "Descriptions and links" (use `--nodes`; never hand-type them).
    - `section`: the heading text exactly as written in the spec.
@@ -404,7 +449,8 @@ database exists (run the bootstrap first if `out/enterprise.db` is missing), the
 | `context/` | Agent context: business questions and the SQL that answers each correctly |
 | `evals/` | Those questions with golden answers, plus the SME's own examples; grade answers with `node scripts/knowledge/grade-evals.js` |
 | `glossary/` | The business glossary in SKOS (Turtle), at the same IRIs as the ontology |
-| `datahub/` | For DataHub: a metric per aggregate rule (its SQL, the aggregates it is built from, tagged with the glossary term of the same name); a logical model per policy entity linked to its physical tables and columns, the table and question guides as context documents related to those models, descriptions and column-level lineage (`mcps.json`); the evals, each linked to its question guide (`evals-mcps.json`); and three recipes |
+| `assertions/` | Data quality checks derived from the model, with results from the database: allowed values for every choice (and, on each logical model, the same values checked in lower case), required fields, unique keys, divisors above zero, and calculated fields up to date with their rules. They go to DataHub with their latest result |
+| `datahub/` | For DataHub: typed relationships (each policy term to the metric that calculates it, and to its FIBO and CDM terms, queryable with SPARQL); business domains and a data product per domain (current and history views plus the final policy results as output ports); a metric per aggregate rule (its SQL, the aggregates it is built from, tagged with the glossary term of the same name); a logical model per policy entity linked to its physical tables and columns, the table and question guides as context documents related to those models, descriptions and column-level lineage (`mcps.json`); the evals, each linked to its question guide (`evals-mcps.json`); and three recipes |
 | `ossie/` | Metric definitions in Apache Ossie (Open Semantic Interchange) format |
 | `ontology/` | A domain ontology in Turtle, ready to align with an upper ontology such as FIBO |
 
@@ -412,21 +458,63 @@ Summarize what each gives the bank, in business terms, and offer to open any of 
 
 By default the DataHub metadata describes the workspace database (named after its file, env
 `DEV`). Before loading, ask which tables the catalog should describe: the workspace database,
-or the bank's real tables. For real tables, regenerate with
+or the bank's real tables. Ask this even when the SME has just told you to load, unless they
+have already answered it in this conversation, and wait for the answer before running any
+load step. For real tables, regenerate with
 `node scripts/morphir-to-knowledge.js --database <name> --env PROD` using the name and
 environment the catalog already uses for them. Loading sends metadata to an external system:
 only do it when the SME asks and a DataHub connection is configured (`DATAHUB_GMS_URL`,
-`DATAHUB_GMS_TOKEN`), and confirm first. Load in four steps, in order:
+`DATAHUB_GMS_TOKEN`), and confirm first. Before loading, run
+`node scripts/knowledge/sanity-check.js` and load only when every check passes. Load in four steps, in order:
 `datahub ingest -c out/knowledge/datahub/glossary-recipe.yml` (the glossary, through DataHub's
 RDF source so terms keep their IRIs), then
 `PYTHONPATH=scripts/datahub datahub ingest -c out/knowledge/datahub/duckdb-recipe.yml` (the
 database; skip it for real tables already in the catalog), then
 `datahub ingest -c out/knowledge/datahub/recipe.yml` (logical models, context documents,
 descriptions and lineage), then `datahub ingest -c out/knowledge/datahub/evals-recipe.yml`.
+Where the instance has relationship properties enabled, finish with the typed relationships:
+`node scripts/datahub/set-relationships.js out/knowledge/datahub/relationships.json`, then
+`datahub ingest -c out/knowledge/datahub/relationships-recipe.yml`.
 These need `pip install 'acryl-datahub[sqlalchemy,rdf]' duckdb==1.5.5 duckdb-engine`.
 To start over, `bash out/knowledge/datahub/reset.sh` hard-deletes exactly what a load created
 (listed in `urns.txt`) and nothing else; confirm with the SME first, and preview with `-n`.
-Aligning the ontology to FIBO happens in an ontology tool, not here.
+## Aligning to industry standards: FIBO and CDM (only when the SME asks)
+
+Two subsets ship with the workspace, each a separate alignment target:
+
+- `ontologies/fibo/fibo-subset.ttl`: FIBO, the Financial Industry Business Ontology. It says
+  what a concept **is** (a credit card account, a central bank). Write the alignment to
+  `ontologies/fibo-alignment.ttl`.
+- `ontologies/cdm/cdm-subset.ttl`: the FINOS Common Domain Model, rendered as RDF. It says where
+  a value **lives** in trade and collateral data (a valuation's amount, a collateral issuer
+  type). Write the alignment to `ontologies/cdm-alignment.ttl`. Map fields to CDM attributes
+  where you can, and values to CDM enumeration values; CDM models trades and collateral, so many
+  consumer-banking concepts have no counterpart.
+
+Both alignments follow the same rules. Generate the knowledge outputs first if
+`out/knowledge/` is missing; the generators never overwrite an alignment file.
+
+- Map the policy's glossary terms (the IRIs in `out/knowledge/glossary/`: types, values,
+  functions, and fields of built-in types; a field of one of the policy's own types is that
+  type's term) to the standard, always as `<policy term> relation <standard's term>`. Use only IRIs that appear in those files and in the subset; never invent or
+  recall one.
+- Choose the relation from the definitions: `skos:exactMatch` only when the definitions say the
+  same thing; `skos:closeMatch` when nearly; `skos:broadMatch` when the policy concept is a kind
+  of the standard's (an asset category under "corporate bond"); `skos:narrowMatch` for the
+  reverse; `skos:relatedMatch` for an association (an asset category and its issuer type).
+- Write a one-line `#` comment above each mapping giving the reason, in business terms.
+- Leave a concept unmapped rather than force it, and list the unmapped ones in a closing
+  comment. The gaps are useful: they show what the bank's policy adds to the industry standard.
+- Where two readings are plausible (is a retail counterparty a natural person?), ask the SME.
+- Check with `node scripts/check-alignment.js --standard fibo` (or `cdm`), fix any errors, then
+  rerun `node scripts/morphir-to-knowledge.js`. In DataHub, each mapped glossary term (types,
+  values, fields and functions are all terms) then gets an edge to the standard's term whose
+  relationship type is the standard predicate itself (skos:closeMatch, skos:broadMatch,
+  rdfs:subClassOf, ...), which SPARQL can query; columns reach it through their terms. Summarize for the SME: what maps to what, and what has no counterpart.
+
+Loading into DataHub adds a step after the glossary for each standard:
+`datahub ingest -c out/knowledge/datahub/fibo-recipe.yml` and `cdm-recipe.yml` (the subsets as
+glossary terms). The reset covers them.
 
 Do not read or copy `cheat-sheet/`, `facilitator/`, or `repos/` while formalizing the SME's
 policy: the policy must come from the SME. (`repos/payments-app/`, when present, may be used as

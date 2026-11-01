@@ -12,7 +12,7 @@ const nodeId = (fqn, kind) => `${ir.pathToString(fqn[0])}:${ir.pathToString(fqn[
 
 // "militaryStatus" / ["military","status"] -> "Military status". A letter after a number
 // joins it ("level 2 a" -> "Level 2A"), and words written in capitals in the given text keep
-// that casing ("hqla amount" with a doc saying "HQLA" -> "HQLA amount").
+// that casing ("lrr calculation" with a doc saying "LRR" -> "LRR calculation").
 const humanize = (name, text = "") => {
   const words = (Array.isArray(name) ? name : String(name).split("_")).map(String);
   const caps = new Set((String(text).match(/\b[A-Z]{2,}\b/g) || []).map((w) => w.toLowerCase()));
@@ -52,6 +52,11 @@ function loadModel({ irPath, projectDir = "." }) {
 
   const tables = entityTables(index).map((t) => ({
     ...t,
+    // A calculation table: calculated columns (and the aggregate rules that fill them) and the
+    // <table>_feed view that recalculates it; null for an ordinary table.
+    feed: (manifest.feeds || []).find((f) => f.table === t.name) || null,
+    // The business domain that owns the entity (domains decoration), else the policy as a whole.
+    domain: (decorations.domainFor && decorations.domainFor(deco.typeId(t.entityType[2]))) || `${ir.pathToString(index.packagePath)} policy`,
     title: humanize(ir.aliasName(t.entityType)),
     specLinks: specLinksFor(nodeId(t.entityType[2], "type")),
     columns: t.columns.map((c) => {
@@ -88,7 +93,7 @@ function loadModel({ irPath, projectDir = "." }) {
     name: ir.toTitle(t.fqn[2]),
     module: ir.pathToString(t.fqn[1]),
     doc: t.doc.trim(),
-    kind: t.def[0] === "CustomTypeDefinition" ? "choice" : "record",
+    kind: t.def[0] === "CustomTypeDefinition" ? "choice" : t.def[2][0] === "Record" ? "record" : "alias",
     values: t.def[0] === "CustomTypeDefinition" ? t.def[2].value.map(([n]) => ir.toTitle(n)) : [],
     valueInfo:
       t.def[0] === "CustomTypeDefinition"
@@ -106,6 +111,18 @@ function loadModel({ irPath, projectDir = "." }) {
         : [],
     specLinks: specLinksFor(nodeId(t.fqn, "type")),
   }));
+
+  // Which other policy rules each rule calls (inside let definitions too); a rule no other rule
+  // calls is a final output, the others are interim steps.
+  const ruleByKey = new Map(rules.map((r) => [ir.fqnKey(r.fqn), r]));
+  const callsIn = (node, found) => {
+    if (!node || typeof node !== "object") return found;
+    if (Array.isArray(node) && node[0] === "Reference" && Array.isArray(node[2]) && node[2].length === 3 && ruleByKey.has(ir.fqnKey(node[2]))) found.add(ruleByKey.get(ir.fqnKey(node[2])));
+    Object.values(node).forEach((child) => callsIn(child, found));
+    return found;
+  };
+  for (const r of rules) r.calls = [...callsIn(r.def.body, new Set())].filter((x) => x !== r);
+  for (const r of rules) r.calledBy = rules.filter((x) => x.calls.includes(r));
 
   return { index, ir, decorations, annotationText: deco.annotationText, packageName: ir.pathToString(index.packagePath), tables, rules, types, nodeId, humanize, describeType };
 }

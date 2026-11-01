@@ -2,10 +2,9 @@
     "name": "Fiction.Bank",
     "sourceDirectory": "src",
     "exposedModules": [
-        "Fr2052a.Fields.Counterparty",
-        "Fr2052a.Fields.Insured",
-        "Fr2052a.DataTables.Outflows.Deposits",
-        "Lcr.Outflows.Deposits"
+        "Pl7.Fields.AssetCode",
+        "Pl7.Tables.LiquidAssets",
+        "Lrr.LiquidAssets"
     ],
     "decorations": {
         "specLink": {
@@ -19,6 +18,12 @@
             "ir": "scripts/decorations/regulation-trace/morphir-ir.json",
             "entryPoint": "Regulation.Trace:Description:Description",
             "storageLocation": "descriptions.json"
+        },
+        "domain": {
+            "displayName": "Business domain",
+            "ir": "scripts/decorations/regulation-trace/morphir-ir.json",
+            "entryPoint": "Regulation.Trace:Domain:Domain",
+            "storageLocation": "domains.json"
         }
     }
 }

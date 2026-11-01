@@ -1,0 +1,300 @@
+{
+  "Fiction.Bank:Pl7.Fields.AssetCode:assetCode.type": [
+    {
+      "section": "Asset Code",
+      "url": "specs/pl7-liquid-assets.md#asset-code"
+    },
+    {
+      "section": "Schedule B: Asset Code Table",
+      "url": "specs/pl7-liquid-assets.md#schedule-b-asset-code-table"
+    }
+  ],
+  "Fiction.Bank:Pl7.Fields.AssetCode:tier.type": [
+    {
+      "section": "Schedule B: Asset Code Table",
+      "url": "specs/pl7-liquid-assets.md#schedule-b-asset-code-table"
+    },
+    {
+      "section": "LRR Calculation",
+      "url": "specs/pl7-liquid-assets.md#lrr-calculation"
+    }
+  ],
+  "Fiction.Bank:Pl7.Fields.AssetCode:tier.value": [
+    {
+      "section": "Schedule B: Asset Code Table",
+      "url": "specs/pl7-liquid-assets.md#schedule-b-asset-code-table"
+    }
+  ],
+  "Fiction.Bank:Pl7.Fields.AssetCode:assetCode.type#gv1E": [
+    {
+      "section": "Schedule B: Asset Code Table",
+      "url": "specs/pl7-liquid-assets.md#schedule-b-asset-code-table"
+    }
+  ],
+  "Fiction.Bank:Pl7.Fields.AssetCode:assetCode.type#gv2E": [
+    {
+      "section": "Schedule B: Asset Code Table",
+      "url": "specs/pl7-liquid-assets.md#schedule-b-asset-code-table"
+    }
+  ],
+  "Fiction.Bank:Pl7.Fields.AssetCode:assetCode.type#cb0E": [
+    {
+      "section": "Schedule B: Asset Code Table",
+      "url": "specs/pl7-liquid-assets.md#schedule-b-asset-code-table"
+    }
+  ],
+  "Fiction.Bank:Pl7.Fields.AssetCode:assetCode.type#sv0E": [
+    {
+      "section": "Schedule B: Asset Code Table",
+      "url": "specs/pl7-liquid-assets.md#schedule-b-asset-code-table"
+    }
+  ],
+  "Fiction.Bank:Pl7.Fields.AssetCode:assetCode.type#sv2E": [
+    {
+      "section": "Schedule B: Asset Code Table",
+      "url": "specs/pl7-liquid-assets.md#schedule-b-asset-code-table"
+    }
+  ],
+  "Fiction.Bank:Pl7.Fields.AssetCode:assetCode.type#ps1E": [
+    {
+      "section": "Schedule B: Asset Code Table",
+      "url": "specs/pl7-liquid-assets.md#schedule-b-asset-code-table"
+    }
+  ],
+  "Fiction.Bank:Pl7.Fields.AssetCode:assetCode.type#cv1E": [
+    {
+      "section": "Schedule B: Asset Code Table",
+      "url": "specs/pl7-liquid-assets.md#schedule-b-asset-code-table"
+    }
+  ],
+  "Fiction.Bank:Pl7.Fields.AssetCode:assetCode.type#cr1E": [
+    {
+      "section": "Schedule B: Asset Code Table",
+      "url": "specs/pl7-liquid-assets.md#schedule-b-asset-code-table"
+    }
+  ],
+  "Fiction.Bank:Pl7.Fields.AssetCode:assetCode.type#eq1E": [
+    {
+      "section": "Schedule B: Asset Code Table",
+      "url": "specs/pl7-liquid-assets.md#schedule-b-asset-code-table"
+    }
+  ],
+  "Fiction.Bank:Pl7.Fields.AssetCode:assetCode.type#ps1": [
+    {
+      "section": "Schedule B: Asset Code Table",
+      "url": "specs/pl7-liquid-assets.md#schedule-b-asset-code-table"
+    }
+  ],
+  "Fiction.Bank:Pl7.Fields.AssetCode:assetCode.type#eq1": [
+    {
+      "section": "Schedule B: Asset Code Table",
+      "url": "specs/pl7-liquid-assets.md#schedule-b-asset-code-table"
+    }
+  ],
+  "Fiction.Bank:Pl7.Fields.AssetCode:assetCode.type#eq2": [
+    {
+      "section": "Schedule B: Asset Code Table",
+      "url": "specs/pl7-liquid-assets.md#schedule-b-asset-code-table"
+    }
+  ],
+  "Fiction.Bank:Pl7.Fields.AssetCode:assetCode.type#mu1": [
+    {
+      "section": "Schedule B: Asset Code Table",
+      "url": "specs/pl7-liquid-assets.md#schedule-b-asset-code-table"
+    }
+  ],
+  "Fiction.Bank:Pl7.Fields.AssetCode:assetCode.type#ab1": [
+    {
+      "section": "Schedule B: Asset Code Table",
+      "url": "specs/pl7-liquid-assets.md#schedule-b-asset-code-table"
+    }
+  ],
+  "Fiction.Bank:Pl7.Fields.AssetCode:assetCode.type#zz9": [
+    {
+      "section": "Schedule B: Asset Code Table",
+      "url": "specs/pl7-liquid-assets.md#schedule-b-asset-code-table"
+    }
+  ],
+  "Fiction.Bank:Pl7.Fields.AssetCode:tier.type#tier1": [
+    {
+      "section": "Schedule B: Asset Code Table",
+      "url": "specs/pl7-liquid-assets.md#schedule-b-asset-code-table"
+    },
+    {
+      "section": "LRR Calculation",
+      "url": "specs/pl7-liquid-assets.md#lrr-calculation"
+    }
+  ],
+  "Fiction.Bank:Pl7.Fields.AssetCode:tier.type#tier2": [
+    {
+      "section": "Schedule B: Asset Code Table",
+      "url": "specs/pl7-liquid-assets.md#schedule-b-asset-code-table"
+    },
+    {
+      "section": "LRR Calculation",
+      "url": "specs/pl7-liquid-assets.md#lrr-calculation"
+    }
+  ],
+  "Fiction.Bank:Pl7.Fields.AssetCode:tier.type#tier3": [
+    {
+      "section": "Schedule B: Asset Code Table",
+      "url": "specs/pl7-liquid-assets.md#schedule-b-asset-code-table"
+    },
+    {
+      "section": "LRR Calculation",
+      "url": "specs/pl7-liquid-assets.md#lrr-calculation"
+    }
+  ],
+  "Fiction.Bank:Pl7.Fields.AssetCode:tier.type#notEligible": [
+    {
+      "section": "Schedule B: Asset Code Table",
+      "url": "specs/pl7-liquid-assets.md#schedule-b-asset-code-table"
+    },
+    {
+      "section": "LRR Calculation",
+      "url": "specs/pl7-liquid-assets.md#lrr-calculation"
+    }
+  ],
+  "Fiction.Bank:Pl7.Tables.LiquidAssets:unrestrictedAsset.type": [
+    {
+      "section": "Part L: Liquid Assets",
+      "url": "specs/pl7-liquid-assets.md#part-l-liquid-assets"
+    },
+    {
+      "section": "L.1: Unrestricted Assets",
+      "url": "specs/pl7-liquid-assets.md#l1-unrestricted-assets"
+    }
+  ],
+  "Fiction.Bank:Pl7.Tables.LiquidAssets:unrestrictedAsset.type#assetCode": [
+    {
+      "section": "Asset Code",
+      "url": "specs/pl7-liquid-assets.md#asset-code"
+    }
+  ],
+  "Fiction.Bank:Pl7.Tables.LiquidAssets:unrestrictedAsset.type#marketValue": [
+    {
+      "section": "Market Value",
+      "url": "specs/pl7-liquid-assets.md#market-value"
+    }
+  ],
+  "Fiction.Bank:Pl7.Tables.LiquidAssets:unrestrictedAsset.type#liquidityDeskControl": [
+    {
+      "section": "Liquidity Desk Control",
+      "url": "specs/pl7-liquid-assets.md#liquidity-desk-control"
+    }
+  ],
+  "Fiction.Bank:Lrr.LiquidAssets:eligibleLiquidAsset.value": [
+    {
+      "section": "(14.6) Eligible Liquid Assets",
+      "url": "specs/pl7-liquid-assets.md#146-eligible-liquid-assets"
+    }
+  ],
+  "Fiction.Bank:Lrr.LiquidAssets:tierOf.value": [
+    {
+      "section": "(14.6) Eligible Liquid Assets",
+      "url": "specs/pl7-liquid-assets.md#146-eligible-liquid-assets"
+    }
+  ],
+  "Fiction.Bank:Lrr.LiquidAssets:tier1Value.value": [
+    {
+      "section": "(14.6) Eligible Liquid Assets",
+      "url": "specs/pl7-liquid-assets.md#146-eligible-liquid-assets"
+    },
+    {
+      "section": "LRR Calculation",
+      "url": "specs/pl7-liquid-assets.md#lrr-calculation"
+    }
+  ],
+  "Fiction.Bank:Lrr.LiquidAssets:tier2Value.value": [
+    {
+      "section": "(14.6) Eligible Liquid Assets",
+      "url": "specs/pl7-liquid-assets.md#146-eligible-liquid-assets"
+    },
+    {
+      "section": "LRR Calculation",
+      "url": "specs/pl7-liquid-assets.md#lrr-calculation"
+    }
+  ],
+  "Fiction.Bank:Lrr.LiquidAssets:tier3Value.value": [
+    {
+      "section": "(14.6) Eligible Liquid Assets",
+      "url": "specs/pl7-liquid-assets.md#146-eligible-liquid-assets"
+    },
+    {
+      "section": "LRR Calculation",
+      "url": "specs/pl7-liquid-assets.md#lrr-calculation"
+    }
+  ],
+  "Fiction.Bank:Lrr.LiquidAssets:tier1Values.value": [
+    {
+      "section": "LRR Calculation",
+      "url": "specs/pl7-liquid-assets.md#lrr-calculation"
+    }
+  ],
+  "Fiction.Bank:Lrr.LiquidAssets:tier2Values.value": [
+    {
+      "section": "LRR Calculation",
+      "url": "specs/pl7-liquid-assets.md#lrr-calculation"
+    }
+  ],
+  "Fiction.Bank:Lrr.LiquidAssets:tier3Values.value": [
+    {
+      "section": "LRR Calculation",
+      "url": "specs/pl7-liquid-assets.md#lrr-calculation"
+    }
+  ],
+  "Fiction.Bank:Lrr.LiquidAssets:tier2Weight.value": [
+    {
+      "section": "LRR Calculation",
+      "url": "specs/pl7-liquid-assets.md#lrr-calculation"
+    }
+  ],
+  "Fiction.Bank:Lrr.LiquidAssets:tier3Weight.value": [
+    {
+      "section": "LRR Calculation",
+      "url": "specs/pl7-liquid-assets.md#lrr-calculation"
+    }
+  ],
+  "Fiction.Bank:Lrr.LiquidAssets:tier2And3LimitFactor.value": [
+    {
+      "section": "LRR Calculation",
+      "url": "specs/pl7-liquid-assets.md#lrr-calculation"
+    }
+  ],
+  "Fiction.Bank:Lrr.LiquidAssets:tier3LimitFactor.value": [
+    {
+      "section": "LRR Calculation",
+      "url": "specs/pl7-liquid-assets.md#lrr-calculation"
+    }
+  ],
+  "Fiction.Bank:Lrr.LiquidAssets:atLeastZero.value": [
+    {
+      "section": "LRR Calculation",
+      "url": "specs/pl7-liquid-assets.md#lrr-calculation"
+    }
+  ],
+  "Fiction.Bank:Lrr.LiquidAssets:tier2And3LimitExcess.value": [
+    {
+      "section": "LRR Calculation",
+      "url": "specs/pl7-liquid-assets.md#lrr-calculation"
+    }
+  ],
+  "Fiction.Bank:Lrr.LiquidAssets:tier3LimitExcess.value": [
+    {
+      "section": "LRR Calculation",
+      "url": "specs/pl7-liquid-assets.md#lrr-calculation"
+    }
+  ],
+  "Fiction.Bank:Lrr.LiquidAssets:excessOverTierLimits.value": [
+    {
+      "section": "LRR Calculation",
+      "url": "specs/pl7-liquid-assets.md#lrr-calculation"
+    }
+  ],
+  "Fiction.Bank:Lrr.LiquidAssets:stockOfEligibleLiquidAssets.value": [
+    {
+      "section": "LRR Calculation",
+      "url": "specs/pl7-liquid-assets.md#lrr-calculation"
+    }
+  ]
+}

@@ -27,5 +27,6 @@ and follow it exactly. In short:
 - Do not read or copy from `cheat-sheet/`, `repos/`, or `facilitator/` while formalizing policy.
   Once the policy is verified, `repos/payments-app/` (when present) may serve as the pattern for an application.
 - Generated and git-ignored: `morphir.json`, `src/`, `morphir-ir.json`, `morphir-tests.json`,
-  `specs/` (except the checked-in excerpts), `descriptions.json`, `spec-links.json`, `spec-scope.json`, `apps/`, `out/`,
+  `specs/` (except the checked-in excerpts), `descriptions.json`, `spec-links.json`, `spec-scope.json`,
+  `ontologies/fibo-alignment.ttl`, `ontologies/cdm-alignment.ttl`, `apps/`, `out/`,
   `*.db`, `*.sql`.

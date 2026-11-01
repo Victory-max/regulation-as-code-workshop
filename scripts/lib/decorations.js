@@ -1,6 +1,8 @@
 // Morphir decorations used for traceability, read from a project's morphir.json:
 //   specLink     Regulation.Trace:SpecLink:SpecLinks      -> spec sections per node
 //   description  Regulation.Trace:Description:Description -> business description per node
+//   calculatedFrom Regulation.Trace:CalculatedFrom:CalculatedFrom -> producing rule per field
+//   domain       Regulation.Trace:Domain:Domain           -> owning business domain per entity
 // Decoration values are keyed by Morphir node ID:
 //   <Package>:<Module>:<typeName>.type            a type
 //   <Package>:<Module>:<typeName>.type#<child>    a record field or a choice case
@@ -13,6 +15,8 @@ const ir = require("./morphir-ir");
 const ENTRY_POINTS = {
   specLink: "Regulation.Trace:SpecLink:SpecLinks",
   description: "Regulation.Trace:Description:Description",
+  calculatedFrom: "Regulation.Trace:CalculatedFrom:CalculatedFrom",
+  domain: "Regulation.Trace:Domain:Domain",
 };
 
 const DECORATIONS_IR = "scripts/decorations/regulation-trace/morphir-ir.json";
@@ -65,6 +69,8 @@ function loadDecorations(projectDir = ".") {
   };
   const specLinks = read(ENTRY_POINTS.specLink, "spec-links.json");
   const descriptions = read(ENTRY_POINTS.description, "descriptions.json");
+  const calculatedFrom = read(ENTRY_POINTS.calculatedFrom, "calculated-from.json");
+  const domains = read(ENTRY_POINTS.domain, "domains.json");
 
   // Permanent URL for a spec link: absolute URLs as is; files fetched from GitHub through
   // specs/source.json; an excerpt through its <file>.sources.json anchor map.
@@ -83,11 +89,16 @@ function loadDecorations(projectDir = ".") {
   };
 
   return {
-    configured: { specLink: specLinks.configured, description: descriptions.configured },
+    configured: { specLink: specLinks.configured, description: descriptions.configured, calculatedFrom: calculatedFrom.configured },
     specLinkIds: Object.keys(specLinks.data),
     descriptionIds: Object.keys(descriptions.data),
     specLinksFor: (id) => (specLinks.data[id] || []).map((r) => ({ section: r.section, url: r.url, permalink: permalink(r.url) })),
     descriptionFor: (id) => descriptions.data[id] || null,
+    // The rule (`<Module>.<rule>`) that produces a calculation field, or null for a reported one.
+    calculatedFromFor: (id) => calculatedFrom.data[id] || null,
+    calculatedFromIds: Object.keys(calculatedFrom.data),
+    // The business domain that owns an entity type, or null.
+    domainFor: (id) => domains.data[id] || null,
     permalink,
   };
 }

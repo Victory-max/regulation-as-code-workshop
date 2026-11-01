@@ -17,6 +17,7 @@
   "dependencies": {
     "@duckdb/node-api": "1.5.5-r.5",
     "elm": "0.19.1-6",
-    "morphir-elm": "2.100.0"
+    "morphir-elm": "2.100.0",
+    "n3": "1.17.2"
   }
 }

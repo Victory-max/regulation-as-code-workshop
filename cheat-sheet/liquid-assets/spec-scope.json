@@ -1,0 +1,13 @@
+{
+ "include": [
+  "specs/pl7-liquid-assets.md#146-eligible-liquid-assets",
+  "specs/pl7-liquid-assets.md#asset-code",
+  "specs/pl7-liquid-assets.md#l1-unrestricted-assets",
+  "specs/pl7-liquid-assets.md#liquidity-desk-control",
+  "specs/pl7-liquid-assets.md#lrr-calculation",
+  "specs/pl7-liquid-assets.md#market-value",
+  "specs/pl7-liquid-assets.md#part-l-liquid-assets",
+  "specs/pl7-liquid-assets.md#schedule-b-asset-code-table"
+ ],
+ "outOfScope": []
+}

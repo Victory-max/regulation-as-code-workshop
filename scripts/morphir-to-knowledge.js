@@ -20,10 +20,12 @@
 const fs = require("fs");
 const path = require("path");
 const { loadModel } = require("./knowledge/model");
+const { conceptIris } = require("./knowledge/iris");
 const { writeTableGuides } = require("./knowledge/table-guides");
 const { writeContextAndEvals } = require("./knowledge/context-evals");
 const { writeDataHub } = require("./knowledge/datahub");
 const { writeGlossary } = require("./knowledge/glossary");
+const { deriveAssertions, evaluateAssertions } = require("./knowledge/assertions");
 const { writeOssie } = require("./knowledge/ossie");
 const { writeOntology } = require("./knowledge/ontology");
 
@@ -41,6 +43,8 @@ async function main() {
   fs.mkdirSync(outDir, { recursive: true });
 
   const model = loadModel({ irPath, projectDir });
+  // One Morphir node, one IRI, one glossary term: stop before generating anything ambiguous.
+  conceptIris(model, opt("--base-iri")).checkUnique();
   const guides = writeTableGuides(model, outDir);
   console.log(`Table guides:   ${guides.length} in ${path.join(outDir, "tables")}`);
 
@@ -53,14 +57,38 @@ async function main() {
   }
   const evalCount = await writeContextAndEvals(model, outDir, { connection, projectDir });
   console.log(`Agent context:  ${model.tables.length} guide(s) in ${path.join(outDir, "context")}; ${evalCount} evals in ${path.join(outDir, "evals", "evals.json")}`);
+  // Data quality assertions from the model, evaluated against the database.
+  const assertions = deriveAssertions(model);
+  if (connection) await evaluateAssertions(assertions, connection);
+  fs.mkdirSync(path.join(outDir, "assertions"), { recursive: true });
+  fs.writeFileSync(path.join(outDir, "assertions", "assertions.json"), JSON.stringify(assertions, null, 2));
+  const failing = assertions.filter((a) => a.result && !a.result.passed);
+  console.log(`Assertions:     ${assertions.length} from the model${connection ? `, ${assertions.length - failing.length} passing` : ""}${failing.length ? ` (failing: ${failing.map((a) => a.id).join(", ")})` : ""}`);
   connection?.closeSync();
 
   const database = opt("--database", path.basename(dbPath).replace(/\.db$/, ""));
   const env = opt("--env", "DEV");
   const baseIri = opt("--base-iri");
-  const glossary = writeGlossary(model, outDir, { baseIri });
+  // Industry standards the policy can be aligned to: a subset of each under ontologies/.
+  const standards = [
+    { name: "fibo", label: "FIBO", dialect: "fibo", termTypes: ["http://www.w3.org/2002/07/owl#Class"], description: "FIBO, the Financial Industry Business Ontology, says what a concept **is**." },
+    { name: "cdm", label: "CDM", dialect: "generic", termTypes: ["http://www.w3.org/2002/07/owl#Class", "http://www.w3.org/2004/02/skos/core#Concept"], description: "The FINOS Common Domain Model says where a value **lives** in trade and collateral data." },
+  ].map((std) => ({
+    ...std,
+    subsetFile: path.join(projectDir, "ontologies", std.name, `${std.name}-subset.ttl`),
+    alignmentFile: path.join(projectDir, "ontologies", `${std.name}-alignment.ttl`),
+  }));
+  const glossary = writeGlossary(model, outDir, { baseIri, standards });
   console.log(`Glossary:       ${glossary.terms} terms (SKOS) in ${glossary.file}`);
-  const mcps = writeDataHub(model, outDir, { database, env, dbPath, baseIri, glossaryFile: glossary.file });
+  const mcps = writeDataHub(model, outDir, {
+    database,
+    env,
+    dbPath,
+    baseIri,
+    glossaryFile: glossary.file,
+    assertions,
+    standards,
+  });
   console.log(`DataHub:        ${mcps} metadata change proposals in ${path.join(outDir, "datahub", "mcps.json")} (database ${database}, env ${env})`);
   const ossie = writeOssie(model, outDir);
   console.log(`Ossie:          ${ossie.datasets} datasets, ${ossie.metrics} metrics in ${ossie.file}`);

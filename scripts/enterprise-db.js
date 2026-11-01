@@ -10,7 +10,7 @@ const fs = require("fs");
 const path = require("path");
 const { DuckDBInstance } = require("@duckdb/node-api");
 const ir = require("./lib/morphir-ir");
-const { emitDdl, findEntities, entityTables } = require("./morphir-to-ddl");
+const { emitDdl, findEntities, entityTables, flattenColumns } = require("./morphir-to-ddl");
 const { emitSql } = require("./morphir-to-sql");
 const { checkParity } = require("./morphir-parity");
 const { loadDecorations } = require("./lib/decorations");
@@ -32,7 +32,7 @@ function prng(seed) {
 }
 
 // Boundary-heavy decimal pool: zero, the cent, common rates and caps, half-cent ties.
-const DECIMAL_POOL = ["0", "0.01", "4.5", "6", "12", "19.99", "24.99", "50.50", "100", "1234.56", "2500", "98765.43"];
+const DECIMAL_POOL = ["0", "0.01", "4.5", "6", "12", "19.99", "24.99", "50.50", "100", "1234.56", "2500", "9876.54"];
 // Columns that read as rates or percentages get realistic values around common caps.
 const RATE_POOL = ["0", "4.5", "5.99", "6", "6.01", "12", "19.99", "24.99", "29.99"];
 const isRate = (name) => /(apr|rate|pct|percent)$/.test(name);
@@ -41,6 +41,13 @@ function synthesizeRows(index, entityType, count, rand) {
   const table = ir.toSnake(ir.aliasName(entityType));
   const { columns } = entityTables(index).find((t) => t.name === table);
   const rows = [];
+  const enumCases = {};
+  const decimalColumns = [];
+  columns.forEach((c) => {
+    const ct = ir.customTypeOf(index, c.tpe);
+    if (ct && ir.isEnum(index, c.tpe)) enumCases[c.name] = ct.constructors.map((k) => `'${ir.toTitle(k[0])}'`);
+    else if (ir.sdkTypeKey(index, c.tpe) === ir.SDK.decimal && !isRate(c.name)) decimalColumns.push(c.name);
+  });
   for (let i = 0; i < count; i++) {
     const row = {};
     columns.forEach((c, ci) => {
@@ -76,7 +83,97 @@ function synthesizeRows(index, entityType, count, rand) {
     });
     rows.push(row);
   }
-  return { table, columns: columns.map((c) => c.name), rows };
+  return { table, columns: columns.map((c) => c.name), rows, enumCases, decimalColumns };
+}
+
+// Realistic history for a source table, so that only the bitemporal reading is right:
+//   - the initial load, recorded 30 days ago;
+//   - source restatements: a later version of some records (the raw table now holds two rows
+//     for each, so a plain SUM double counts);
+//   - forward-dated records, booked already but not in effect until next quarter;
+//   - manual adjustments in <table>_adjustments: a fat-finger amount corrected, an asset
+//     reclassified, a value corrected after review. The current view applies them.
+// Returns how many of each were written.
+// Fat-finger errors in the source: a few amounts keyed 100 times too large. Applied to the rows
+// before they are loaded; seedHistory corrects each one with a manual adjustment, so the only
+// wrong amounts in the data are the ones the adjustments fix.
+function planFatFingers(synth, rand) {
+  const { rows, columns, decimalColumns } = synth;
+  synth.fatFingers = [];
+  if (!columns.includes("record_id") || rows.length < 20 || !decimalColumns.length) return;
+  for (let n = 0; n < 2; n++) {
+    const i = Math.floor(rand() * rows.length);
+    const c = decimalColumns[0];
+    if (synth.fatFingers.some((f) => f.i === i) || !/^\d+(\.\d+)?$/.test(rows[i][c]) || Number(rows[i][c]) === 0) continue;
+    synth.fatFingers.push({ i, column: c, correct: rows[i][c], keyed: (Number(rows[i][c]) * 100).toFixed(2) });
+    rows[i][c] = synth.fatFingers[synth.fatFingers.length - 1].keyed;
+  }
+}
+
+async function seedHistory(conn, { table, columns, rows, enumCases, decimalColumns, fatFingers = [] }, rand) {
+  const key = "record_id";
+  if (!columns.includes(key) || rows.length < 20) return null;
+  const insert = (target, cols, valueRows) =>
+    conn.run(`INSERT INTO ${target} (${cols.join(", ")}) VALUES\n${valueRows.map((v) => `(${v.join(", ")})`).join(",\n")};`);
+  const at = (days) => `CURRENT_TIMESTAMP - INTERVAL ${days} DAY`;
+  const pick = (n, taken) => {
+    const out = [];
+    while (out.length < n) {
+      const i = Math.floor(rand() * rows.length);
+      if (!taken.has(i)) { taken.add(i); out.push(i); }
+    }
+    return out;
+  };
+  const taken = new Set(fatFingers.map((f) => f.i));
+  const latest = rows.map((r) => ({ ...r }));
+
+  // Restatements by the source system.
+  const restated = decimalColumns.length ? pick(Math.round(rows.length * 0.05), taken) : [];
+  if (restated.length) {
+    const versions = restated.map((i) => {
+      const v = { ...rows[i] };
+      for (const c of decimalColumns) if (v[c] !== "NULL") v[c] = `ROUND(${v[c]} * 1.05, 2)`;
+      latest[i] = v;
+      return [...columns.map((c) => v[c]), at(15)];
+    });
+    await insert(table, [...columns, "recorded_at"], versions);
+  }
+
+  // Forward-dated records: not in effect until 45 days from now.
+  const future = rows.slice(0, 5).map((r, n) => {
+    const v = { ...r, [key]: `'${table}-F${String(n + 1).padStart(3, "0")}'` };
+    return [...columns.map((c) => v[c]), "CURRENT_DATE + INTERVAL 45 DAY", at(5)];
+  });
+  await insert(table, [...columns, "valid_from", "recorded_at"], future);
+
+  // Manual adjustments: full replacement versions, recorded after the restatements.
+  const adjusted = pick(Math.max(0, Math.round(rows.length * 0.04) - fatFingers.length), taken);
+  const enumCols = Object.keys(enumCases).filter((c) => enumCases[c].length > 1);
+  const money = (x) => Number(x).toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+  const fixes = fatFingers.map((f, n) => {
+    const v = { ...latest[f.i], [f.column]: f.correct };
+    const reason = `Fat-finger entry: ${f.column.replace(/_/g, " ")} keyed as ${money(f.keyed)}, should be ${money(f.correct)}`;
+    return [`'ADJ-${table}-${String(n + 1).padStart(3, "0")}'`, `'${reason}'`, "'liquidity-operations'", ...columns.map((c) => v[c]), at(10)];
+  });
+  const adjustments = [...fixes, ...adjusted.map((i, m) => {
+    const n = m + fixes.length;
+    const v = { ...latest[i] };
+    let reason;
+    if (n % 2 === 0 && enumCols.length) {
+      const c = enumCols[n % enumCols.length];
+      const cases = enumCases[c];
+      const to = cases[(cases.indexOf(v[c]) + 1) % cases.length];
+      reason = `Reclassified ${c.replace(/_/g, " ")} from ${v[c].replace(/'/g, "")} to ${to.replace(/'/g, "")} after review`;
+      v[c] = to;
+    } else if (decimalColumns.length) {
+      const c = decimalColumns[n % decimalColumns.length];
+      v[c] = v[c] === "NULL" ? "NULL" : `ROUND(${v[c]} * 0.5, 2)`;
+      reason = `Corrected ${c.replace(/_/g, " ")}: source value double counted`;
+    } else return null;
+    return [`'ADJ-${table}-${String(n + 1).padStart(3, "0")}'`, `'${reason.replace(/'/g, "''")}'`, "'liquidity-operations'", ...columns.map((c) => v[c]), at(10)];
+  })].filter(Boolean);
+  if (adjustments.length) await insert(`${table}_adjustments`, ["adjustment_id", "reason", "adjusted_by", ...columns, "recorded_at"], adjustments);
+  return { restated: restated.length, future: future.length, adjusted: adjustments.length };
 }
 
 async function main() {
@@ -107,11 +204,40 @@ async function main() {
   await conn.run("CHECKPOINT");
 
   const rand = prng(20261104);
-  for (const entity of findEntities(index)) {
-    const { table, columns, rows } = synthesizeRows(index, entity, rowCount, rand);
-    const values = rows.map((r) => `(${columns.map((c) => r[c]).join(", ")})`).join(",\n");
-    await conn.run(`INSERT INTO ${table} (${columns.join(", ")}) VALUES\n${values};`);
-    console.log(`Seeded ${rows.length} synthetic rows into ${table}.`);
+  // Calculation tables (manifest.feeds) are seeded last, once the data their calculated fields
+  // come from is in place: one run (the bank's own calculation) whose calculated fields are the
+  // rules' actual results and whose reported amounts are sample values scaled to them, so the
+  // ratio stays plausible. Recalculations then add versions to its history.
+  const feedOf = new Map((manifest.feeds || []).map((f) => [f.table, f]));
+  const entities = findEntities(index);
+  const ordered = [...entities.filter((e) => !feedOf.has(ir.toSnake(ir.aliasName(e)))), ...entities.filter((e) => feedOf.has(ir.toSnake(ir.aliasName(e))))];
+  for (const entity of ordered) {
+    const table = ir.toSnake(ir.aliasName(entity));
+    const feed = feedOf.get(table);
+    const synth = synthesizeRows(index, entity, feed ? 1 : rowCount, rand);
+    if (!feed) planFatFingers(synth, rand);
+    const { columns, rows } = synth;
+    if (feed) {
+      const calculated = new Map(feed.calculated.map((x) => [x.column, `(SELECT ${x.output} FROM ${x.view})`]));
+      const scale = [...calculated.values()].join(" + ");
+      const decimals = new Set(flattenColumns(index, ir.recordFieldsOf(index, entity)).filter((c) => ir.sdkTypeKey(index, c.tpe) === ir.SDK.decimal).map((c) => c.name));
+      rows.forEach((r, i) => {
+        for (const c of columns) {
+          if (calculated.has(c)) r[c] = calculated.get(c);
+          else if (decimals.has(c)) r[c] = `ROUND((${scale}) * ${[0.2, 0.35, 0.5][(i + c.length) % 3]}, 2)`;
+        }
+      });
+    }
+    // Source rows are the initial load, recorded 30 days ago; a calculation run is recorded now,
+    // after every correction, so its calculated fields are the corrected results.
+    const loaded = feed ? columns : [...columns, "recorded_at"];
+    const values = rows.map((r) => `(${[...columns.map((c) => r[c]), ...(feed ? [] : ["CURRENT_TIMESTAMP - INTERVAL 30 DAY"])].join(", ")})`).join(",\n");
+    await conn.run(`INSERT INTO ${table} (${loaded.join(", ")}) VALUES\n${values};`);
+    console.log(feed ? `Seeded ${rows.length} calculation run into ${table} (calculated: ${feed.calculated.map((x) => x.column).join(", ")}).` : `Seeded ${rows.length} synthetic rows into ${table}.`);
+    if (!feed) {
+      const h = await seedHistory(conn, synth, rand);
+      if (h) console.log(`  history: ${h.restated} restated by the source, ${h.future} forward-dated, ${h.adjusted} manual adjustments (${synth.fatFingers.length} fat-finger fixes)`);
+    }
   }
 
   const trim = (v) => (typeof v === "string" && /^-?\d+\.\d+$/.test(v) ? v.replace(/0+$/, "").replace(/\.$/, "") : v);

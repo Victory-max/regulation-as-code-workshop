@@ -4,8 +4,26 @@
     {
       "name": "policy-workbench",
       "runtimeExecutable": "npx",
-      "runtimeArgs": ["morphir-elm", "develop", "--port", "3001"],
+      "runtimeArgs": [
+        "morphir-elm",
+        "develop",
+        "--port",
+        "3001"
+      ],
       "port": 3001
+    },
+    {
+      "name": "lcr-policy",
+      "runtimeExecutable": "npx",
+      "runtimeArgs": [
+        "morphir-elm",
+        "develop",
+        "--port",
+        "3002",
+        "--project-dir",
+        "/private/tmp/claude-501/-Users-stephengoldbaum-Code-finos-workshop/a869a5ba-3e3b-4fa4-a48f-b0f017c22f34/scratchpad/lcr-full"
+      ],
+      "port": 3002
     }
   ]
 }
