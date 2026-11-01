@@ -1,0 +1,23 @@
+{
+    "name": "Fiction.Bank",
+    "sourceDirectory": "src",
+    "exposedModules": [
+        "Fr2052a.Fields.CollateralClass",
+        "Fr2052a.DataTables.Inflows.Assets",
+        "Lcr.Hqla"
+    ],
+    "decorations": {
+        "specLink": {
+            "displayName": "Specification",
+            "ir": "scripts/decorations/regulation-trace/morphir-ir.json",
+            "entryPoint": "Regulation.Trace:SpecLink:SpecLinks",
+            "storageLocation": "spec-links.json"
+        },
+        "description": {
+            "displayName": "Business description",
+            "ir": "scripts/decorations/regulation-trace/morphir-ir.json",
+            "entryPoint": "Regulation.Trace:Description:Description",
+            "storageLocation": "descriptions.json"
+        }
+    }
+}

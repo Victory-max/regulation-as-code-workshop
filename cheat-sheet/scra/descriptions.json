@@ -1,0 +1,14 @@
+{
+  "Fiction.Bank:Scra.Types:cardAccount.type#accountId": "Identifier of the card account (the business key).",
+  "Fiction.Bank:Scra.Types:cardAccount.type#militaryStatus": "The cardholder's military status, which decides SCRA relief.",
+  "Fiction.Bank:Scra.Types:cardAccount.type#contractApr": "Annual percentage rate in the cardholder agreement, in percent (24.99 = 24.99% APR).",
+  "Fiction.Bank:Scra.Types:cardAccount.type#statementBalance": "Balance on which this month's interest is charged, in USD.",
+  "Fiction.Bank:Scra.Types:cardAccount.type#monthlyFees": "Fees the account would be charged this month before any waiver, in USD.",
+  "Fiction.Bank:Scra.Types:militaryStatus.type#activeDuty": "Verified active-duty servicemember: receives the 6% APR cap and fee waiver.",
+  "Fiction.Bank:Scra.Types:militaryStatus.type#civilian": "Not a servicemember: standard terms.",
+  "Fiction.Bank:Scra.Types:militaryStatus.type#exempt": "Obligation incurred during service, so not eligible for SCRA relief: standard terms.",
+  "Fiction.Bank:Scra.Types:militaryStatus.type#pendingVerification": "Active duty claimed but not yet verified: standard terms until verified.",
+  "Fiction.Bank:Scra.Types:statementResult.type#effectiveApr": "The APR actually charged this month, in percent.",
+  "Fiction.Bank:Scra.Types:statementResult.type#interestCharged": "Interest charged this month, in USD, rounded half to even to the cent.",
+  "Fiction.Bank:Scra.Types:statementResult.type#feesCharged": "Fees charged this month after any SCRA waiver, in USD."
+}

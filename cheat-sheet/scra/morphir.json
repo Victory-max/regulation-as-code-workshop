@@ -1,0 +1,16 @@
+{
+    "name": "Fiction.Bank",
+    "sourceDirectory": "src",
+    "exposedModules": [
+        "Scra.Types",
+        "Scra.Rules"
+    ],
+    "decorations": {
+        "description": {
+            "displayName": "Business description",
+            "ir": "scripts/decorations/regulation-trace/morphir-ir.json",
+            "entryPoint": "Regulation.Trace:Description:Description",
+            "storageLocation": "descriptions.json"
+        }
+    }
+}

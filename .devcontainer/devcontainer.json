@@ -1,0 +1,51 @@
+{
+  "name": "Regulation as Code (Morphir + CDM + Claude)",
+  "image": "mcr.microsoft.com/devcontainers/javascript-node:1-20-bookworm",
+  "features": {
+    "ghcr.io/devcontainers/features/github-cli:1": {},
+    "ghcr.io/devcontainers/features/python:1": {
+      "version": "3.12"
+    }
+  },
+  "postCreateCommand": "bash .devcontainer/postCreateCommand.sh",
+  "forwardPorts": [
+    3000,
+    8080
+  ],
+  "portsAttributes": {
+    "3000": {
+      "label": "Morphir develop (visual model)",
+      "onAutoForward": "notify"
+    },
+    "8080": {
+      "label": "Fiction Bank payments API",
+      "onAutoForward": "silent"
+    }
+  },
+  "secrets": {
+    "ANTHROPIC_API_KEY": {
+      "description": "Anthropic API key for Claude Code (provided by the workshop facilitators).",
+      "documentationUrl": "https://docs.claude.com/en/docs/claude-code/setup"
+    }
+  },
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "anthropic.claude-code",
+        "ms-toolsai.jupyter",
+        "ms-python.python",
+        "elmtooling.elm-ls-vscode"
+      ],
+      "settings": {
+        "files.exclude": {
+          "**/.morphir": true,
+          "**/node_modules": true
+        }
+      }
+    }
+  },
+  "hostRequirements": {
+    "cpus": 2,
+    "memory": "4gb"
+  }
+}

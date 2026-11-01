@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "policy-workbench",
+      "runtimeExecutable": "npx",
+      "runtimeArgs": ["morphir-elm", "develop", "--port", "3001"],
+      "port": 3001
+    }
+  ]
+}

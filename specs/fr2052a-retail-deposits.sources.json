@@ -1,0 +1,19 @@
+{
+  "od-outflows-deposits": "https://github.com/finos/open-reg-tech-us-lcr/blob/4fdc68d7b3d8e6735596f1898cbb9df4c1157f51/doc/fr2052a/03-product-definitions/O.D-outflows-deposits.md#od-outflows-deposits",
+  "od1-transactional-accounts": "https://github.com/finos/open-reg-tech-us-lcr/blob/4fdc68d7b3d8e6735596f1898cbb9df4c1157f51/doc/fr2052a/03-product-definitions/O.D-outflows-deposits.md#od1-transactional-accounts",
+  "od2-non-transactional-relationship-accounts": "https://github.com/finos/open-reg-tech-us-lcr/blob/4fdc68d7b3d8e6735596f1898cbb9df4c1157f51/doc/fr2052a/03-product-definitions/O.D-outflows-deposits.md#od2-non-transactional-relationship-accounts",
+  "od3-non-transactional-non-relationship-accounts": "https://github.com/finos/open-reg-tech-us-lcr/blob/4fdc68d7b3d8e6735596f1898cbb9df4c1157f51/doc/fr2052a/03-product-definitions/O.D-outflows-deposits.md#od3-non-transactional-non-relationship-accounts",
+  "od14-other-third-party-deposits": "https://github.com/finos/open-reg-tech-us-lcr/blob/4fdc68d7b3d8e6735596f1898cbb9df4c1157f51/doc/fr2052a/03-product-definitions/O.D-outflows-deposits.md#od14-other-third-party-deposits",
+  "od15-other-accounts": "https://github.com/finos/open-reg-tech-us-lcr/blob/4fdc68d7b3d8e6735596f1898cbb9df4c1157f51/doc/fr2052a/03-product-definitions/O.D-outflows-deposits.md#od15-other-accounts",
+  "field-definitions": "https://github.com/finos/open-reg-tech-us-lcr/blob/4fdc68d7b3d8e6735596f1898cbb9df4c1157f51/doc/fr2052a/02-field-definitions.md",
+  "counterparty": "https://github.com/finos/open-reg-tech-us-lcr/blob/4fdc68d7b3d8e6735596f1898cbb9df4c1157f51/doc/fr2052a/02-field-definitions.md#counterparty",
+  "insured": "https://github.com/finos/open-reg-tech-us-lcr/blob/4fdc68d7b3d8e6735596f1898cbb9df4c1157f51/doc/fr2052a/02-field-definitions.md#insured",
+  "maturity-amount": "https://github.com/finos/open-reg-tech-us-lcr/blob/4fdc68d7b3d8e6735596f1898cbb9df4c1157f51/doc/fr2052a/02-field-definitions.md#maturity-amount",
+  "appendix-vi-lcr-to-fr-2052a-mapping": "https://github.com/finos/open-reg-tech-us-lcr/blob/4fdc68d7b3d8e6735596f1898cbb9df4c1157f51/doc/fr2052a/04-appendices/VI-lcr-mapping.md#appendix-vi-lcr-to-fr-2052a-mapping",
+  "key": "https://github.com/finos/open-reg-tech-us-lcr/blob/4fdc68d7b3d8e6735596f1898cbb9df4c1157f51/doc/fr2052a/04-appendices/VI-lcr-mapping.md#key",
+  "10-stable-retail-deposits-32a1": "https://github.com/finos/open-reg-tech-us-lcr/blob/4fdc68d7b3d8e6735596f1898cbb9df4c1157f51/doc/fr2052a/04-appendices/VI-lcr-mapping.md#10-stable-retail-deposits-32a1",
+  "11-other-retail-deposits-32a2": "https://github.com/finos/open-reg-tech-us-lcr/blob/4fdc68d7b3d8e6735596f1898cbb9df4c1157f51/doc/fr2052a/04-appendices/VI-lcr-mapping.md#11-other-retail-deposits-32a2",
+  "12-insured-placed-retail-deposits-32a3": "https://github.com/finos/open-reg-tech-us-lcr/blob/4fdc68d7b3d8e6735596f1898cbb9df4c1157f51/doc/fr2052a/04-appendices/VI-lcr-mapping.md#12-insured-placed-retail-deposits-32a3",
+  "13-non-insured-placed-retail-deposits-32a4": "https://github.com/finos/open-reg-tech-us-lcr/blob/4fdc68d7b3d8e6735596f1898cbb9df4c1157f51/doc/fr2052a/04-appendices/VI-lcr-mapping.md#13-non-insured-placed-retail-deposits-32a4",
+  "14-other-retail-funding-32a5": "https://github.com/finos/open-reg-tech-us-lcr/blob/4fdc68d7b3d8e6735596f1898cbb9df4c1157f51/doc/fr2052a/04-appendices/VI-lcr-mapping.md#14-other-retail-funding-32a5"
+}

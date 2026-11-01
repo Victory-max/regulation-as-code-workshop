@@ -1,0 +1,6 @@
+# Python packages for the policy notebook (out/policy-notebook.ipynb).
+# duckdb matches the Node bindings' DuckDB version, so both can open the same database file.
+duckdb==1.5.5
+pandas>=2.2
+matplotlib>=3.8
+ipykernel>=6.29

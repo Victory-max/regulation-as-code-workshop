@@ -1,0 +1,24 @@
+# The workspace starts with no business logic: the SME's session creates all of this.
+/src/
+/morphir.json
+/morphir-ir.json
+/morphir-hashes.json
+/morphir-tests.json
+/specs/*
+!/specs/fr2052a-retail-deposits.md
+!/specs/fr2052a-retail-deposits.sources.json
+!/specs/fr2052a-hqla.md
+!/specs/fr2052a-hqla.sources.json
+/spec-links.json
+/descriptions.json
+/spec-scope.json
+/out/
+/apps/
+.morphir/
+*.db
+*.db.wal
+*.sql
+
+node_modules/
+.DS_Store
+__pycache__/

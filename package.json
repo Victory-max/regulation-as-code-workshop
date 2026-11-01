@@ -1,0 +1,22 @@
+{
+  "name": "finos-osff-regulation-as-code-workshop",
+  "version": "1.0.0",
+  "private": true,
+  "description": "FINOS OSFF NYC workshop: Regulation as Code with Morphir, CDM, and AI agents",
+  "license": "Apache-2.0",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "check": "node scripts/morphir-check.js",
+    "ddl": "node scripts/morphir-to-ddl.js",
+    "sql": "node scripts/morphir-to-sql.js",
+    "bootstrap": "bash scripts/bootstrap-enterprise.sh",
+    "test:flow": "bash test-workshop-flow.sh"
+  },
+  "dependencies": {
+    "@duckdb/node-api": "1.5.5-r.5",
+    "elm": "0.19.1-6",
+    "morphir-elm": "2.100.0"
+  }
+}

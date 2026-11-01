@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(node scripts/morphir-check.js:*)",
+      "Bash(bash scripts/bootstrap-enterprise.sh:*)",
+      "Bash(npx morphir-elm make:*)",
+      "Bash(npx morphir-elm develop:*)",
+      "Bash(npx morphir-elm test:*)",
+      "Write(morphir.json)", "Write(src/**)",
+      "Edit(morphir.json)", "Edit(src/**)"
+    ]
+  }
+}

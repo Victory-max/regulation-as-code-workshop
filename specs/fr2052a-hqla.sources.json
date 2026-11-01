@@ -1,0 +1,13 @@
+{
+  "ia-inflows-assets": "https://github.com/finos/open-reg-tech-us-lcr/blob/4fdc68d7b3d8e6735596f1898cbb9df4c1157f51/doc/fr2052a/03-product-definitions/I.A-inflows-assets.md#ia-inflows-assets",
+  "ia1-unencumbered-assets": "https://github.com/finos/open-reg-tech-us-lcr/blob/4fdc68d7b3d8e6735596f1898cbb9df4c1157f51/doc/fr2052a/03-product-definitions/I.A-inflows-assets.md#ia1-unencumbered-assets",
+  "field-definitions": "https://github.com/finos/open-reg-tech-us-lcr/blob/4fdc68d7b3d8e6735596f1898cbb9df4c1157f51/doc/fr2052a/02-field-definitions.md",
+  "collateral-class": "https://github.com/finos/open-reg-tech-us-lcr/blob/4fdc68d7b3d8e6735596f1898cbb9df4c1157f51/doc/fr2052a/02-field-definitions.md#collateral-class",
+  "market-value": "https://github.com/finos/open-reg-tech-us-lcr/blob/4fdc68d7b3d8e6735596f1898cbb9df4c1157f51/doc/fr2052a/02-field-definitions.md#market-value",
+  "treasury-control": "https://github.com/finos/open-reg-tech-us-lcr/blob/4fdc68d7b3d8e6735596f1898cbb9df4c1157f51/doc/fr2052a/02-field-definitions.md#treasury-control",
+  "appendix-iii-fr-2052a-asset-category-table": "https://github.com/finos/open-reg-tech-us-lcr/blob/4fdc68d7b3d8e6735596f1898cbb9df4c1157f51/doc/fr2052a/04-appendices/III-asset-category-table.md#appendix-iii-fr-2052a-asset-category-table",
+  "appendix-vi-lcr-to-fr-2052a-mapping": "https://github.com/finos/open-reg-tech-us-lcr/blob/4fdc68d7b3d8e6735596f1898cbb9df4c1157f51/doc/fr2052a/04-appendices/VI-lcr-mapping.md#appendix-vi-lcr-to-fr-2052a-mapping",
+  "key": "https://github.com/finos/open-reg-tech-us-lcr/blob/4fdc68d7b3d8e6735596f1898cbb9df4c1157f51/doc/fr2052a/04-appendices/VI-lcr-mapping.md#key",
+  "lcr-calculation": "https://github.com/finos/open-reg-tech-us-lcr/blob/4fdc68d7b3d8e6735596f1898cbb9df4c1157f51/doc/fr2052a/04-appendices/VI-lcr-mapping.md#lcr-calculation",
+  "1-high-quality-liquid-assets-subpart-c-20-22": "https://github.com/finos/open-reg-tech-us-lcr/blob/4fdc68d7b3d8e6735596f1898cbb9df4c1157f51/doc/fr2052a/04-appendices/VI-lcr-mapping.md#1-high-quality-liquid-assets-subpart-c-20-22"
+}

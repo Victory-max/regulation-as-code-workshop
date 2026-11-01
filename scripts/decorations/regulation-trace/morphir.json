@@ -1,0 +1,8 @@
+{
+    "name": "Regulation.Trace",
+    "sourceDirectory": "src",
+    "exposedModules": [
+        "SpecLink",
+        "Description"
+    ]
+}
