@@ -427,6 +427,55 @@ function evaluate({ rule, inputs, showSteps = true }) {
   }
 }
 
+// The text of the regulation sections a rule, type, field or choice case is linked to, quoted from
+// the workspace's spec files (each section up to the next heading of the same or higher level).
+function sectionText(url) {
+  const [file, anchor] = url.split("#");
+  const full = path.join(ROOT, file);
+  if (!anchor || !fs.existsSync(full)) return null;
+  const lines = fs.readFileSync(full, "utf8").split("\n");
+  const seen = new Map();
+  let inFence = false;
+  let start = -1;
+  let level = 0;
+  for (let i = 0; i < lines.length; i++) {
+    if (/^\s*(```|~~~)/.test(lines[i])) inFence = !inFence;
+    const m = !inFence && lines[i].match(/^(#{1,6})\s+(.*?)\s*#*\s*$/);
+    if (!m) continue;
+    if (start >= 0 && m[1].length <= level) return lines.slice(start, i).join("\n").trim();
+    let slug = m[2].toLowerCase().replace(/[^\p{L}\p{N}\s_-]/gu, "").replace(/\s/g, "-");
+    const n = seen.get(slug) || 0;
+    seen.set(slug, n + 1);
+    if (n > 0) slug = `${slug}-${n}`;
+    if (start < 0 && slug === anchor) {
+      start = i;
+      level = m[1].length;
+    }
+  }
+  return start >= 0 ? lines.slice(start).join("\n").trim() : null;
+}
+
+function regulationText({ name }) {
+  const p = policy();
+  const [base, member] = String(name).split(/[.#]/).length > 1 && find(p, String(name).split(/[.#]/)[0], ["type"]).length ? String(name).split(/[.#]/) : [name, null];
+  const hits = find(p, base);
+  if (!hits.length) return notFound(p, name, ["type", "value"]);
+  const hit = hits[0];
+  let nodeId = p.model.nodeId(hit.entry.fqn, hit.kind);
+  if (member) {
+    const t = glossaryType(p, hit.entry.fqn);
+    const m = [...t.fields.map((f) => f.name), ...t.valueInfo.map((v) => v.name)].find((x) => norm(x) === norm(member));
+    if (!m) return { found: false, message: `${t.name} has no field or case called "${member}".` };
+    nodeId = `${nodeId}#${m.charAt(0).toLowerCase()}${m.slice(1)}`;
+  }
+  const refs = p.model.decorations.specLinksFor(nodeId);
+  if (!refs.length) return { name, message: "The policy links no regulation section to this." };
+  return {
+    name,
+    sections: refs.map((r) => ({ section: r.section, link: r.permalink || r.url, text: r.url.startsWith("http") ? null : sectionText(r.url) })),
+  };
+}
+
 function coverage() {
   if (!fs.existsSync(IR_PATH)) throw new NoPolicy("There is no verified policy in this workspace yet.");
   const run = spawnSync(process.execPath, [path.join(__dirname, "spec-trace.js"), ROOT], { encoding: "utf8", timeout: 60000 });
@@ -446,7 +495,7 @@ const server = new McpServer(
   { name: "morphir-policy", version: "1.0.0" },
   {
     instructions:
-      "Answers questions about the bank's verified policy from the Morphir model itself: what types and rules mean, which regulation sections they come from, how they map to FIBO and CDM, and what a rule returns for given inputs (evaluated by Morphir, not estimated). Read-only. Answer the person in business language.",
+      "The only source for questions about the bank's verified policy. Answers from the Morphir model itself: what types and rules mean, which regulation sections they come from (with the section text), how they map to FIBO and CDM, and what a rule returns for given inputs (evaluated by Morphir, not estimated). Do not answer policy questions from the spec files, the source code or general knowledge; if this server reports that there is no verified policy, say so and offer to formalize it. Read-only. Answer the person in business language.",
   }
 );
 
@@ -487,6 +536,14 @@ server.registerTool(
     inputSchema: { rule: z.string(), inputs: z.any().describe("The rule's input(s) as plain JSON"), showSteps: z.boolean().optional() },
   },
   reply(evaluate)
+);
+server.registerTool(
+  "regulation_text",
+  {
+    description: "Quote the regulation sections a rule, type, field or choice case is linked to, with links. Use it for 'which part of the rule says that?'.",
+    inputSchema: { name: z.string().describe("A rule ('intermediatedRetailDeposits'), a type ('AssetCode'), or a field or case ('AssetCode.Rg1E', 'RetailDeposit.guarantee')") },
+  },
+  reply(regulationText)
 );
 server.registerTool("coverage", { description: "How the policy covers the specification: sections linked, sections out of scope (with the reason), and any gaps or broken links.", inputSchema: {} }, reply(coverage));
 

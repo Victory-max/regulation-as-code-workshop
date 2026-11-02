@@ -388,11 +388,13 @@ If the SME changes a rule at any point: update the model, compile, restart the v
 show them what changed. Rerun the example scenarios only if the SME asks.
 
 **Answering questions about the verified policy.** The workspace's `morphir-policy` MCP server
-answers from the verified model itself, so use it rather than reading the Elm or reasoning it
-out: `evaluate` runs a rule on a case the SME describes (with every decision step) through
+is the only source for questions about the policy: never answer them by reading the Elm, the
+IR, the spec files or from general knowledge, and if it reports no verified policy, say so and
+offer to formalize. It answers from the verified model itself: `evaluate` runs a rule on a case the SME describes (with every decision step) through
 Morphir's interpreter; `trace` shows what a result is built from, down to the inputs and the
 spec sections; `explain_rule` and `describe_type` give meanings, spec links and FIBO/CDM
-mappings; `coverage` reports what of the spec is in and out of scope. It reads the latest
+mappings; `regulation_text` quotes the regulation sections a rule or type is linked to; `coverage`
+reports what of the spec is in and out of scope. It reads the latest
 `morphir-ir.json` on every call, so compile first after a change. Translate its answers into
 business language; never show its output raw.
 
