@@ -221,10 +221,14 @@ async function main() {
       const calculated = new Map(feed.calculated.map((x) => [x.column, `(SELECT ${x.output} FROM ${x.view})`]));
       const scale = [...calculated.values()].join(" + ");
       const decimals = new Set(flattenColumns(index, ir.recordFieldsOf(index, entity)).filter((c) => ir.sdkTypeKey(index, c.tpe) === ir.SDK.decimal).map((c) => c.name));
+      // Each reported amount gets its own share of the calculated total, so no two reported
+      // fields carry the same value.
+      const reported = columns.filter((c) => !calculated.has(c) && decimals.has(c));
+      const shares = [0.7, 0.1, 0.15, 0.08, 0.05];
       rows.forEach((r, i) => {
         for (const c of columns) {
           if (calculated.has(c)) r[c] = calculated.get(c);
-          else if (decimals.has(c)) r[c] = `ROUND((${scale}) * ${[0.2, 0.35, 0.5][(i + c.length) % 3]}, 2)`;
+          else if (decimals.has(c)) r[c] = `ROUND((${scale}) * ${shares[(reported.indexOf(c) + i) % shares.length]}, 2)`;
         }
       });
     }
