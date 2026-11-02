@@ -1,7 +1,7 @@
 {
   "pla-rule-14-and-form-pl-7-retail-deposits-and-outflow-rules-excerpt": "https://github.com/stephengoldbaum/regulation-as-code-workshop/blob/main/specs/pl7-retail-deposits.md#pla-rule-14-and-form-pl-7-retail-deposits-and-outflow-rules-excerpt",
   "part-r-retail-deposits": "https://github.com/stephengoldbaum/regulation-as-code-workshop/blob/main/specs/pl7-retail-deposits.md#part-r-retail-deposits",
-  "r1-operating-accounts": "https://github.com/stephengoldbaum/regulation-as-code-workshop/blob/main/specs/pl7-retail-deposits.md#r1-operating-accounts",
+  "r1-transaction-accounts": "https://github.com/stephengoldbaum/regulation-as-code-workshop/blob/main/specs/pl7-retail-deposits.md#r1-transaction-accounts",
   "r2-relationship-savings-accounts": "https://github.com/stephengoldbaum/regulation-as-code-workshop/blob/main/specs/pl7-retail-deposits.md#r2-relationship-savings-accounts",
   "r3-rate-seeking-savings-accounts": "https://github.com/stephengoldbaum/regulation-as-code-workshop/blob/main/specs/pl7-retail-deposits.md#r3-rate-seeking-savings-accounts",
   "r4-intermediated-deposits": "https://github.com/stephengoldbaum/regulation-as-code-workshop/blob/main/specs/pl7-retail-deposits.md#r4-intermediated-deposits",
@@ -11,7 +11,6 @@
   "guarantee": "https://github.com/stephengoldbaum/regulation-as-code-workshop/blob/main/specs/pl7-retail-deposits.md#guarantee",
   "balance": "https://github.com/stephengoldbaum/regulation-as-code-workshop/blob/main/specs/pl7-retail-deposits.md#balance",
   "rule-14-retail-outflow-rules": "https://github.com/stephengoldbaum/regulation-as-code-workshop/blob/main/specs/pl7-retail-deposits.md#rule-14-retail-outflow-rules",
-  "key": "https://github.com/stephengoldbaum/regulation-as-code-workshop/blob/main/specs/pl7-retail-deposits.md#key",
   "1421-guaranteed-core-retail-deposits": "https://github.com/stephengoldbaum/regulation-as-code-workshop/blob/main/specs/pl7-retail-deposits.md#1421-guaranteed-core-retail-deposits",
   "1422-unguaranteed-core-retail-deposits": "https://github.com/stephengoldbaum/regulation-as-code-workshop/blob/main/specs/pl7-retail-deposits.md#1422-unguaranteed-core-retail-deposits",
   "1423-rate-seeking-retail-deposits": "https://github.com/stephengoldbaum/regulation-as-code-workshop/blob/main/specs/pl7-retail-deposits.md#1423-rate-seeking-retail-deposits",

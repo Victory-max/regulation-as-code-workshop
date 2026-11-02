@@ -8,7 +8,6 @@
   "liquidity-desk-control": "https://github.com/stephengoldbaum/regulation-as-code-workshop/blob/main/specs/pl7-liquid-assets.md#liquidity-desk-control",
   "schedule-b-asset-code-table": "https://github.com/stephengoldbaum/regulation-as-code-workshop/blob/main/specs/pl7-liquid-assets.md#schedule-b-asset-code-table",
   "rule-14-liquidity-resilience-ratio": "https://github.com/stephengoldbaum/regulation-as-code-workshop/blob/main/specs/pl7-liquid-assets.md#rule-14-liquidity-resilience-ratio",
-  "key": "https://github.com/stephengoldbaum/regulation-as-code-workshop/blob/main/specs/pl7-liquid-assets.md#key",
   "lrr-calculation": "https://github.com/stephengoldbaum/regulation-as-code-workshop/blob/main/specs/pl7-liquid-assets.md#lrr-calculation",
   "scaling-factor-table": "https://github.com/stephengoldbaum/regulation-as-code-workshop/blob/main/specs/pl7-liquid-assets.md#scaling-factor-table",
   "minimum-requirement": "https://github.com/stephengoldbaum/regulation-as-code-workshop/blob/main/specs/pl7-liquid-assets.md#minimum-requirement",

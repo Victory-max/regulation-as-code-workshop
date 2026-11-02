@@ -259,10 +259,10 @@ the spec it came from.
    to the SME.
 3. **Agree the scope first.** A full regulation is too much for one pass. Propose a first
    slice in business terms, naming the sections (e.g. "Part R retail deposits: R.1
-   operating accounts through R.3 rate-seeking savings"), and wait for the SME to
+   transaction accounts through R.3 rate-seeking savings"), and wait for the SME to
    agree. Record it in `spec-scope.json`:
    ```json
-   { "include": ["specs/pl7-retail-deposits.md#r1-operating-accounts"],
+   { "include": ["specs/pl7-retail-deposits.md#r1-transaction-accounts"],
      "outOfScope": [{ "url": "specs/pl7-retail-deposits.md#r4-intermediated-deposits",
                       "reason": "Deferred by the SME: intermediated deposits come later" }] }
    ```
@@ -285,9 +285,9 @@ the spec it came from.
    { "Fiction.Bank:Lrr.Outflows.RetailDeposits:guaranteedCoreRetailDeposits.value": [
        { "section": "(14.21) Guaranteed Core Retail Deposits",
          "url": "specs/pl7-retail-deposits.md#1421-guaranteed-core-retail-deposits" } ],
-     "Fiction.Bank:Pl7.Tables.RetailDeposits:product.type#operatingAccounts": [
-       { "section": "R.1: Operating Accounts",
-         "url": "specs/pl7-retail-deposits.md#r1-operating-accounts" } ] }
+     "Fiction.Bank:Pl7.Tables.RetailDeposits:product.type#transactionAccounts": [
+       { "section": "R.1: Transaction Accounts",
+         "url": "specs/pl7-retail-deposits.md#r1-transaction-accounts" } ] }
    ```
    - Node IDs: see "Descriptions and links" (use `--nodes`; never hand-type them).
    - `section`: the heading text exactly as written in the spec.

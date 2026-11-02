@@ -55,13 +55,13 @@
       "url": "specs/pl7-liquid-assets.md#schedule-b-asset-code-table"
     }
   ],
-  "Fiction.Bank:Pl7.Fields.AssetCode:assetCode.type#ps1E": [
+  "Fiction.Bank:Pl7.Fields.AssetCode:assetCode.type#sn1E": [
     {
       "section": "Schedule B: Asset Code Table",
       "url": "specs/pl7-liquid-assets.md#schedule-b-asset-code-table"
     }
   ],
-  "Fiction.Bank:Pl7.Fields.AssetCode:assetCode.type#cv1E": [
+  "Fiction.Bank:Pl7.Fields.AssetCode:assetCode.type#rg1E": [
     {
       "section": "Schedule B: Asset Code Table",
       "url": "specs/pl7-liquid-assets.md#schedule-b-asset-code-table"
@@ -79,7 +79,7 @@
       "url": "specs/pl7-liquid-assets.md#schedule-b-asset-code-table"
     }
   ],
-  "Fiction.Bank:Pl7.Fields.AssetCode:assetCode.type#ps1": [
+  "Fiction.Bank:Pl7.Fields.AssetCode:assetCode.type#sn1": [
     {
       "section": "Schedule B: Asset Code Table",
       "url": "specs/pl7-liquid-assets.md#schedule-b-asset-code-table"

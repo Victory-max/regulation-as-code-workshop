@@ -61,7 +61,7 @@
       "url": "specs/pl7-retail-deposits.md#counterparty"
     }
   ],
-  "Fiction.Bank:Pl7.Fields.Counterparty:counterparty.type#publicSectorEntity": [
+  "Fiction.Bank:Pl7.Fields.Counterparty:counterparty.type#regionalGovernment": [
     {
       "section": "Counterparty",
       "url": "specs/pl7-retail-deposits.md#counterparty"
@@ -135,8 +135,8 @@
       "url": "specs/pl7-retail-deposits.md#part-r-retail-deposits"
     },
     {
-      "section": "R.1: Operating Accounts",
-      "url": "specs/pl7-retail-deposits.md#r1-operating-accounts"
+      "section": "R.1: Transaction Accounts",
+      "url": "specs/pl7-retail-deposits.md#r1-transaction-accounts"
     },
     {
       "section": "R.2: Relationship Savings Accounts",
@@ -179,10 +179,10 @@
       "url": "specs/pl7-retail-deposits.md#balance"
     }
   ],
-  "Fiction.Bank:Pl7.Tables.RetailDeposits:product.type#operatingAccounts": [
+  "Fiction.Bank:Pl7.Tables.RetailDeposits:product.type#transactionAccounts": [
     {
-      "section": "R.1: Operating Accounts",
-      "url": "specs/pl7-retail-deposits.md#r1-operating-accounts"
+      "section": "R.1: Transaction Accounts",
+      "url": "specs/pl7-retail-deposits.md#r1-transaction-accounts"
     }
   ],
   "Fiction.Bank:Pl7.Tables.RetailDeposits:product.type#relationshipSavingsAccounts": [
@@ -263,8 +263,8 @@
   ],
   "Fiction.Bank:Lrr.Outflows.RetailDeposits:isCoreRetailProduct.value": [
     {
-      "section": "R.1: Operating Accounts",
-      "url": "specs/pl7-retail-deposits.md#r1-operating-accounts"
+      "section": "R.1: Transaction Accounts",
+      "url": "specs/pl7-retail-deposits.md#r1-transaction-accounts"
     },
     {
       "section": "R.2: Relationship Savings Accounts",

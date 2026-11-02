@@ -20,10 +20,8 @@ sections Fiction Bank's liquidity policy relies on.
 Refers to assets owned outright by the reporting institution that are (i) free of legal,
 regulatory, contractual or other restrictions on the institution's ability to sell or
 repledge them; and (ii) not pledged, explicitly or implicitly, to secure, collateralise or
-credit-enhance any transaction. Exclude assets pre-positioned with the central bank under
-its standing facilities; report them under L.2: Pre-positioned Assets. Exclude purchases that
-have traded but not settled; report them under L.4: Pending Purchases. Do not net the value
-of hedges against the value of the asset.
+credit-enhance any transaction. Exclude assets pre-positioned with the central bank and
+purchases that have traded but not settled.
 
 ## Field definitions
 
@@ -33,14 +31,11 @@ Use the asset code table in Schedule B to identify each asset.
 
 - Where an asset could take more than one code, report the code of the lowest tier it qualifies for.
 - Credit quality steps are those published by the PLA's credit assessment register.
-- Refer questions on the coding of a specific asset to the institution's PLA supervision team.
 
 ### Market Value
 
 Report the fair value of each asset under IFRS 13, at close of business on the reporting date,
 in millions of FCR.
-
-- For assets without an observable price, report the most recent independent valuation.
 
 ### Liquidity Desk Control
 
@@ -53,38 +48,28 @@ held as part of a client pool. Flag all other assets "No".
 
 The `-E` suffix indicates that the asset meets all the asset-specific tests of Rule 14.6
 (credit quality, an active outright sale or repo market, and not issued by a financial
-institution or its affiliates). Each eligible code belongs to one tier.
+institution or its affiliates). Each eligible code belongs to one tier. The issuer type and
+security type columns describe the asset; only the code and its tier are used by Rule 14.
 
-- **Tier 1**
-  - GV-1-E — Debt issued by the National Treasury of Fictonia
-  - GV-2-E — Debt issued by a Fictonian government agency with an explicit National Treasury guarantee
-  - CB-0-E — Securities issued or guaranteed by a central bank, credit quality step 1
-  - SV-0-E — Debt issued by a foreign sovereign (excluding central banks), credit quality step 1
-- **Tier 2**
-  - SV-2-E — Debt issued by a foreign sovereign (excluding central banks), credit quality step 2
-  - PS-1-E — Senior debt issued by a Fictonian public-sector enterprise
-  - CV-1-E — Covered bonds rated AA- or better
-- **Tier 3**
-  - CR-1-E — Investment-grade debt issued by a non-financial corporate
-  - EQ-1-E — Common equity in the FX-200 index of the Fictonian Exchange
-- **Not eligible — assets that fail the asset-specific tests of Rule 14.6**
-  - PS-1 — Senior debt issued by a Fictonian public-sector enterprise
-  - EQ-1 — Common equity in the FX-200 index of the Fictonian Exchange
-- **Not eligible — other**
-  - EQ-2 — All other listed common equity
-  - MU-1 — Debt issued by a municipality (not eligible under Rule 14, whatever its rating)
-  - AB-1 — Asset-backed securities
-  - ZZ-9 — All other assets
+| Code | Asset | Issuer type | Security type | Tier |
+|------|-------|-------------|---------------|------|
+| GV-1-E | Debt issued by the National Treasury of Fictonia | Sovereign | Debt | Tier 1 |
+| GV-2-E | Debt issued by a Fictonian government agency with an explicit National Treasury guarantee | Quasi-government | Debt | Tier 1 |
+| CB-0-E | Securities issued or guaranteed by a central bank, credit quality step 1 | Central bank | Debt | Tier 1 |
+| SV-0-E | Debt issued by a foreign sovereign, credit quality step 1 | Sovereign | Debt | Tier 1 |
+| SV-2-E | Debt issued by a foreign sovereign, credit quality step 2 | Sovereign | Debt | Tier 2 |
+| SN-1-E | Debt issued by a supranational entity or multilateral development bank | Supranational | Debt | Tier 2 |
+| RG-1-E | Debt issued by a Fictonian province | Regional government | Debt | Tier 2 |
+| CR-1-E | Investment-grade debt issued by a non-financial corporate | Corporate | Debt | Tier 3 |
+| EQ-1-E | Ordinary shares in the FX-200 index of the Fictonian Exchange | Corporate | Equity | Tier 3 |
+| SN-1 | Supranational or development-bank debt that fails the Rule 14.6 tests | Supranational | Debt | Not eligible |
+| EQ-1 | FX-200 ordinary shares that fail the Rule 14.6 tests | Corporate | Equity | Not eligible |
+| EQ-2 | All other listed ordinary shares | Corporate | Equity | Not eligible |
+| MU-1 | Debt issued by a municipality, whatever its rating | Regional government | Debt | Not eligible |
+| AB-1 | Asset-backed securities | Special purpose vehicle | Debt | Not eligible |
+| ZZ-9 | All other assets | Other | Other | Not eligible |
 
 ## Rule 14: Liquidity Resilience Ratio
-
-### Key
-
-| Symbol | Meaning |
-|--------|---------|
-| `*` | Values used by Rule 14 |
-| `#` | Values not used by Rule 14 |
-| `NULL` | Should not have an associated value |
 
 ### LRR Calculation
 
@@ -141,18 +126,14 @@ Each institution applies the scaling factor for its PLA supervisory category.
 
 ### Minimum Requirement
 
-An institution must maintain an LRR of at least 110 percent on every business day. An
-institution whose LRR falls below 110 percent must notify the PLA the same day.
+An institution must maintain an LRR of at least 110 percent on every business day.
 
 ### (14.6) Eligible Liquid Assets
 
+An asset is an eligible liquid asset when all of the following hold.
+
 | Field | Value |
 |-------|-------|
-| Reporting Entity | PL-7 Filer |
 | Part | L.1 |
-| Market Value | * |
-| Maturity Bucket | # |
 | Asset Code | Tier 1, Tier 2 or Tier 3 (an `-E` code) |
 | Liquidity Desk Control | Yes |
-| Encumbrance Type | NULL |
-| Internal Counterparty | # |

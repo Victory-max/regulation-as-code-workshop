@@ -61,7 +61,7 @@
       "url": "specs/pl7-retail-deposits.md#counterparty"
     }
   ],
-  "Fiction.Bank:Pl7.Fields.Counterparty:counterparty.type#publicSectorEntity": [
+  "Fiction.Bank:Pl7.Fields.Counterparty:counterparty.type#regionalGovernment": [
     {
       "section": "Counterparty",
       "url": "specs/pl7-retail-deposits.md#counterparty"
@@ -179,13 +179,13 @@
       "url": "specs/pl7-liquid-assets.md#schedule-b-asset-code-table"
     }
   ],
-  "Fiction.Bank:Pl7.Fields.AssetCode:assetCode.type#ps1E": [
+  "Fiction.Bank:Pl7.Fields.AssetCode:assetCode.type#sn1E": [
     {
       "section": "Schedule B: Asset Code Table",
       "url": "specs/pl7-liquid-assets.md#schedule-b-asset-code-table"
     }
   ],
-  "Fiction.Bank:Pl7.Fields.AssetCode:assetCode.type#cv1E": [
+  "Fiction.Bank:Pl7.Fields.AssetCode:assetCode.type#rg1E": [
     {
       "section": "Schedule B: Asset Code Table",
       "url": "specs/pl7-liquid-assets.md#schedule-b-asset-code-table"
@@ -203,7 +203,7 @@
       "url": "specs/pl7-liquid-assets.md#schedule-b-asset-code-table"
     }
   ],
-  "Fiction.Bank:Pl7.Fields.AssetCode:assetCode.type#ps1": [
+  "Fiction.Bank:Pl7.Fields.AssetCode:assetCode.type#sn1": [
     {
       "section": "Schedule B: Asset Code Table",
       "url": "specs/pl7-liquid-assets.md#schedule-b-asset-code-table"
@@ -319,8 +319,8 @@
       "url": "specs/pl7-retail-deposits.md#part-r-retail-deposits"
     },
     {
-      "section": "R.1: Operating Accounts",
-      "url": "specs/pl7-retail-deposits.md#r1-operating-accounts"
+      "section": "R.1: Transaction Accounts",
+      "url": "specs/pl7-retail-deposits.md#r1-transaction-accounts"
     },
     {
       "section": "R.2: Relationship Savings Accounts",
@@ -363,10 +363,10 @@
       "url": "specs/pl7-retail-deposits.md#balance"
     }
   ],
-  "Fiction.Bank:Pl7.Tables.RetailDeposits:product.type#operatingAccounts": [
+  "Fiction.Bank:Pl7.Tables.RetailDeposits:product.type#transactionAccounts": [
     {
-      "section": "R.1: Operating Accounts",
-      "url": "specs/pl7-retail-deposits.md#r1-operating-accounts"
+      "section": "R.1: Transaction Accounts",
+      "url": "specs/pl7-retail-deposits.md#r1-transaction-accounts"
     }
   ],
   "Fiction.Bank:Pl7.Tables.RetailDeposits:product.type#relationshipSavingsAccounts": [
@@ -561,8 +561,8 @@
   ],
   "Fiction.Bank:Lrr.Outflows.RetailDeposits:isCoreRetailProduct.value": [
     {
-      "section": "R.1: Operating Accounts",
-      "url": "specs/pl7-retail-deposits.md#r1-operating-accounts"
+      "section": "R.1: Transaction Accounts",
+      "url": "specs/pl7-retail-deposits.md#r1-transaction-accounts"
     },
     {
       "section": "R.2: Relationship Savings Accounts",
