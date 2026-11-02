@@ -12,12 +12,15 @@
     "ddl": "node scripts/morphir-to-ddl.js",
     "sql": "node scripts/morphir-to-sql.js",
     "bootstrap": "bash scripts/bootstrap-enterprise.sh",
-    "test:flow": "bash test-workshop-flow.sh"
+    "test:flow": "bash test-workshop-flow.sh",
+    "policy-mcp": "node scripts/morphir-policy-mcp.js"
   },
   "dependencies": {
     "@duckdb/node-api": "1.5.5-r.5",
+    "@modelcontextprotocol/sdk": "1.32.2",
     "elm": "0.19.1-6",
     "morphir-elm": "2.100.0",
-    "n3": "1.17.2"
+    "n3": "1.17.2",
+    "zod": "3.25.76"
   }
 }

@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "morphir-policy": {
+      "command": "node",
+      "args": ["scripts/morphir-policy-mcp.js"]
+    }
+  }
+}

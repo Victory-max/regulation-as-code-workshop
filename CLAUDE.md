@@ -21,6 +21,11 @@ and follow it exactly. In short:
   section (`spec-links.json`, checked by `node scripts/spec-trace.js .`).
 - Then help them review the verified policy visually. Do not move on to databases, other
   systems, or new policy areas unless they ask.
+- When they ask what the verified policy does, why, where a rule comes from, or what it would
+  decide for a given case ("what if this deposit were intermediated?"), answer with the
+  **`morphir-policy`** tools (`evaluate`, `trace`, `explain_rule`, `describe_type`, `search`,
+  `coverage`, `policy_overview`): they read the verified model and run it with Morphir, so the
+  answer is the policy's, not a guess. Relay the answer in business terms.
 
 ## Repository notes (never mention these to the person)
 - `scripts/` holds the verification and conversion tools. Do not edit them.
