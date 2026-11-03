@@ -441,6 +441,23 @@ choosing the Python 3 kernel) and Run All, or `jupyter lab out/policy-notebook.i
 change what it shows, edit the notebook's cells directly, always reading from the rule views
 (`rule_*`) rather than re-implementing the policy.
 
+**The API and an app.** The bootstrap also writes `out/api.py`, a web API generated from the
+model (never edit it): `POST /api/rules/<rule-name>` with a record's fields returns what the
+verified policy decides for it, `GET /api/rules/<rule-name>` gives the result for every current
+record, `GET /api/<table>` lists the current records, and `/docs` lists every endpoint with its
+fields. When the SME asks for the API, start it with the `policy-api` preview configuration in
+`.claude/launch.json` (or `python3 out/api.py`; port 8000) and give them the docs link.
+
+When the SME describes an app ("a screen where an agent enters a cardholder and sees the APR"):
+1. Start the API if it isn't running, and read `http://localhost:8000/openapi.json` for the exact
+   endpoints and field names.
+2. Write the app as one plain page, `app/index.html` (HTML, CSS and JavaScript, no build step,
+   no libraries needed), served by the API at `http://localhost:8000/app/`.
+3. **No policy logic in the app.** Every decision comes from a rule endpoint; the page only
+   collects inputs, calls the API and shows the answer (with the field values the policy returns).
+   That's why it can't contradict the verified policy: say so to the SME in those words.
+4. Open it in the browser pane and walk the SME through one case; change the screen as they ask.
+
 **Corrections and questions.** When the SME asks to correct a record ("their orders arrived
 late; they're active duty"), confirm the record and the change, then insert a new version into
 `<table>_adjustments` with an `adjustment_id`, the SME's reason, and `adjusted_by`. Never update

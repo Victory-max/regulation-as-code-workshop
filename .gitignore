@@ -17,6 +17,7 @@ scripts/decorations/regulation-trace/morphir-hashes.json
 /ontologies/cdm-alignment.ttl
 /out/
 /apps/
+/app/
 .morphir/
 *.db
 *.db.wal

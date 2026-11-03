@@ -40,16 +40,18 @@ You need a Claude account (or the workshop key your facilitator gives you).
 
 | Part | What happens | Where |
 |---|---|---|
-| 1 | Write a policy: credit cards | Your Claude |
+| 1 | Your own rule, its database and API, and an app | Your Claude |
 | 2 | Interpret a regulation: the Liquidity Resilience Ratio | Your Claude |
 | 3 | The database and the notebook | Your Claude |
 | 4 | Analysts ask the database | Facilitator's screen |
 | 5 | Knowledge, FIBO, CDM and DataHub | Your Claude, then the facilitator's screen |
 | 6 | What's next | Facilitator |
 
-## Part 1: Write a policy (credit cards)
+## Part 1: Your own rule, its database and API, and an app
 
-Paste this to Claude:
+**Describe a simple rule from your work** in plain English, ending with *Please formalize this
+policy.* Ideas: an overdraft fee waiver, a loan eligibility check, a loyalty discount. Or use this
+one:
 
 > I'm a compliance officer at Fiction Bank. Under the Servicemembers Civil Relief Act, our
 > credit card APR for active-duty servicemembers is capped at 6%. If their contract rate is
@@ -58,13 +60,31 @@ Paste this to Claude:
 > Please formalize this policy.
 
 Claude comes back with questions about cases you didn't cover. **That's the point**: the
-compiler won't accept a policy with a gap. Answer in plain English (for example `1. yes  2. standard`).
-
-Then, in the same session:
+compiler won't accept a policy with a gap. Answer in plain English. Then, in the same session:
 
 1. When it says **verified**: `Yes, show me`. The policy viewer opens in the app.
 2. `I could use some prebuilt test cases`, check the expected outcomes, then `Yes, add them`.
 3. When they match: `Yes, matches`.
+
+Now turn it into an app:
+
+> Create the database and API for this policy.
+
+The database and the API are generated from your verified policy (not written by the AI). Then
+**describe the screen you want**: who uses it, what they enter, what they see. For example:
+
+> Build a screen where a call-centre agent enters a cardholder's military status, contract APR
+> and monthly fees, and sees the APR and fees the bank actually applies.
+
+You can also ask for both at once, e.g. `create the database and an ATM app that offers the user
+the various ways to pay`. The screen opens at `http://localhost:8000/app/`. It asks the API for
+every answer and contains no rule of its own, so it always says what your policy says. Ask for
+changes in plain English.
+
+What came from where: the tables, the rules as database views, the sample data, the check against
+Morphir, the rules as Python and the API are all **generated from your verified Morphir model by
+scripts**, the same every time. The AI wrote two things: the model (from your words, then verified)
+and the screen (from your description).
 
 ## Part 2: Interpret a regulation (the LRR)
 
@@ -129,7 +149,7 @@ Facilitator presentation.
 If Wi-Fi or Claude is slow, your facilitator may ask you to continue from a pre-built result:
 
 ```bash
-bash scripts/bootstrap-enterprise.sh --cheat-sheet scra            # after part 1
+bash scripts/bootstrap-enterprise.sh --cheat-sheet scra            # part 1 (then describe the screen)
 bash scripts/bootstrap-enterprise.sh --cheat-sheet lrr             # after part 2
 ```
 
@@ -139,6 +159,7 @@ bash scripts/bootstrap-enterprise.sh --cheat-sheet lrr             # after part 
 |---|---|
 | `.claude/skills/morphir-logic-formalization/` | The skill that tells Claude how to formalize your policy silently |
 | `scripts/morphir-policy-mcp.js` | The morphir-policy server: answers questions from your verified policy |
+| `scripts/morphir-to-api.js`, `scripts/morphir-to-python.js` | Generate the API (`out/api.py`) and the rules as Python from your verified policy |
 | `scripts/` | Compiler gate, Morphir → SQL transpilers, zero-drift check, bootstrap |
 | `cheat-sheet/` | Pre-built verified policies for the fallback |
 | `specs/` | Excerpts of PLA Rule 14 and the Form PL-7 instructions, the regulation source |
