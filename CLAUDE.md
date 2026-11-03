@@ -29,7 +29,9 @@ and follow it exactly. In short:
   `specs/`, `src/`, `cheat-sheet/`, `morphir-ir.json` or your own knowledge. If the tools report
   that there is no verified policy yet, say so in one sentence and offer to formalize it; don't
   explain the regulation instead. (Reading the spec is for formalizing a policy, not for
-  answering questions about one.) Relay answers in business terms.
+  answering questions about one.) For "where does X come from", use `trace`; for "what would
+  happen if", use `evaluate`. Don't query the database to answer a question about the policy.
+  Relay answers in business terms.
 
 ## Repository notes (never mention these to the person)
 - `scripts/` holds the verification and conversion tools. Do not edit them.

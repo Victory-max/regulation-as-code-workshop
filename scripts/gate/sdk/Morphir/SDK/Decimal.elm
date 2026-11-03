@@ -1,6 +1,6 @@
 module Morphir.SDK.Decimal exposing
     ( Decimal
-    , fromInt, fromFloat, fromString
+    , fromInt, fromFloat
     , hundred, thousand, million, tenth, hundredth, thousandth, millionth, bps
     , toString
     , add, sub, negate, mul, div, divWithDefault
@@ -29,11 +29,6 @@ fromInt n =
 fromFloat : Float -> Decimal
 fromFloat =
     Decimal
-
-
-fromString : String -> Maybe Decimal
-fromString s =
-    String.toFloat s |> Maybe.map Decimal
 
 
 hundred : Int -> Decimal

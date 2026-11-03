@@ -14,13 +14,11 @@ or read code.
 ```bash
 git clone https://github.com/stephengoldbaum/regulation-as-code-workshop.git
 cd regulation-as-code-workshop
-npm install
-pip install -r requirements.txt
-claude
+./setup.sh
 ```
 
-The last line starts Claude in this folder. Using the Claude desktop app instead? Open its
-**Code** tab and choose the `regulation-as-code-workshop` folder.
+Then start Claude in this folder: in the Claude desktop app, **Code** tab → new session → choose
+the `regulation-as-code-workshop` folder. Or type `claude` in the same terminal.
 
 ### B. No Node.js? Use a Codespace
 
@@ -59,26 +57,20 @@ Paste this to Claude:
 > monthly fees. Our cardholders are active duty, civilian, pending verification, or exempt.
 > Please formalize this policy.
 
-Claude will come back with a question about a case you didn't cover. **That's the point.**
-The compiler won't accept a policy with a gap. Answer in plain English, for example:
+Claude comes back with questions about cases you didn't cover. **That's the point**: the
+compiler won't accept a policy with a gap. Answer in plain English (for example `1. yes  2. standard`).
 
-> Pending verification and exempt cardholders get standard terms. We apply relief once
-> active duty is verified.
+Then, in the same session:
 
-When the policy is **verified**, say yes to the visual view and the worked examples. Check
-Claude's expected outcomes and correct any you disagree with.
-
-**Ask your policy.** Once it's verified, describe a case and ask what happens:
-
-> What happens to an active-duty cardholder with a 9% APR and a $25 late fee? Show me why.
-
-The answer is your verified policy, run by Morphir, step by step. It isn't Claude guessing.
+1. When it says **verified**: `Yes, show me`. The policy viewer opens in the app.
+2. `I could use some prebuilt test cases`, check the expected outcomes, then `Yes, add them`.
+3. When they match: `Yes, matches`.
 
 ## Part 2: Interpret a regulation (the LRR)
 
-The regulation is **PLA Rule 14** (`specs/pla-rule-14.md`, already in your folder) of the Prudential Liquidity Authority, and its Liquidity
-Resilience Ratio (LRR). It is fictional on purpose: no AI has read it, so everything Claude
-gets right comes from the text and from you. Paste:
+The regulation is **PLA Rule 14** (`specs/pla-rule-14.md`, already in your folder), with its
+Liquidity Resilience Ratio (LRR). It is fictional on purpose: no AI has read it, so everything
+Claude gets right comes from the text and from you. Paste:
 
 > I'm in Treasury. We're supervised by the Prudential Liquidity Authority, and our liquidity
 > reporting follows PLA Rule 14 and the Form PL-7 instructions in specs/pla-rule-14.md. Please
@@ -86,41 +78,27 @@ gets right comes from the text and from you. Paste:
 > outflow rules, our eligible liquid assets, the LRR calculation, the scaling factor and the
 > minimum requirement.
 
-Claude confirms the sections it will cover and asks you wherever the text is silent or
-ambiguous. Every rule links back to the section it came from (the **Decorations** tab in the
-visual view). Parts of the LRR this workshop doesn't model (other outflows, inflows, the
-concentration add-on) are kept in the formula as reported figures.
-
-**Ask your policy:**
-
-> What would we assume runs off from a 2,000 deposit placed by a broker for a retail customer?
-
-> Where does the LRR come from? Which sections of the rule?
+1. Answer its questions as Treasury (or say `you suggest`).
+2. When it's verified: `Yes, show me`, then the test cases as in Part 1. The **Decorations** tab
+   shows the section of the regulation each rule comes from.
+3. **Ask your policy.** For example: `what's the main top level calculation?` Claude answers
+   through **morphir-policy**, which runs your verified model with Morphir itself.
 
 ## Part 3: The database and the notebook
 
-> Create the database tables for this policy.
+> Create the database for this policy.
 
-Claude generates the tables (with history: when each fact was true, and when the bank knew
-it), a companion table for manual corrections, and sample data. Then it checks every result
-against your policy, to the cent.
+Claude generates, from your verified policy, the tables (with history: when each fact was true,
+and when the bank knew it), a companion table for manual corrections, sample data, a notebook,
+and the rules as Python code (`out/policy_rules.py`). Every database result is checked against
+your policy to the cent.
 
-> Open the notebook.
+1. When it offers the notebook: `Yes, open it`. It opens in the app (if it doesn't run, say
+   `didn't work, try again`). Its last section shows the rules as Python, agreeing with the database.
+2. Record a correction:
 
-Open `out/policy-notebook.ipynb` and choose **Run All**. In a Codespace or VS Code, click the
-file in the explorer. Otherwise, in a second terminal in the same folder:
-
-```bash
-pip install jupyterlab
-jupyter lab out/policy-notebook.ipynb
-```
-
-Then, back in Claude, try:
-
-> What's our LRR today, and do we meet the minimum?
-
-> One of our deposits was misclassified: it's broker-placed, not a transaction account.
-> Record the correction.
+> One of our deposits was misclassified: it's broker-placed, not a transaction account. Use the
+> largest retail one, from the start of the record, and show me before and after.
 
 ## Part 4: Analysts ask the database (facilitator's screen)
 
@@ -128,9 +106,11 @@ Watch an AI analyst that has only the database answer questions about the LRR.
 
 ## Part 5: Knowledge, FIBO, CDM and DataHub
 
+One at a time:
+
 > Make this policy usable by our analysts and AI agents.
 
-> Show me where the LRR comes from.
+If a quality check finds the stored LRR out of date, say `Yes, recalculate`.
 
 > Align our policy terms to FIBO, using the FIBO subset in ontologies/fibo/.
 

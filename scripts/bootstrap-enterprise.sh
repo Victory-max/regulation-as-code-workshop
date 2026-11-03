@@ -64,5 +64,6 @@ fi
 echo "==> Transpile, seed and evaluate in DuckDB"
 node "$ROOT/scripts/enterprise-db.js" --ir "$IR" --project "$PROJECT" --out "$OUT" --db "$OUT/enterprise.db" --rows "$ROWS"
 echo "==> Notebook"
+node "$ROOT/scripts/morphir-to-python.js" --ir "$IR" --project "$PROJECT" --out "$OUT/policy_rules.py"
 node "$ROOT/scripts/morphir-to-notebook.js" --ir "$IR" --project "$PROJECT" --db "$OUT/enterprise.db" --out "$OUT/policy-notebook.ipynb"
 echo "==> Done. Database: $OUT/enterprise.db  Notebook: $OUT/policy-notebook.ipynb"

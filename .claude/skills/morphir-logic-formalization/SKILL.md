@@ -85,6 +85,10 @@ and add its two modules to `exposedModules`. Do not delete earlier domains.
    `Decimal.shiftDecimalLeft 2 (Decimal.round (Decimal.shiftDecimalRight 2 x))`
    (Morphir rounds half to even, "banker's rounding"; tell the SME this if they ask how
    cents are rounded, and ask before changing it).
+   Write decimal constants with `Decimal.hundredth`, `Decimal.fromInt` or
+   `Decimal.shiftDecimalLeft n (Decimal.fromInt m)` (`.8182` is
+   `Decimal.shiftDecimalLeft 4 (Decimal.fromInt 8182)`), never `Decimal.fromString`: Morphir's
+   evaluator doesn't support it, so the policy couldn't be checked or turned into the database.
 7. Compare decimals with `Decimal.lt/lte/gt/gte`; write a cap as
    `if Decimal.lt rate cap then rate else cap` (it becomes `LEAST` in SQL).
 8. Every top-level definition has a type annotation and a `{-| ... -}` doc comment written in
@@ -426,9 +430,13 @@ your verified policy: zero differences, to the cent."
 
 **Notebook.** The bootstrap also writes `out/policy-notebook.ipynb`, a notebook over that
 database: results per record, totals and charts, a what-if, a recorded correction shown before
-and after, the record's history, and where each rule comes from. When the SME wants to explore,
-point them to it: open it in VS Code (or the Codespace) and choose Run All, or run
-`jupyter lab out/policy-notebook.ipynb`. It needs the Python packages in `requirements.txt`
+and after, the record's history, where each rule comes from, and **the rules as Python code**:
+`out/policy_rules.py`, generated from the model (one function per definition, with its
+description and regulation sections), run over the current records and compared with the
+database's rule views (zero differences expected; say so in business terms). When the SME wants
+to explore, open it for them: where you have a browser pane, start JupyterLab on the notebook and
+open it there (this is the reliable route); otherwise point them to VS Code (or the Codespace,
+choosing the Python 3 kernel) and Run All, or `jupyter lab out/policy-notebook.ipynb`. It needs the Python packages in `requirements.txt`
 (`pip install -r requirements.txt`; already installed in the Codespace). If the SME asks to
 change what it shows, edit the notebook's cells directly, always reading from the rule views
 (`rule_*`) rather than re-implementing the policy.

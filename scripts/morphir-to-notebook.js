@@ -9,6 +9,7 @@
 
 const fs = require("fs");
 const path = require("path");
+const { emitPython } = require("./morphir-to-python");
 const { loadModel } = require("./knowledge/model");
 
 const args = process.argv.slice(2);
@@ -162,10 +163,11 @@ function tableCells(model, t, example) {
         md(
           "### Record a correction",
           "",
-          `Corrections are never made by editing data. They are recorded as an **adjustment**: a new version of the record with a reason, kept apart from the source data. Here ${entity} \`${keyValue}\` gets \`${adjustColumn.name}\` = \`${adjustTo}\`.`
+          `Corrections are never made by editing data. They are recorded as an **adjustment**: a new version of the record with a reason, kept apart from the source data. Here ${entity} \`${keyValue}\` gets \`${adjustColumn.name}\` = \`${adjustTo}\`. This demonstration runs inside a transaction that is rolled back, so running the notebook never changes the bank's data; to record a real correction, ask Claude.`
         ),
         code(
           'before = con.sql("SELECT CAST(now() AS VARCHAR)").fetchone()[0]',
+          "con.begin()",
           'today = con.sql("SELECT CAST(current_date AS VARCHAR)").fetchone()[0]',
           "",
           `con.execute(f"""INSERT INTO {TABLE}_adjustments (adjustment_id, reason, adjusted_by, {', '.join(INPUTS)})`,
@@ -174,10 +176,13 @@ function tableCells(model, t, example) {
           "",
           "now_ = policy_results(f\"b.{KEY} = '{RECORD}'\").assign(view='now, with the adjustment')",
           "then_ = policy_results(f\"b.{KEY} = '{RECORD}'\", valid_date=today, known_at=before).assign(view='as reported before it')",
-          "pd.concat([then_, now_]).set_index('view').T"
+          "comparison = pd.concat([then_, now_]).set_index('view').T",
+          "history = con.sql(f\"SELECT * FROM {TABLE}_history WHERE {KEY} = '{RECORD}' ORDER BY recorded_at\").df()",
+          "con.rollback()  # demonstration only: nothing is saved",
+          "comparison"
         ),
-        md("### The record's history", "", "Every version, from the source system and from adjustments. Nothing is overwritten."),
-        code(`con.sql(f"SELECT * FROM {TABLE}_history WHERE {KEY} = '{RECORD}' ORDER BY recorded_at").df()`)
+        md("### The record's history", "", "Every version, from the source system and from adjustments (including the demonstrated one, before it was rolled back). Nothing is overwritten."),
+        code("history")
       );
     }
   }
@@ -187,19 +192,49 @@ function tableCells(model, t, example) {
       md(
         "### Recalculate",
         "",
-        `This is a calculation table. Its calculated fields, ${calc}, come from the policy's rules; the other fields are reported. \`${t.name}_feed\` shows what a recalculation would record now. Running it adds a new version of each run, and every earlier result stays in the history.`
+        `This is a calculation table. Its calculated fields, ${calc}, come from the policy's rules; the other fields are reported. \`${t.name}_feed\` shows what a recalculation would record now. A recalculation adds a new version of each run, and every earlier result stays in the history. The demonstration below is rolled back, so the notebook never changes the bank's data; to record a real recalculation, ask Claude.`
       ),
       code(`con.sql(f"SELECT * FROM {TABLE}_feed").df()`),
       code(
         `cols = ", ".join(${py(t.feed.columns)})`,
+        "con.begin()",
         `con.execute(f"INSERT INTO {TABLE} ({cols}) SELECT {cols} FROM {TABLE}_feed")`,
         `con.sql(f"SELECT {KEY}, recorded_at, record_source, ${t.feed.calculated.map((x) => x.column).join(", ")} FROM {TABLE}_history ORDER BY {KEY}, recorded_at").df()`
       ),
-      md("The results now come from the latest calculation:"),
-      code("policy_results().T")
+      md("With the recalculation, the results would come from the latest calculation:"),
+      code("recalculated = policy_results().T", "con.rollback()  # demonstration only: nothing is saved", "recalculated")
     );
   }
   return cells;
+}
+
+// The same rules as Python, generated from the model (out/policy_rules.py), run over the current
+// records and compared with the database's rule views.
+function pythonCells(model) {
+  const { nameOf, skipped } = emitPython(model.index, { decorations: model.decorations });
+  const skippedRules = new Set(skipped.map((s) => s.rule));
+  const finals = model.rules.filter((r) => r.calledBy.length === 0 && !skippedRules.has(model.ir.fqnDisplay(r.fqn))).map((r) => nameOf(r.fqn));
+  return [
+    md(
+      "## The rules as Python code",
+      "",
+      "The same verified policy, generated as Python from the model (`out/policy_rules.py`). Nobody wrote this code: each function is one policy definition, with its business description and regulation sections. Here are the policy's final results:"
+    ),
+    code(
+      "import sys, inspect",
+      "sys.path.insert(0, str(DB.resolve().parent))",
+      "import policy_rules",
+      `for fn in [${finals.map((n) => `policy_rules.${n}`).join(", ")}]:`,
+      "    print(inspect.getsource(fn))"
+    ),
+    md("### Python and SQL agree", "", "Run every rule in Python over the current records and compare each result with the database's rule view. Both were generated from the same model, and every SQL result was already checked against Morphir itself."),
+    code(
+      "report = pd.DataFrame(policy_rules.compare_with_database(con))",
+      "compared, differences = report['results compared'].sum(), report['differences'].sum()",
+      'print(f"{compared} results compared, {differences} differences")',
+      "report"
+    ),
+  ];
 }
 
 async function main() {
@@ -235,6 +270,7 @@ async function main() {
   cells.push(
     md("## Where each rule comes from", "", "The descriptions and specification links recorded in the policy model, as stored in the database."),
     code(`con.sql("SELECT view_name AS rule, comment AS description_and_source FROM duckdb_views() WHERE view_name LIKE 'rule_%' ORDER BY view_name").df()`),
+    ...pythonCells(model),
     md("## How each rule runs", "", "The SQL the database runs for each rule. It was compiled from the policy model, not written by hand, and every result is checked against the model. The full file is `out/rules.sql`."),
     code([
       `for name, sql in con.sql("SELECT view_name, sql FROM duckdb_views() WHERE view_name LIKE 'rule_%' AND view_name NOT LIKE '%_as_of' ORDER BY view_name").fetchall():`,

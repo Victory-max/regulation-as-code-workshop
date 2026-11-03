@@ -193,6 +193,14 @@ async function main() {
   fs.writeFileSync(manifestPath, JSON.stringify(manifest, null, 2));
   console.log(`Generated ${path.join(outDir, "schema.sql")}, ${path.join(outDir, "rules.sql")} (${manifest.rules.length} rule views).`);
   for (const s of manifest.skipped) console.log(`  not translated: ${s.rule} (${s.reason})`);
+  // A calculated field must come from its rule. If that rule (or one it depends on) has no SQL
+  // translation, the field would silently keep a reported value: stop and say which.
+  const fed = new Set((manifest.feeds || []).flatMap((f) => f.calculated.map((c) => c.rule)));
+  const missing = (decorations.calculatedFromIds || []).map((id) => ({ id, rule: decorations.calculatedFromFor(id) })).filter((x) => !fed.has(x.rule));
+  if (missing.length) {
+    for (const m of missing) console.error(`enterprise-db: ${m.id} is calculated from ${m.rule}, which has no SQL translation (see "not translated" above). Rewrite it in supported terms.`);
+    process.exit(2);
+  }
 
   fs.rmSync(dbPath, { force: true });
   const db = await DuckDBInstance.create(dbPath);
