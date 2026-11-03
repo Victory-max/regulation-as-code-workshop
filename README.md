@@ -9,26 +9,47 @@ or read code.
 
 ## Setup (pick one)
 
-### A. On your laptop (needs Node.js 20+)
+### A. On your laptop (needs Node.js 20+ and Python 3.10+)
 
 ```bash
-git clone <this repo> regulation-as-code
-cd regulation-as-code
+git clone https://github.com/stephengoldbaum/regulation-as-code-workshop.git
+cd regulation-as-code-workshop
 npm install
-pip install -r requirements.txt   # for the Beat 2 notebook (Python 3.10+)
+pip install -r requirements.txt
+claude
 ```
 
-Then open the folder in Claude Code: the **Code** tab of the Claude desktop app, or run
-`claude` in a terminal from the folder.
+The last line starts Claude in this folder. Using the Claude desktop app instead? Open its
+**Code** tab and choose the `regulation-as-code-workshop` folder.
 
 ### B. No Node.js? Use a Codespace
 
-On this repo's GitHub page: **Code → Codespaces → Create codespace**. Wait for setup to
-finish (about 3 minutes), then run `claude` in the terminal.
+On this repo's GitHub page: **Code → Codespaces → Create codespace**. Setup takes about
+3 minutes and installs everything. Its terminal is already in the repo folder: type `claude`.
 
-Either way, you'll need a Claude account (or the workshop API key your facilitator gives you).
+### Always start Claude in that folder
 
-## Beat 1: Write the policy
+Every part of the session happens in one Claude session started in **the repo's top folder**
+(`regulation-as-code-workshop`, the one with this README). Not a parent folder, not a
+subfolder. If you close Claude, `cd` back there and run `claude` again.
+
+The first time, Claude asks to approve **morphir-policy**. Say **yes**: it lets Claude answer
+questions from your policy once it's verified.
+
+You need a Claude account (or the workshop key your facilitator gives you).
+
+## The session
+
+| Part | What happens | Where |
+|---|---|---|
+| 1 | Write a policy: credit cards | Your Claude |
+| 2 | Interpret a regulation: the Liquidity Resilience Ratio | Your Claude |
+| 3 | The database and the notebook | Your Claude |
+| 4 | Analysts ask the database | Facilitator's screen |
+| 5 | Knowledge, FIBO, CDM and DataHub | Your Claude, then the facilitator's screen |
+| 6 | What's next | Facilitator |
+
+## Part 1: Write a policy (credit cards)
 
 Paste this to Claude:
 
@@ -44,91 +65,87 @@ The compiler won't accept a policy with a gap. Answer in plain English, for exam
 > Pending verification and exempt cardholders get standard terms. We apply relief once
 > active duty is verified.
 
-When the policy is **verified**, Claude offers to show it visually and to add worked
-example scenarios. Say yes to both. Claude proposes the scenarios; check its expected
-outcomes and correct any you disagree with. Then Claude walks you through the visual view,
-rule by rule, asking whether each one matches your intent.
+When the policy is **verified**, say yes to the visual view and the worked examples. Check
+Claude's expected outcomes and correct any you disagree with.
 
-### Part 2: Interpret a regulation
+**Ask your policy.** Once it's verified, describe a case and ask what happens:
 
-This time the source is the regulation, not you. Paste:
+> What happens to an active-duty cardholder with a 9% APR and a $25 late fee? Show me why.
+
+The answer is your verified policy, run by Morphir, step by step. It isn't Claude guessing.
+
+## Part 2: Interpret a regulation (the LRR)
+
+The regulation is **PLA Rule 14** of the Prudential Liquidity Authority, and its Liquidity
+Resilience Ratio (LRR). It is fictional on purpose: no AI has read it, so everything Claude
+gets right comes from the text and from you. Paste:
 
 > I'm in Treasury. We're supervised by the Prudential Liquidity Authority, and our liquidity
 > reporting follows PLA Rule 14 and the Form PL-7 instructions in
 > specs/pl7-retail-deposits.md. Please formalize how our retail and small-business deposits
 > (R.1 to R.5) map to the outflow rules 14.21 to 14.25.
 
-Claude reads the instructions, confirms the sections it will cover, and asks you wherever
-the text is silent or ambiguous. Every rule it produces links back to the section it came
-from: you'll see those links on the **Decorations** tab during the visual review.
-
-### Part 3 (optional, if you finish early): liquid assets and the LRR
-
-The other side of the Liquidity Resilience Ratio (LRR): the eligible liquid assets that
-cover those outflows. Paste:
+Claude confirms the sections it will cover and asks you wherever the text is silent or
+ambiguous. Every rule links back to the section it came from (the **Decorations** tab in the
+visual view). Then the other side of the ratio:
 
 > Next, our stock of eligible liquid assets and the LRR itself. Use specs/pl7-liquid-assets.md:
 > L.1 unrestricted assets, the asset codes in Schedule B, rule 14.6, the LRR Calculation, the
 > scaling factor and the minimum requirement.
 
-The LRR needs parts this workshop doesn't model (other outflows, inflows, the concentration
-add-on): Claude keeps the full formula and treats those parts as reported, while the stock of
-liquid assets and the retail outflows are calculated from your rules. Each LRR run is
-recorded in its own table, with its history. In Beat 3 the LRR becomes the top metric in the
-catalog, linked to the measures it is built from.
+Parts of the LRR this workshop doesn't model (other outflows, inflows, the concentration
+add-on) are kept in the formula as reported figures.
 
-Beat 1 ends when you've confirmed every rule.
+**Ask your policy:**
 
-## Beat 2: The enterprise
+> What would we assume runs off from a 2,000 deposit placed by a broker for a retail customer?
 
-Turn the verified policy into the bank's systems.
+> Where does the LRR come from? Which sections of the rule?
+
+## Part 3: The database and the notebook
 
 > Create the database tables for this policy.
 
-Claude generates the tables, including history (when each fact was true, and when the bank
-knew it) and a companion table for manual adjustments, loads sample data, and checks every
-result against your policy, to the cent. It also writes a notebook to explore the result.
+Claude generates the tables (with history: when each fact was true, and when the bank knew
+it), a companion table for manual corrections, and sample data. Then it checks every result
+against your policy, to the cent.
 
 > Open the notebook.
 
-Open `out/policy-notebook.ipynb` and choose **Run All**: results per record, totals and
-charts, a what-if, and a correction shown before and after. Then try it in conversation:
+Open `out/policy-notebook.ipynb` and choose **Run All**. In a Codespace or VS Code, click the
+file in the explorer. Otherwise, in a second terminal in the same folder:
 
-> This cardholder's active-duty orders arrived late. Correct their status to active duty.
+```bash
+pip install jupyterlab
+jupyter lab out/policy-notebook.ipynb
+```
 
-> How many active-duty cardholders do we have, and how much interest did they pay?
+Then, back in Claude, try:
 
-Your facilitator will also demo how an engineering team builds a service on the same verified
-policy.
+> What's our LRR today, and do we meet the minimum?
 
-## Beat 3: Knowledge
+> One of our deposits was misclassified: it's broker-placed, not a transaction account.
+> Record the correction.
 
-Make the policy understandable to analysts and AI agents.
+## Part 4: Analysts ask the database (facilitator's screen)
+
+Watch an AI analyst that has only the database answer questions about the LRR.
+
+## Part 5: Knowledge, FIBO, CDM and DataHub
 
 > Make this policy usable by our analysts and AI agents.
 
-Claude generates, from the same verified policy:
-
-- a guide to each table: what it holds, how its history and adjustments work, how to query it;
-- question-and-answer guides for common business questions, with evaluations to test an
-  AI agent's answers;
-- lineage and a business glossary for the data catalog (DataHub);
-- metric definitions in the Open Semantic Interchange (OSI) format;
-- a domain ontology (Turtle), ready to link to an upper ontology such as FIBO.
-
-Then relate the policy to the industry's vocabulary:
+> Show me where the LRR comes from.
 
 > Align our policy terms to FIBO, using the FIBO subset in ontologies/fibo/.
 
 > Now align our policy's fields and values to CDM, using the CDM subset in ontologies/cdm/.
 
-FIBO says what each concept **is**; CDM says where its data **lives** in trade and collateral
-data. For each, Claude writes a separate alignment file with the reason for every mapping, and
-lists what the standard has no counterpart for. In the catalog, each policy term then links to
-the FIBO and CDM terms by the standard SKOS predicate (close match, broad match), and every
-column reaches them through its business term.
+FIBO says what each concept **is**; CDM says where its data **lives**. Claude gives a reason for
+every mapping and lists what the standard has no counterpart for. Then watch on the
+facilitator's screen as it all goes into DataHub and a second analyst asks the hard questions.
 
-## Beat 4: What's next in Morphir
+## Part 6: What's next in Morphir
 
 Facilitator presentation.
 
@@ -137,9 +154,9 @@ Facilitator presentation.
 If Wi-Fi or Claude is slow, your facilitator may ask you to continue from a pre-built result:
 
 ```bash
-bash scripts/bootstrap-enterprise.sh --cheat-sheet scra   # Beat 1 part 1
-bash scripts/bootstrap-enterprise.sh --cheat-sheet lcr    # Beat 1 part 2
-bash scripts/bootstrap-enterprise.sh --cheat-sheet lcr-calculation   # Beat 1 part 3
+bash scripts/bootstrap-enterprise.sh --cheat-sheet scra            # after part 1
+bash scripts/bootstrap-enterprise.sh --cheat-sheet outflows        # part 2, deposits only
+bash scripts/bootstrap-enterprise.sh --cheat-sheet lrr             # after part 2
 ```
 
 ## What's in this repo (for the curious)
@@ -147,6 +164,7 @@ bash scripts/bootstrap-enterprise.sh --cheat-sheet lcr-calculation   # Beat 1 pa
 | Path | What |
 |---|---|
 | `.claude/skills/morphir-logic-formalization/` | The skill that tells Claude how to formalize your policy silently |
+| `scripts/morphir-policy-mcp.js` | The morphir-policy server: answers questions from your verified policy |
 | `scripts/` | Compiler gate, Morphir → SQL transpilers, zero-drift check, bootstrap |
 | `cheat-sheet/` | Pre-built verified policies for the fallback |
 | `specs/` | Excerpts of PLA Rule 14 and the Form PL-7 instructions, the regulation source |
