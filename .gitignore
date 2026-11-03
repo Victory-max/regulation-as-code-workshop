@@ -1,7 +1,6 @@
 # The workspace starts with no business logic: the SME's session creates all of this.
-/src/
-/morphir.json
-/morphir-ir.json
+# This fork keeps its verified policy (src/, morphir.json, morphir-ir.json, descriptions.json,
+# domains.json) under version control.
 /morphir-hashes.json
 scripts/decorations/regulation-trace/morphir-hashes.json
 /morphir-tests.json
@@ -9,9 +8,7 @@ scripts/decorations/regulation-trace/morphir-hashes.json
 !/specs/pla-rule-14.md
 !/specs/pla-rule-14.sources.json
 /spec-links.json
-/descriptions.json
 /spec-scope.json
-/domains.json
 /calculated-from.json
 /ontologies/fibo-alignment.ttl
 /ontologies/cdm-alignment.ttl

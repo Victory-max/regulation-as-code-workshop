@@ -1,0 +1,22 @@
+{
+    "name": "Fiction.Bank",
+    "sourceDirectory": "src",
+    "exposedModules": [
+        "CheckingDebit.Types",
+        "CheckingDebit.Rules"
+    ],
+    "decorations": {
+        "description": {
+            "displayName": "Business description",
+            "ir": "scripts/decorations/regulation-trace/morphir-ir.json",
+            "entryPoint": "Regulation.Trace:Description:Description",
+            "storageLocation": "descriptions.json"
+        },
+        "domain": {
+            "displayName": "Business domain",
+            "ir": "scripts/decorations/regulation-trace/morphir-ir.json",
+            "entryPoint": "Regulation.Trace:Domain:Domain",
+            "storageLocation": "domains.json"
+        }
+    }
+}

@@ -1,0 +1,20 @@
+{
+  "Fiction.Bank:CheckingDebit.Types:debitDecision.type#paidFromChecking": "Paid from checking: checking alone covered the payment; savings is untouched.",
+  "Fiction.Bank:CheckingDebit.Types:debitDecision.type#paidWithSavingsTransfer": "Paid with savings transfer: checking was short, so the shortfall (only the shortfall) moved from savings to checking and the payment was made.",
+  "Fiction.Bank:CheckingDebit.Types:debitDecision.type#rejectedInsufficientFunds": "Rejected, insufficient funds: checking and savings together could not cover the payment. Nothing moves.",
+  "Fiction.Bank:CheckingDebit.Types:debitDecision.type#rejectedInvalidAmount": "Rejected, invalid amount: the payment amount was zero or negative. Nothing moves.",
+  "Fiction.Bank:CheckingDebit.Types:debitDecision.type#rejectedOverPaymentLimit": "Rejected, over payment limit: the payment is above its method's per-payment limit, even if the money is there. Nothing moves.",
+  "Fiction.Bank:CheckingDebit.Types:debitRequest.type#requestId": "Request ID: identifies this payment request so it can be looked up, corrected and traced.",
+  "Fiction.Bank:CheckingDebit.Types:debitRequest.type#paymentMethod": "Payment method: check, ATM, Zelle or wire; sets the per-payment limit.",
+  "Fiction.Bank:CheckingDebit.Types:debitRequest.type#amount": "Amount: the payment amount to debit from checking, in US dollars.",
+  "Fiction.Bank:CheckingDebit.Types:debitRequest.type#checkingBalance": "Checking balance: the customer's checking balance before the payment, in US dollars.",
+  "Fiction.Bank:CheckingDebit.Types:debitRequest.type#savingsBalance": "Savings balance: the customer's linked savings balance before the payment, in US dollars; used to cover a checking shortfall.",
+  "Fiction.Bank:CheckingDebit.Types:debitResult.type#decision": "Decision: what the bank did with the payment (paid, paid with savings transfer, or rejected and why).",
+  "Fiction.Bank:CheckingDebit.Types:debitResult.type#savingsTransfer": "Savings transfer: US dollars moved from savings to checking to cover the shortfall; zero unless paid with a savings transfer.",
+  "Fiction.Bank:CheckingDebit.Types:debitResult.type#checkingBalanceAfter": "Checking balance after: checking after the payment and any savings transfer, in US dollars.",
+  "Fiction.Bank:CheckingDebit.Types:debitResult.type#savingsBalanceAfter": "Savings balance after: savings after any transfer to checking, in US dollars.",
+  "Fiction.Bank:CheckingDebit.Types:paymentMethod.type#check": "Check: a paper check; limited to $10,000 per payment (exactly $10,000 is allowed).",
+  "Fiction.Bank:CheckingDebit.Types:paymentMethod.type#atm": "ATM: a withdrawal at an ATM; limited to $6,000 per payment.",
+  "Fiction.Bank:CheckingDebit.Types:paymentMethod.type#zelle": "Zelle: a Zelle transfer; limited to $1,000 per payment.",
+  "Fiction.Bank:CheckingDebit.Types:paymentMethod.type#wire": "Wire: a wire transfer; no per-payment limit."
+}
