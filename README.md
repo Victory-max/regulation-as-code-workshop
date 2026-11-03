@@ -76,25 +76,20 @@ The answer is your verified policy, run by Morphir, step by step. It isn't Claud
 
 ## Part 2: Interpret a regulation (the LRR)
 
-The regulation is **PLA Rule 14** of the Prudential Liquidity Authority, and its Liquidity
+The regulation is **PLA Rule 14** (`specs/pla-rule-14.md`, already in your folder) of the Prudential Liquidity Authority, and its Liquidity
 Resilience Ratio (LRR). It is fictional on purpose: no AI has read it, so everything Claude
 gets right comes from the text and from you. Paste:
 
 > I'm in Treasury. We're supervised by the Prudential Liquidity Authority, and our liquidity
-> reporting follows PLA Rule 14 and the Form PL-7 instructions in
-> specs/pl7-retail-deposits.md. Please formalize how our retail and small-business deposits
-> (R.1 to R.5) map to the outflow rules 14.21 to 14.25.
+> reporting follows PLA Rule 14 and the Form PL-7 instructions in specs/pla-rule-14.md. Please
+> formalize the Liquidity Resilience Ratio: our retail and small-business deposits and their
+> outflow rules, our eligible liquid assets, the LRR calculation, the scaling factor and the
+> minimum requirement.
 
 Claude confirms the sections it will cover and asks you wherever the text is silent or
 ambiguous. Every rule links back to the section it came from (the **Decorations** tab in the
-visual view). Then the other side of the ratio:
-
-> Next, our stock of eligible liquid assets and the LRR itself. Use specs/pl7-liquid-assets.md:
-> L.1 unrestricted assets, the asset codes in Schedule B, rule 14.6, the LRR Calculation, the
-> scaling factor and the minimum requirement.
-
-Parts of the LRR this workshop doesn't model (other outflows, inflows, the concentration
-add-on) are kept in the formula as reported figures.
+visual view). Parts of the LRR this workshop doesn't model (other outflows, inflows, the
+concentration add-on) are kept in the formula as reported figures.
 
 **Ask your policy:**
 
@@ -155,7 +150,6 @@ If Wi-Fi or Claude is slow, your facilitator may ask you to continue from a pre-
 
 ```bash
 bash scripts/bootstrap-enterprise.sh --cheat-sheet scra            # after part 1
-bash scripts/bootstrap-enterprise.sh --cheat-sheet outflows        # part 2, deposits only
 bash scripts/bootstrap-enterprise.sh --cheat-sheet lrr             # after part 2
 ```
 

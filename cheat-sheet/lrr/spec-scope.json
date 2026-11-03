@@ -1,20 +1,15 @@
 {
  "include": [
-  "specs/pl7-retail-deposits.md",
-  "specs/pl7-liquid-assets.md"
+  "specs/pla-rule-14.md"
  ],
  "outOfScope": [
   {
-   "url": "specs/pl7-liquid-assets.md#field-definitions",
+   "url": "specs/pla-rule-14.md#field-definitions",
    "reason": "Grouping heading only; its sections are linked individually."
   },
   {
-   "url": "specs/pl7-liquid-assets.md#rule-14-liquidity-resilience-ratio",
-   "reason": "Grouping heading; the LRR Calculation, scaling factor, minimum requirement and rule 14.6 are linked individually."
-  },
-  {
-   "url": "specs/pl7-retail-deposits.md#field-definitions",
-   "reason": "Grouping heading only; its sections are linked individually."
+   "url": "specs/pla-rule-14.md#rule-14-liquidity-resilience-ratio",
+   "reason": "Grouping heading; the LRR Calculation, scaling factor, minimum requirement, rule 14.6 and the retail outflow rules are linked individually."
   }
  ]
 }

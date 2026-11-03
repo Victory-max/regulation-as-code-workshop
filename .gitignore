@@ -6,10 +6,8 @@
 scripts/decorations/regulation-trace/morphir-hashes.json
 /morphir-tests.json
 /specs/*
-!/specs/pl7-retail-deposits.md
-!/specs/pl7-retail-deposits.sources.json
-!/specs/pl7-liquid-assets.md
-!/specs/pl7-liquid-assets.sources.json
+!/specs/pla-rule-14.md
+!/specs/pla-rule-14.sources.json
 /spec-links.json
 /descriptions.json
 /spec-scope.json

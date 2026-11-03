@@ -262,8 +262,8 @@ the spec it came from.
    transaction accounts through R.3 rate-seeking savings"), and wait for the SME to
    agree. Record it in `spec-scope.json`:
    ```json
-   { "include": ["specs/pl7-retail-deposits.md#r1-transaction-accounts"],
-     "outOfScope": [{ "url": "specs/pl7-retail-deposits.md#r4-intermediated-deposits",
+   { "include": ["specs/pla-rule-14.md#r1-transaction-accounts"],
+     "outOfScope": [{ "url": "specs/pla-rule-14.md#r4-intermediated-deposits",
                       "reason": "Deferred by the SME: intermediated deposits come later" }] }
    ```
    An entry without `#anchor` means every section of that file. Out-of-scope reasons are the
@@ -284,10 +284,10 @@ the spec it came from.
    ```json
    { "Fiction.Bank:Lrr.Outflows.RetailDeposits:guaranteedCoreRetailDeposits.value": [
        { "section": "(14.21) Guaranteed Core Retail Deposits",
-         "url": "specs/pl7-retail-deposits.md#1421-guaranteed-core-retail-deposits" } ],
+         "url": "specs/pla-rule-14.md#1421-guaranteed-core-retail-deposits" } ],
      "Fiction.Bank:Pl7.Tables.RetailDeposits:product.type#transactionAccounts": [
        { "section": "R.1: Transaction Accounts",
-         "url": "specs/pl7-retail-deposits.md#r1-transaction-accounts" } ] }
+         "url": "specs/pla-rule-14.md#r1-transaction-accounts" } ] }
    ```
    - Node IDs: see "Descriptions and links" (use `--nodes`; never hand-type them).
    - `section`: the heading text exactly as written in the spec.
